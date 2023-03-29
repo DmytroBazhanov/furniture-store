@@ -7,7 +7,9 @@ export async function getProductByID(id) {
 
     if (product.exists()) {
         const data = product.data();
-        return data;
+        const likesAmount = data.likes?.length ?? 0;
+
+        return { ...data, likes: likesAmount };
     }
 
     throw new Error("Product doesnt exist", `No product found with id - ${id}`);
@@ -35,9 +37,12 @@ export async function getProductsWithPagination(lastProduct, productLimit) {
     const products = [];
 
     productsCollection.forEach((prod) => {
+        const likesAmount = prod.data().likes?.length ?? 0;
+
         products.push({
             id: prod.id,
             ...prod.data(),
+            likes: likesAmount,
         });
     });
 
