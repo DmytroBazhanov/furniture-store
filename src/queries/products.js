@@ -1,5 +1,16 @@
 import { db } from "../firebase";
-import { collection, query, limit, doc, getDoc, getDocs, startAfter } from "firebase/firestore";
+import { auth } from "../firebase";
+import {
+    collection,
+    query,
+    limit,
+    doc,
+    getDoc,
+    getDocs,
+    updateDoc,
+    arrayUnion,
+    startAfter,
+} from "firebase/firestore";
 
 export async function getProductByID(id) {
     const docRef = doc(db, import.meta.env.VITE_PRODUCT_COLLECTION, id);
@@ -52,4 +63,14 @@ export async function getProductsWithPagination(lastProduct, productLimit) {
         products,
         lastProductFirebaseSnapshot: lastDoc,
     };
+}
+
+export async function likeProduct(productID) {
+    if (!auth?.currentUser?.uid) return;
+
+    const userProfileRef = doc(db, import.meta.env.VITE_PROFILES, auth.currentUser.uid);
+    const productRef = doc(db, import.meta.env.VITE_PRODUCT_COLLECTION, productID);
+    await updateDoc(productRef, {
+        likes: arrayUnion(userProfileRef),
+    });
 }
