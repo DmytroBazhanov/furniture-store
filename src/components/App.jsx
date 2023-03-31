@@ -9,6 +9,7 @@ import { useState } from "react";
 import { signInWithGoogle, signOut, checkUser } from "../queries/auth";
 import { getProfile } from "../queries/profile";
 import { endAt, orderBy, startAt, where } from "firebase/firestore";
+import { getCategories, getProductsFromCategory } from "../queries/categories";
 
 function App() {
     const [lastProd, setLP] = useState(null);
@@ -25,11 +26,7 @@ function App() {
         const productCount = await getProductCount();
 
         if (requestsBeenMade < Math.floor(productCount / 2)) {
-            const result = await getFilteredProducts(lastProd, 2, [
-                orderBy("price"),
-                startAt(15),
-                endAt(40),
-            ]);
+            const result = await getFilteredProducts(lastProd, 2, [orderBy("price", "asc")]);
 
             setRequestCount((prev) => prev + 1);
             setLP(result.lastProductFirebaseSnapshot);
@@ -57,6 +54,14 @@ function App() {
             </button>
             <button onClick={handleGetFiltered}>Get filtered products</button>
             <button onClick={getProductCount}>Get count</button>
+            <button onClick={getCategories}>Get categories</button>
+            <button
+                onClick={() =>
+                    getProductsFromCategory("kitchen", 2, [orderBy("price"), startAt(35.99)])
+                }
+            >
+                Get products from category
+            </button>
             <Outlet />
         </div>
     );
