@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import { signInWithGoogle, signOut, checkUser } from "../queries/auth";
 import { getProfile } from "../queries/profile";
+import { endAt, orderBy, startAt, where } from "firebase/firestore";
 
 function App() {
     const [lastProd, setLP] = useState(null);
@@ -24,7 +25,11 @@ function App() {
         const productCount = await getProductCount();
 
         if (requestsBeenMade < Math.floor(productCount / 2)) {
-            const result = await getFilteredProducts(lastProd, 2, "inStock", true);
+            const result = await getFilteredProducts(lastProd, 2, [
+                orderBy("price"),
+                startAt(15),
+                endAt(40),
+            ]);
 
             setRequestCount((prev) => prev + 1);
             setLP(result.lastProductFirebaseSnapshot);

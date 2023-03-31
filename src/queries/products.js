@@ -73,23 +73,19 @@ export async function getProductCount() {
     return productCount.data().count;
 }
 
-export async function getFilteredProducts(lastProduct, productLimit, filterTarget, filterValue) {
+export async function getFilteredProducts(lastProduct, productLimit, filterFunctions) {
     {
         const collectionRef = collection(db, import.meta.env.VITE_PRODUCT_COLLECTION);
         let collectionQuery = null;
 
         if (lastProduct === null) {
-            collectionQuery = query(
-                collectionRef,
-                limit(productLimit),
-                where(filterTarget, "==", filterValue)
-            );
+            collectionQuery = query(collectionRef, limit(productLimit), ...filterFunctions);
         } else {
             collectionQuery = query(
                 collectionRef,
                 limit(productLimit),
-                startAfter(lastProduct),
-                where(filterTarget, "==", filterValue)
+                ...filterFunctions,
+                startAfter(lastProduct)
             );
         }
 
