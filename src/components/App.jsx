@@ -1,17 +1,39 @@
 import { Outlet } from "react-router-dom";
-import { getProductsWithPagination, likeProduct } from "../queries/products";
+import {
+    getFilteredProducts,
+    getProductCount,
+    getProductsWithPagination,
+    likeProduct,
+} from "../queries/products";
 import { useState } from "react";
 import { signInWithGoogle, signOut, checkUser } from "../queries/auth";
 import { getProfile } from "../queries/profile";
 
 function App() {
     const [lastProd, setLP] = useState(null);
+    const [requestsBeenMade, setRequestCount] = useState(0);
 
     const test = async () => {
         const result = await getProductsWithPagination(lastProd, 2);
         console.log(result);
 
         setLP(result.lastProductFirebaseSnapshot);
+    };
+
+    const handleGetFiltered = async () => {
+        const productCount = await getProductCount();
+
+        if (requestsBeenMade < Math.floor(productCount / 2)) {
+            const result = await getFilteredProducts(lastProd, 2, "inStock", true);
+
+            setRequestCount((prev) => prev + 1);
+            setLP(result.lastProductFirebaseSnapshot);
+
+            if (result.products.length === 0) {
+                setRequestCount(productCount);
+            }
+            console.log(result.products);
+        }
     };
 
     const handleGoogleSignIn = () => signInWithGoogle();
@@ -28,6 +50,8 @@ function App() {
             <button onClick={() => likeProduct("9HwUtcBFohVDKM0mywtm")}>
                 Leave a like on product 9HwUtcBFohVDKM0mywtm
             </button>
+            <button onClick={handleGetFiltered}>Get filtered products</button>
+            <button onClick={getProductCount}>Get count</button>
             <Outlet />
         </div>
     );
