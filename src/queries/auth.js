@@ -6,6 +6,8 @@ import {
     signInWithPopup,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
+    updatePassword,
+    updateEmail,
     signOut as firebaseSignOut,
 } from "firebase/auth";
 
@@ -86,4 +88,14 @@ export async function registerUserWithEmail(email, password) {
 
 export async function signInWithEmail(email, password) {
     signInWithEmailAndPassword(auth, email, password).catch((error) => console.log(error));
+}
+
+export async function setNewPasswordForUser(newPassword) {
+    const user = auth.currentUser;
+    const result = await updatePassword(user, newPassword);
+}
+
+export async function setNewEmailForUser(newEmail) {
+    const user = auth.currentUser;
+    await updateEmail(user, newEmail);
 }

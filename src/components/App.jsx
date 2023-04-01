@@ -12,6 +12,8 @@ import {
     signInWithFacebook,
     signInWithEmail,
     registerUserWithEmail,
+    setNewPasswordForUser,
+    setNewEmailForUser,
 } from "../queries/auth";
 import { changeAvatar, getAvatarURL, getProfile, updateProfileField } from "../queries/profile";
 import { endAt, orderBy, startAt, where } from "firebase/firestore";
@@ -81,7 +83,7 @@ function App() {
             <button onClick={() => registerUserWithEmail("test@gmail.com", "dima12dima12")}>
                 Sign up with email
             </button>
-            <button onClick={() => signInWithEmail("test@gmail.com", "dima12dima12")}>
+            <button onClick={() => signInWithEmail("dimafg12@gmail.com", "Qwerty123")}>
                 Sign in with email
             </button>
             <button
@@ -96,6 +98,8 @@ function App() {
                 accept="image/jpeg, image/png, image/webp"
             />
             <button onClick={getAvatarURL}>Get avatar</button>
+            <button onClick={() => setNewPasswordForUser("Qwerty123")}>Set new Password</button>
+            <button onClick={() => setNewEmailForUser("dimafg12@gmail.com")}>Set new Email</button>
             <Outlet />
         </div>
     );
