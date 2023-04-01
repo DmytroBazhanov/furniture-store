@@ -22,6 +22,5 @@ export async function getProductsFromCategory(categoryID, limitNumber, filters =
         return { id: product.id, data: product.data() };
     });
 
-    console.log(products);
     return products;
 }

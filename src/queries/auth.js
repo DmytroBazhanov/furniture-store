@@ -12,7 +12,9 @@ import {
 const googleProvider = new GoogleAuthProvider();
 
 export async function signInWithGoogle() {
-    await signInWithPopup(auth, googleProvider).catch((error) => console.log(error));
+    const userInfo = await signInWithPopup(auth, googleProvider).catch((error) =>
+        console.log(error)
+    );
 
     const user = auth.currentUser;
 
@@ -24,8 +26,9 @@ export async function signInWithGoogle() {
     const email = user?.email;
     const name = fullnameArray?.[0];
     const lastname = fullnameArray?.[1];
+    const avatar = userInfo.user.photoURL;
 
-    await createProfile(email, name, lastname).catch((error) => console.log(error));
+    await createProfile(email, name, lastname, avatar).catch((error) => console.log(error));
 }
 
 export async function signOut() {
@@ -40,7 +43,7 @@ export async function doesUserProfileExist(userID) {
     return true;
 }
 
-export async function createProfile(email = "", name = "", lastname = "") {
+export async function createProfile(email = "", name = "", lastname = "", avatar = "") {
     const userID = auth.currentUser.uid;
     const profileRef = doc(db, import.meta.env.VITE_PROFILES, userID);
 
@@ -48,21 +51,14 @@ export async function createProfile(email = "", name = "", lastname = "") {
         email,
         name,
         lastname,
+        avatar,
         purchaseHistory: [],
     });
 }
 
-// to be deleted
-export async function checkUser() {
-    const user = auth.currentUser;
-    console.log(user);
-    // doesUserProfileExist(user.uid);
-}
-//
-
 export async function signInWithFacebook() {
     const provider = new FacebookAuthProvider();
-    await signInWithPopup(auth, provider).catch((error) => console.log(error));
+    const userInfo = await signInWithPopup(auth, provider).catch((error) => console.log(error));
 
     const user = auth.currentUser;
     if (user === null) return;
@@ -75,8 +71,9 @@ export async function signInWithFacebook() {
         const email = user.email;
         const name = fullnameArray?.[0];
         const lastname = fullnameArray?.[1];
+        const avatar = userInfo.user.photoURL;
 
-        createProfile(email, name, lastname).catch((error) => console.log(error));
+        createProfile(email, name, lastname, avatar).catch((error) => console.log(error));
     }
 
     return;

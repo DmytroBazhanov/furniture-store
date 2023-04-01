@@ -9,18 +9,27 @@ import { useState } from "react";
 import {
     signInWithGoogle,
     signOut,
-    checkUser,
     signInWithFacebook,
     signInWithEmail,
     registerUserWithEmail,
 } from "../queries/auth";
-import { getProfile } from "../queries/profile";
+import { changeAvatar, getAvatarURL, getProfile, updateProfileField } from "../queries/profile";
 import { endAt, orderBy, startAt, where } from "firebase/firestore";
 import { getCategories, getProductsFromCategory } from "../queries/categories";
 
 function App() {
     const [lastProd, setLP] = useState(null);
     const [requestsBeenMade, setRequestCount] = useState(0);
+    const [avatarImage, setAvatarImage] = useState(null);
+
+    const handleChangeImage = (e) => {
+        const image = e.target.files[0];
+        setAvatarImage(image);
+    };
+
+    const handleChangeAvatar = async () => {
+        changeAvatar(avatarImage);
+    };
 
     const test = async () => {
         const result = await getProductsWithPagination(lastProd, 2);
@@ -54,8 +63,7 @@ function App() {
             <button onClick={test}>Get product 9HwUtcBFohVDKM0mywtm</button>
             <button onClick={handleGoogleSignIn}>Google sign in</button>
             <button onClick={handleSignOut}>Logout</button>
-            <button onClick={checkUser}>Check user</button>
-            <button onClick={getProfile}>Get profile</button>
+            <button onClick={async () => console.log(await getProfile())}>Get profile</button>
             <button onClick={() => likeProduct("9HwUtcBFohVDKM0mywtm")}>
                 Leave a like on product 9HwUtcBFohVDKM0mywtm
             </button>
@@ -76,6 +84,18 @@ function App() {
             <button onClick={() => signInWithEmail("test@gmail.com", "dima12dima12")}>
                 Sign in with email
             </button>
+            <button
+                onClick={() => updateProfileField("HtTdvhVm16XFYVQ8obdI2hDOSaH3", "name", "John")}
+            >
+                Update user's name to John
+            </button>
+            <button onClick={handleChangeAvatar}>Change avatar</button>
+            <input
+                onChange={handleChangeImage}
+                type="file"
+                accept="image/jpeg, image/png, image/webp"
+            />
+            <button onClick={getAvatarURL}>Get avatar</button>
             <Outlet />
         </div>
     );
