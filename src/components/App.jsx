@@ -6,7 +6,14 @@ import {
     likeProduct,
 } from "../queries/products";
 import { useState } from "react";
-import { signInWithGoogle, signOut, checkUser, signInWithFacebook } from "../queries/auth";
+import {
+    signInWithGoogle,
+    signOut,
+    checkUser,
+    signInWithFacebook,
+    signInWithEmail,
+    registerUserWithEmail,
+} from "../queries/auth";
 import { getProfile } from "../queries/profile";
 import { endAt, orderBy, startAt, where } from "firebase/firestore";
 import { getCategories, getProductsFromCategory } from "../queries/categories";
@@ -63,6 +70,12 @@ function App() {
                 Get products from category
             </button>
             <button onClick={signInWithFacebook}>Sign in with Facebook</button>
+            <button onClick={() => registerUserWithEmail("test@gmail.com", "dima12dima12")}>
+                Sign up with email
+            </button>
+            <button onClick={() => signInWithEmail("test@gmail.com", "dima12dima12")}>
+                Sign in with email
+            </button>
             <Outlet />
         </div>
     );

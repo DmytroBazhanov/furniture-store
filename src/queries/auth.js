@@ -4,6 +4,8 @@ import {
     GoogleAuthProvider,
     FacebookAuthProvider,
     signInWithPopup,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
     signOut as firebaseSignOut,
 } from "firebase/auth";
 
@@ -78,4 +80,13 @@ export async function signInWithFacebook() {
     }
 
     return;
+}
+
+export async function registerUserWithEmail(email, password) {
+    await createUserWithEmailAndPassword(auth, email, password);
+    createProfile(email).catch((error) => console.log(error));
+}
+
+export async function signInWithEmail(email, password) {
+    signInWithEmailAndPassword(auth, email, password).catch((error) => console.log(error));
 }
