@@ -6,7 +6,7 @@ import {
     likeProduct,
 } from "../queries/products";
 import { useState } from "react";
-import { signInWithGoogle, signOut, checkUser } from "../queries/auth";
+import { signInWithGoogle, signOut, checkUser, signInWithFacebook } from "../queries/auth";
 import { getProfile } from "../queries/profile";
 import { endAt, orderBy, startAt, where } from "firebase/firestore";
 import { getCategories, getProductsFromCategory } from "../queries/categories";
@@ -62,6 +62,7 @@ function App() {
             >
                 Get products from category
             </button>
+            <button onClick={signInWithFacebook}>Sign in with Facebook</button>
             <Outlet />
         </div>
     );
