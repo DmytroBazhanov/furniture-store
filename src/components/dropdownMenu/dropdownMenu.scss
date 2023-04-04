@@ -1,0 +1,20 @@
+@import "../../globalStyles/colors.scss";
+
+.DropdownWrapper {
+    width: fit-content;
+    height: fit-content;
+
+    .DropdownMenu {
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        min-width: 200px;
+        height: fit-content;
+        padding: 20px;
+        background-color: $white;
+        box-shadow: 0px 0px 15px $shadowBlack;
+        border-radius: 8px;
+    }
+}

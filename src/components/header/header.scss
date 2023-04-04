@@ -1,0 +1,40 @@
+@import "../../globalStyles/colors.scss";
+
+header {
+    display: grid;
+    grid-template: 1fr / 23% 50% 30%;
+    color: $black;
+    padding: {
+        left: 100px;
+        top: 60px;
+    }
+
+    .logo {
+        display: block;
+        width: fit-content;
+        font-size: 40px;
+        font-style: italic;
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
+    nav {
+        display: flex;
+        column-gap: 70px;
+        grid-area: 1 / 2 / 3 / 2;
+        a {
+            display: flex;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: $black;
+            align-items: center;
+        }
+    }
+
+    .header-rightSide {
+        display: inline-flex;
+        column-gap: 30px;
+        align-items: center;
+        grid-area: 1 / 3 / 3 / 4;
+    }
+}
