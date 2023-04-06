@@ -1,0 +1,35 @@
+@import "../../globalStyles/colors.scss";
+
+.propertySelector {
+    display: inline-flex;
+    justify-content: flex-start;
+    column-gap: 10px;
+    max-width: 110px;
+    width: 100%;
+    overflow-x: scroll;
+    transition: color 0.25s;
+    color: transparent;
+
+    &:hover {
+        color: $dimGray;
+    }
+
+    &::-webkit-scrollbar {
+        height: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        box-shadow: inset 0px 0px 0px 10px;
+    }
+}
+
+.propertyVariation {
+    min-width: 30px;
+    height: 30px;
+    border: solid 1px $transparentGray;
+    cursor: pointer;
+}
+
+.selected {
+    border: 1px solid $black;
+}

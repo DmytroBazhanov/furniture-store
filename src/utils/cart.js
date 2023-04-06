@@ -9,7 +9,7 @@ function getCartFromLocalStorage() {
     return cartObj;
 }
 
-function findProduct(productID, productProps) {
+export function findProduct(productID, productProps) {
     const cart = getCartFromLocalStorage();
     const cartKeys = Object.keys(cart);
 
@@ -100,6 +100,13 @@ export function removeProductFromCart(productID, productProps = {}) {
     localStorage.setItem("cart", JSON.stringify(cartObj));
 }
 
+export function updateProductInstanceProperties(instanceID, propertiesObject) {
+    const cartObj = getCartFromLocalStorage();
+    cartObj[instanceID].properties = propertiesObject;
+
+    localStorage.setItem("cart", JSON.stringify(cartObj));
+}
+
 export function getProductsFromCart() {
     const cart = getCartFromLocalStorage();
     const cartObjectsArray = Object.keys(cart).map((instanceID) => {
@@ -107,6 +114,13 @@ export function getProductsFromCart() {
     });
 
     return cartObjectsArray;
+}
+
+export function getProductFromCart(productID, productProperties) {
+    const cart = getCartFromLocalStorage();
+    const productInstanceID = findProduct(productID, productProperties);
+
+    return cart[productInstanceID];
 }
 
 export function getProductNumberInCart() {
