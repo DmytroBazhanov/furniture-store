@@ -1,10 +1,32 @@
+import { useState, useEffect, useRef } from "react";
 import "./tooltip.scss";
 
-export default function Tooltip({ children, text }) {
+export default function Tooltip({ children, text, disableIfToSmall = false, padding = 5 }) {
+    const [containerWidth, setContainerWidth] = useState(0);
+    const [tooltipWidth, setTooltipWidth] = useState(0);
+
+    const containerRef = useRef(null);
+    const tooltipRef = useRef(null);
+
+    useEffect(() => {
+        setContainerWidth(containerRef.current.offsetWidth);
+        setTooltipWidth(tooltipRef.current.offsetWidth);
+    }, [children]);
+
+    const tooltipStyle =
+        tooltipWidth - padding * 2 < containerWidth &&
+        tooltipWidth !== 0 &&
+        tooltipWidth !== padding * 2 &&
+        disableIfToSmall
+            ? { display: "none" }
+            : {};
+
     return (
-        <div className="tooltip-container">
+        <div className="tooltip-container" ref={containerRef}>
             {children}
-            <div className="tooltip">{text}</div>
+            <div ref={tooltipRef} className="tooltip" style={{ padding, ...tooltipStyle }}>
+                {text}
+            </div>
         </div>
     );
 }

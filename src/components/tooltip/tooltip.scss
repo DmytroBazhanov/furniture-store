@@ -43,13 +43,9 @@
     animation-direction: normal;
 }
 
-@mixin fitContent() {
-    width: fit-content;
-    height: fit-content;
-}
-
 .tooltip-container {
-    @include fitContent();
+    width: 100%;
+    height: fit-content;
 
     .tooltip {
         @include hoverAnimation(opacityChangeReverse);
@@ -65,7 +61,6 @@
         overflow-y: scroll;
         background-color: $tooltipGray;
         color: $tooltipText;
-        padding: 5px;
         border-radius: 5px;
     }
 

@@ -5,7 +5,6 @@ import PropertySelector from "../propertySelector/PropertySelector";
 import {
     addToCart,
     findProduct,
-    getProductFromCart,
     reduceProductCount,
     updateProductInstanceProperties,
 } from "../../utils/cart";
@@ -42,15 +41,13 @@ export default function CartItem({ productID, itemCount, properties }) {
 
     useEffect(() => {
         getProductByID(productID).then((details) => setDetails(details));
-
-        const product = getProductFromCart(productID, properties);
     }, []);
 
     return (
         <div className="cartItem">
             <img src={productDetails?.imageUrl} alt="product" />
             <div className="cartItem-description">
-                <Tooltip text={productDetails?.name}>
+                <Tooltip text={productDetails?.name} disableIfToSmall={true}>
                     <p className="cartItem-description-header">{productDetails?.name}</p>
                 </Tooltip>
                 <PropertySelector
