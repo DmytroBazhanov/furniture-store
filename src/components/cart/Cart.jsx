@@ -26,12 +26,10 @@ export default function Cart() {
     }, []);
 
     useEffect(() => {
-        document.addEventListener("addToCart", handleProductEdit);
-        document.addEventListener("removeFromCart", handleProductEdit);
+        document.addEventListener("updateProductInCart", handleProductEdit);
 
         return () => {
-            document.removeEventListener("addToCart", handleProductEdit);
-            document.removeEventListener("removeFromCart", handleProductEdit);
+            document.removeEventListener("updateProductInCart", handleProductEdit);
         };
     });
 

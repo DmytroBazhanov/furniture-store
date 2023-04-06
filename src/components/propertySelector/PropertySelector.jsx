@@ -15,8 +15,8 @@ export default function PropertySelector({
                     key={propValue}
                     className={`propertyVariation ${selectedClass}`}
                     style={colorStyle}
-                    onClick={() => {
-                        onPropertyUpdate({ [propertyType]: propValue });
+                    onClick={(e) => {
+                        onPropertyUpdate(e, { [propertyType]: propValue });
                     }}
                 ></div>
             );
@@ -26,7 +26,7 @@ export default function PropertySelector({
             <div
                 key={propValue}
                 className="propertyVariation"
-                onClick={() => onPropertyUpdate({ [propertyType]: propValue })}
+                onClick={(e) => onPropertyUpdate(e, { [propertyType]: propValue })}
             >
                 {propValue}
             </div>

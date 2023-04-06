@@ -1,0 +1,78 @@
+@import "../../globalStyles/colors.scss";
+
+@keyframes opacityChange {
+    0% {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    1% {
+        visibility: visible;
+        opacity: 0;
+    }
+
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+@keyframes opacityChangeReverse {
+    0% {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    1% {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    100% {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+@mixin hoverAnimation($animName) {
+    animation-name: $animName;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+    animation-direction: normal;
+}
+
+@mixin fitContent() {
+    width: fit-content;
+    height: fit-content;
+}
+
+.tooltip-container {
+    @include fitContent();
+
+    .tooltip {
+        @include hoverAnimation(opacityChangeReverse);
+        animation-delay: 0s;
+
+        right: -20px;
+        position: absolute;
+        z-index: 3;
+        width: max-content;
+        max-width: 200px;
+        max-height: 70px;
+
+        overflow-y: scroll;
+        background-color: $tooltipGray;
+        color: $tooltipText;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    &:hover {
+        .tooltip {
+            @include hoverAnimation(opacityChange);
+            animation-delay: 0.5s;
+        }
+    }
+}

@@ -50,6 +50,11 @@
         }
 
         .cartItem-description-header {
+            max-width: 110px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .cartItem-description-price {

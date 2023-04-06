@@ -4,4 +4,8 @@ import "./globalStyles/main.scss";
 
 import RouterProvider from "./components/RouterProvider/RouterProvider";
 
-ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider />);
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <RouterProvider />
+    </React.StrictMode>
+);

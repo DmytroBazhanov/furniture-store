@@ -6,63 +6,56 @@ import {
     addToCart,
     findProduct,
     getProductFromCart,
-    isObjectsEqual,
     reduceProductCount,
     updateProductInstanceProperties,
 } from "../../utils/cart";
+import Tooltip from "../tooltip/Tooltip";
+
+const updateProductEvent = new Event("updateProductInCart", { bubbles: true });
 
 export default function CartItem({ productID, itemCount, properties }) {
     const [productDetails, setDetails] = useState(null);
-    const [selectedProperties, setSelectedProps] = useState({});
-    const [count, setCount] = useState(0);
 
-    const handleUpdateProperties = (newProps) => {
-        setSelectedProps((prev) => {
-            const props = { ...prev, ...newProps };
-            const productInCartID = findProduct(productID, props);
+    const handleUpdateProperties = (event, newProps) => {
+        const props = { ...properties, ...newProps };
+        const productInCartID = findProduct(productID, props);
 
-            if (productInCartID !== -1) return prev;
+        if (productInCartID !== -1) return;
 
-            const currentProdInstanceID = findProduct(productID, prev);
-            updateProductInstanceProperties(currentProdInstanceID, props);
-            return props;
-        });
+        const currentProdInstanceID = findProduct(productID, properties);
+        updateProductInstanceProperties(currentProdInstanceID, props);
+
+        event.target.dispatchEvent(updateProductEvent);
     };
 
     const handleAdd = (e) => {
-        const addToCartEvent = new Event("addToCart", { bubbles: true });
+        addToCart(productID, properties);
 
-        addToCart(productID, selectedProperties);
-        setCount((prev) => prev + 1);
-
-        e.target.dispatchEvent(addToCartEvent);
+        e.target.dispatchEvent(updateProductEvent);
     };
 
     const handleReduce = (e) => {
-        const removeFromCartEvent = new Event("removeFromCart", { bubbles: true });
+        reduceProductCount(productID, properties);
 
-        reduceProductCount(productID, selectedProperties);
-        setCount((prev) => prev - 1);
-
-        e.target.dispatchEvent(removeFromCartEvent);
+        e.target.dispatchEvent(updateProductEvent);
     };
 
     useEffect(() => {
-        setCount(itemCount);
         getProductByID(productID).then((details) => setDetails(details));
 
         const product = getProductFromCart(productID, properties);
-        setSelectedProps(product.properties);
     }, []);
 
     return (
         <div className="cartItem">
             <img src={productDetails?.imageUrl} alt="product" />
             <div className="cartItem-description">
-                <p className="cartItem-description-header">{productDetails?.name}</p>
+                <Tooltip text={productDetails?.name}>
+                    <p className="cartItem-description-header">{productDetails?.name}</p>
+                </Tooltip>
                 <PropertySelector
                     properties={productDetails?.colorThemes}
-                    selectedValue={selectedProperties?.colorThemes}
+                    selectedValue={properties?.colorThemes}
                     propertyType={"colorThemes"}
                     onPropertyUpdate={handleUpdateProperties}
                 />
@@ -72,7 +65,7 @@ export default function CartItem({ productID, itemCount, properties }) {
                 <button className="cartItem-productCountArea-add" onClick={handleAdd}>
                     +
                 </button>
-                <p className="cartItem-count">{count}</p>
+                <p className="cartItem-count">{itemCount}</p>
                 <button className="cartItem-productCountArea-reduce" onClick={handleReduce}>
                     -
                 </button>
