@@ -13,11 +13,27 @@ export default function Cart() {
 
     const cartCount = itemsInCartCount > MAX_NUMBER_TO_DISPLAY ? "9+" : itemsInCartCount;
 
+    const handleProductEdit = () => {
+        const updatedProducts = getProductsFromCart();
+        setProducts(updatedProducts);
+        setItemsCount(getProductNumberInCart());
+    };
+
     useEffect(() => {
         const cartProducts = getProductsFromCart();
         setProducts(cartProducts);
         setItemsCount(getProductNumberInCart());
     }, []);
+
+    useEffect(() => {
+        document.addEventListener("addToCart", handleProductEdit);
+        document.addEventListener("removeFromCart", handleProductEdit);
+
+        return () => {
+            document.removeEventListener("addToCart", handleProductEdit);
+            document.removeEventListener("removeFromCart", handleProductEdit);
+        };
+    });
 
     const cartList = isVisible ? <CartItemList products={products} /> : null;
 
