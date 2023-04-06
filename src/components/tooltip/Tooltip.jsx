@@ -18,7 +18,7 @@ export default function Tooltip({ children, text, disableIfToSmall = false, padd
         tooltipWidth !== 0 &&
         tooltipWidth !== padding * 2 &&
         disableIfToSmall
-            ? { display: "none" }
+            ? { animationName: "none", visibility: "hidden" }
             : {};
 
     return (
