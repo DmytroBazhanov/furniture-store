@@ -14,7 +14,7 @@ export default function Tooltip({ children, text, disableIfToSmall = false, padd
     }, [children]);
 
     const tooltipStyle =
-        tooltipWidth - padding * 2 < containerWidth &&
+        tooltipWidth - padding * 2 <= containerWidth &&
         tooltipWidth !== 0 &&
         tooltipWidth !== padding * 2 &&
         disableIfToSmall

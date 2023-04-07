@@ -47,6 +47,10 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
+            .tooltip {
+                right: -20px;
+            }
         }
 
         .cartItem-description-header {

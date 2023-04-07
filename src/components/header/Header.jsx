@@ -3,6 +3,7 @@ import "./header.scss";
 import SaleBadge from "../saleBadge/SaleBadge";
 import DropdownMenu from "../dropdownMenu/DropdownMenu";
 import Cart from "../cart/Cart";
+import Notifications from "../Notifications/Notifications";
 
 export default function Header() {
     return (
@@ -16,7 +17,7 @@ export default function Header() {
             <div className="header-rightSide">
                 <SaleBadge />
                 <Cart />
-                {/* Messages */}
+                <Notifications />
                 {/* User profile or buttons for modal */}
             </div>
         </header>

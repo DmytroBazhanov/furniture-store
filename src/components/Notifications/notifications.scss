@@ -1,0 +1,92 @@
+@import "../../globalStyles/colors.scss";
+
+.notifications {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: $transparentBlue;
+    border-radius: 100%;
+
+    &-alert {
+        position: absolute;
+        top: 2px;
+        right: 5px;
+
+        width: 6px;
+        height: 6px;
+        background-color: $red;
+        border-radius: 100%;
+        box-shadow: 0 0 0 2px $white;
+    }
+}
+
+.notificationItem {
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    row-gap: 10px;
+    column-gap: 10px;
+    list-style: none;
+
+    img {
+        width: 120px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .hideNotification {
+        position: absolute;
+        top: 3px;
+        right: 0;
+        width: 13px;
+        height: 13px;
+        z-index: 3;
+        cursor: pointer;
+
+        path {
+            fill: $red;
+        }
+    }
+
+    .mainBlock-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        width: 100%;
+        max-width: 170px;
+        p {
+            width: 100%;
+        }
+
+        .topLane {
+            max-width: calc(100% - 15px);
+            width: 100%;
+
+            .productName {
+                width: 100%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .tooltip {
+                right: 0px;
+            }
+        }
+
+        .bottomLine {
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+
+            span {
+                font-weight: normal;
+                font-size: 10px;
+            }
+        }
+    }
+}
