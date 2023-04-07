@@ -1,6 +1,7 @@
 import KeyDownCatcher from "../keyDownCatcher/KeyDownCatcher";
+import OutsideClick from "../outsideClick/OutsideClick.jsx";
+
 import "./dropdownMenu.scss";
-import { useState } from "react";
 
 export default function DropdownMenu({ children, dropdownContent, isVisible, setVisible }) {
     const handleMenuTogle = () => {
@@ -12,16 +13,20 @@ export default function DropdownMenu({ children, dropdownContent, isVisible, set
         setVisible(false);
     };
 
+    const handleOutsideClick = () => setVisible(false);
+
     return (
         <div className="DropdownWrapper">
-            <div className="Dropdown-PreviewElement" onClick={handleMenuTogle}>
-                {children}
-            </div>
-            {isVisible ? (
-                <div className="DropdownMenu">
-                    <KeyDownCatcher onCatch={handleEscape}>{dropdownContent}</KeyDownCatcher>
+            <OutsideClick onOutsideClick={handleOutsideClick}>
+                <div className="Dropdown-PreviewElement" onClick={handleMenuTogle}>
+                    {children}
                 </div>
-            ) : null}
+                {isVisible ? (
+                    <div className="DropdownMenu">
+                        <KeyDownCatcher onCatch={handleEscape}>{dropdownContent}</KeyDownCatcher>
+                    </div>
+                ) : null}
+            </OutsideClick>
         </div>
     );
 }
