@@ -34,6 +34,7 @@ export default function Notifications() {
             dropdownContent={<NotificationList notifications={notifications} />}
             isVisible={dropdownVisible}
             setVisible={setDropdownVisibility}
+            id="notificationDropdown"
         >
             <div className="notifications">
                 {notifications.length > 0 ? <div className="notifications-alert"></div> : null}

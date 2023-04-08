@@ -1,11 +1,9 @@
 import { useEffect } from "react";
 
-export default function OutsideClick({ children, onOutsideClick }) {
+export default function OutsideClick({ children, onOutsideClick, id }) {
     const handleClick = (e) => {
-        const targetClass = e.currentTarget.className;
-
         const outsideClickContainer = e.target.closest(".outsideClick");
-        if (!outsideClickContainer) onOutsideClick();
+        if (!outsideClickContainer || outsideClickContainer.id !== id) onOutsideClick();
     };
 
     useEffect(() => {
@@ -17,7 +15,7 @@ export default function OutsideClick({ children, onOutsideClick }) {
     }, []);
 
     return (
-        <div className="outsideClick" style={{ position: "static" }}>
+        <div className="outsideClick" id={id} style={{ position: "static" }}>
             {children}
         </div>
     );

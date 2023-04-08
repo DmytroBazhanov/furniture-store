@@ -36,7 +36,12 @@ export default function Cart() {
     const cartList = isVisible ? <CartItemList products={products} /> : null;
 
     return (
-        <DropdownMenu dropdownContent={cartList} isVisible={isVisible} setVisible={setVisible}>
+        <DropdownMenu
+            dropdownContent={cartList}
+            isVisible={isVisible}
+            setVisible={setVisible}
+            id="cartDropdown"
+        >
             <div className="cartPreview">
                 <CartSvg />
                 {itemsInCartCount > 0 ? <div className="itemCountTag">{cartCount}</div> : null}

@@ -3,7 +3,13 @@ import OutsideClick from "../outsideClick/OutsideClick.jsx";
 
 import "./dropdownMenu.scss";
 
-export default function DropdownMenu({ children, dropdownContent, isVisible, setVisible }) {
+export default function DropdownMenu({
+    children,
+    dropdownContent,
+    isVisible,
+    setVisible,
+    id = "",
+}) {
     const handleMenuTogle = () => {
         setVisible((prev) => !prev);
     };
@@ -17,7 +23,7 @@ export default function DropdownMenu({ children, dropdownContent, isVisible, set
 
     return (
         <div className="DropdownWrapper">
-            <OutsideClick onOutsideClick={handleOutsideClick}>
+            <OutsideClick onOutsideClick={handleOutsideClick} id={id}>
                 <div className="Dropdown-PreviewElement" onClick={handleMenuTogle}>
                     {children}
                 </div>
