@@ -1,7 +1,12 @@
+import EmptyContainerPlaceholder from "../emptyContainerPlaceholder/EmptyContainerPlaceholder";
 import CartItem from "./CartItem";
 import "./cart.scss";
 
 export default function CartItemList({ products }) {
+    if (products.length === 0) {
+        return <EmptyContainerPlaceholder text="Cart is empty" />;
+    }
+
     return (
         <div className="cartItemsList">
             {products.map((prod) => (
