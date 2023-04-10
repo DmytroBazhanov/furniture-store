@@ -1,3 +1,4 @@
+@import "../../globalStyles/breakpoints.scss";
 @import "../../globalStyles/colors.scss";
 
 header {
@@ -9,9 +10,22 @@ header {
         top: 60px;
     }
 
+    // for mobile/tablet view
+    .hamburger {
+        display: none;
+        margin: {
+            top: auto;
+            bottom: auto;
+        }
+    }
+
+    .salesBadge {
+        display: none;
+    }
+    //
+
     .logo {
         display: block;
-        width: fit-content;
         font-size: 40px;
         font-style: italic;
         grid-area: 1 / 1 / 2 / 2;
@@ -38,5 +52,106 @@ header {
         padding-right: 40px;
         align-items: center;
         grid-area: 1 / 3 / 3 / 4;
+
+        .salesBadge {
+            display: flex;
+        }
+    }
+}
+
+@include laptop() {
+    header {
+        padding: {
+            left: 40px;
+            top: 60px;
+        }
+        grid-template: 1fr / 20% 33% 47%;
+
+        .logo {
+            font-size: 36px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            column-gap: 40px;
+        }
+    }
+}
+
+@include tablet() {
+    header {
+        height: 100px;
+        grid-template: 1fr 30px / 1fr 2fr 1fr;
+        padding-top: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+
+        .hamburger {
+            display: flex;
+        }
+
+        .salesBadge {
+            display: flex;
+            margin: auto;
+            grid-area: 2 / 2 / 3 / 3;
+        }
+
+        .logo {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            grid-area: 1 / 2 / 2 / 3;
+        }
+
+        nav {
+            display: none;
+        }
+
+        .loginArea {
+            display: none;
+        }
+
+        .header-rightSide {
+            column-gap: 10px;
+            padding-right: 0px;
+            grid-area: 1 / 3 / 2 / 4;
+
+            .salesBadge {
+                display: none;
+            }
+        }
+    }
+}
+
+@include mobile() {
+    header {
+        grid-template: 1fr 30px / 1fr 15fr 1fr;
+
+        .logo {
+            font-size: 20px;
+        }
+
+        .salesBadge {
+            grid-column: 2 / 3;
+            margin: auto;
+        }
+
+        .cartPreview {
+            width: 40px;
+            height: 40px;
+        }
+
+        .notifications {
+            width: 40px;
+            height: 40px;
+        }
+
+        .hamburger {
+            height: 40px;
+            width: 30px;
+        }
     }
 }
