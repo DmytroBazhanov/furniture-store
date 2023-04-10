@@ -1,0 +1,62 @@
+@import "../../globalStyles/colors.scss";
+
+.loginArea {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+
+    .userArea {
+        display: flex;
+        flex-direction: column;
+        row-gap: 6px;
+        justify-content: center;
+        align-items: center;
+
+        .welcomeMsg {
+            color: $gray;
+            font-size: 10px;
+            width: 100%;
+        }
+        .fullname {
+            color: $black;
+            font-size: 14px;
+            max-width: 230px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+    .userAvatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+    }
+
+    .loginLinks {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        @mixin button {
+            width: fit-content;
+            height: fit-content;
+            padding: 3px;
+            background-color: transparent;
+            border: none;
+            color: $blue;
+        }
+
+        .separator {
+            width: 100%;
+            height: 1px;
+            background-color: $gray;
+        }
+        .login {
+            @include button();
+        }
+        .register {
+            @include button();
+        }
+    }
+}

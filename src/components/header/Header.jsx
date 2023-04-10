@@ -4,6 +4,7 @@ import SaleBadge from "../saleBadge/SaleBadge";
 import DropdownMenu from "../dropdownMenu/DropdownMenu";
 import Cart from "../cart/Cart";
 import Notifications from "../Notifications/Notifications";
+import LoginArea from "../loginArea/LoginArea";
 
 export default function Header() {
     return (
@@ -18,7 +19,7 @@ export default function Header() {
                 <SaleBadge />
                 <Cart />
                 <Notifications />
-                {/* User profile or buttons for modal */}
+                <LoginArea />
             </div>
         </header>
     );
