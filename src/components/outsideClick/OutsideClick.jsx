@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export default function OutsideClick({ children, onOutsideClick, id }) {
     const handleClick = (e) => {
         const outsideClickContainer = e.target.closest(".outsideClick");
-        if (!outsideClickContainer || outsideClickContainer.id !== id) onOutsideClick();
+        if (!outsideClickContainer || outsideClickContainer.id !== id) onOutsideClick(e);
     };
 
     useEffect(() => {
