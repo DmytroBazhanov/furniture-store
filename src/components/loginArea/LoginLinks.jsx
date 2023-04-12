@@ -6,16 +6,24 @@ import "./loginArea.scss";
 import LoginForm from "../loginForm/LoginForm";
 
 export default function LoginLinks() {
-    const [modalShown, setModal] = useState(true);
+    const [modalShown, setModal] = useState(false);
 
-    const handleClose = () => setModal(false);
+    const handleShow = (e) => {
+        e.stopPropagation();
+        setModal(true);
+    };
+    const handleClose = () => {
+        setModal(false);
+    };
     const handleCloseOnEscape = (e) => {
         if (e.key === "Escape") handleClose();
     };
 
     return (
         <div className="loginLinks">
-            <button className="login">Login</button>
+            <button className="login" onClick={handleShow}>
+                Login
+            </button>
             <div className="separator"></div>
             <button className="register">Sign up</button>
 
