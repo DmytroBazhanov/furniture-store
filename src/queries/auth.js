@@ -87,7 +87,12 @@ export async function registerUserWithEmail(email, password) {
 }
 
 export async function signInWithEmail(email, password) {
-    signInWithEmailAndPassword(auth, email, password).catch((error) => console.log(error));
+    return signInWithEmailAndPassword(auth, email, password)
+        .then(() => "")
+        .catch((error) => {
+            if (error.code === "auth/user-not-found") return "Email or password are incorect";
+            return "Error occured";
+        });
 }
 
 export async function setNewPasswordForUser(newPassword) {

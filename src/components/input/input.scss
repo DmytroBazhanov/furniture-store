@@ -1,0 +1,69 @@
+@import "../../globalStyles/colors.scss";
+
+.inputHolder {
+    height: fit-content;
+    width: 100%;
+
+    .inputName {
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 5px;
+        color: $gray;
+    }
+
+    .input {
+        width: 100%;
+        height: 45px;
+        padding: 0px 15px;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0px 0px 4px 1px $borderBlack;
+
+        font-size: 24px;
+
+        &::placeholder {
+            font-weight: 100;
+            color: $gray;
+        }
+    }
+
+    .inputError {
+        box-shadow: 0px 0px 4px 1px $red;
+    }
+
+    .inputInfoLine {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .tooltip {
+            max-width: 350px;
+            max-height: 300px;
+        }
+
+        .infoSign {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            background-color: $gray;
+            color: $white;
+            text-align: center;
+            width: 17px;
+            height: 17px;
+            border-radius: 100%;
+            margin-right: 10px;
+            cursor: help;
+        }
+    }
+}
+
+.passwordInput {
+    .passwordInputSymbol {
+        position: absolute;
+        top: 37px;
+        right: 10px;
+        cursor: pointer;
+    }
+}
