@@ -1,6 +1,4 @@
 import Tooltip from "../tooltip/Tooltip";
-import { ReactComponent as Hide } from "../../assets/HidePassword.svg";
-import { ReactComponent as Show } from "../../assets/ShowPassword.svg";
 
 import "./input.scss";
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import KeyDownCatcher from "../keyDownCatcher/KeyDownCatcher";
 import Modal from "../modal/Modal";
 
 import "./loginArea.scss";
@@ -8,6 +9,9 @@ export default function LoginLinks() {
     const [modalShown, setModal] = useState(true);
 
     const handleClose = () => setModal(false);
+    const handleCloseOnEscape = (e) => {
+        if (e.key === "Escape") handleClose();
+    };
 
     return (
         <div className="loginLinks">
@@ -16,7 +20,9 @@ export default function LoginLinks() {
             <button className="register">Sign up</button>
 
             <Modal isVisible={modalShown} onClose={handleClose}>
-                <LoginForm />
+                <KeyDownCatcher onCatch={handleCloseOnEscape}>
+                    <LoginForm />
+                </KeyDownCatcher>
             </Modal>
         </div>
     );
