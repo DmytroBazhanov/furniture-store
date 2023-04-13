@@ -82,8 +82,14 @@ export async function signInWithFacebook() {
 }
 
 export async function registerUserWithEmail(email, password) {
-    await createUserWithEmailAndPassword(auth, email, password);
-    createProfile(email).catch((error) => console.log(error));
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        createProfile(email).catch((error) => console.log(error));
+        return null;
+    } catch (error) {
+        if (error.code === "auth/email-already-in-use") return "Email already taken";
+        else return "Unknown error occured";
+    }
 }
 
 export async function signInWithEmail(email, password) {
@@ -91,7 +97,7 @@ export async function signInWithEmail(email, password) {
         .then(() => "")
         .catch((error) => {
             if (error.code === "auth/user-not-found") return "Email or password are incorect";
-            return "Error occured";
+            return "Unknown error occured";
         });
 }
 

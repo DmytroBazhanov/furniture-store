@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
-import { signInWithEmail } from "../../queries/auth";
+import { registerUserWithEmail } from "../../queries/auth";
 import { useState } from "react";
 
 import SocialMediaLogin from "../socialMediaLogin/SocialMediaLogin";
 import Input from "../input/Input";
 import PasswordInput from "../input/PasswordInput";
 
-import "./loginForm.scss";
+import "./registerForm.scss";
 
-export default function LoginForm() {
-    const [loginError, setError] = useState(null);
+export default function RegisterForm() {
+    const [errorMessage, setErrorMessage] = useState();
 
     const {
         register,
@@ -17,14 +17,14 @@ export default function LoginForm() {
         formState: { errors },
     } = useForm();
 
-    const login = async ({ email, password }) => {
-        const result = await signInWithEmail(email, password);
-        setError(result);
+    const signUpNewUser = async ({ email, password }) => {
+        const result = await registerUserWithEmail(email, password);
+        setErrorMessage(result);
     };
 
     return (
-        <form className="loginForm" onSubmit={handleSubmit(login)}>
-            <h1 className="header">Sign in</h1>
+        <form className="registerForm" onSubmit={handleSubmit(signUpNewUser)}>
+            <h1 className="header">Sign up</h1>
             <SocialMediaLogin />
             <div className="inputContainer">
                 <Input
@@ -59,10 +59,25 @@ export default function LoginForm() {
                         },
                     })}
                 />
+                <PasswordInput
+                    placeholder="Repeat the password"
+                    name="Repeat pasword"
+                    errors={errors?.repeatPassword}
+                    reg={register("repeatPassword", {
+                        required: {
+                            value: true,
+                            message: "Field is required",
+                        },
+                        validate: {
+                            passwordMatch: (repeat, formValues) => {
+                                return repeat === formValues.password || "Passwords should match";
+                            },
+                        },
+                    })}
+                />
             </div>
-            <p className="passwordRestoration">Click here to restore password</p>
             <input type="submit" value="Continue" />
-            <p className="errorMessage">{loginError}</p>
+            <p className="errorMessage">{errorMessage}</p>
         </form>
     );
 }

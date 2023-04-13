@@ -28,7 +28,9 @@ export default function LoginArea() {
             return <LoginLinks />;
         }
 
-        return <FunctionalArea fullname={`${userInfo?.name} ${userInfo?.lastname}`} />;
+        if (userInfo.name || userInfo.lastname) {
+            return <FunctionalArea fullname={`${userInfo?.name} ${userInfo?.lastname}`} />;
+        } else return <FunctionalArea fullname={userInfo.email} />;
     };
 
     return (

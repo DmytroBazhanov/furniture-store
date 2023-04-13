@@ -1,0 +1,6 @@
+@import "../../globalStyles/colors.scss";
+@import "../loginForm/loginForm.scss";
+
+.registerForm {
+    @include formStyles();
+}

@@ -1,7 +1,7 @@
 @import "../../globalStyles/colors.scss";
 @import "../../globalStyles/breakpoints.scss";
 
-.loginForm {
+@mixin formStyles() {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,9 +51,13 @@
         cursor: pointer;
     }
 
-    .loginError {
+    .errorMessage {
         position: relative;
         color: $red;
         margin-top: 15px;
     }
+}
+
+.loginForm {
+    @include formStyles();
 }

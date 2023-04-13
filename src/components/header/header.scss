@@ -67,6 +67,13 @@ header {
         }
         grid-template: 1fr / 20% 33% 47%;
 
+        .DropdownWrapper {
+            .DropdownMenu {
+                right: 0;
+                transform: translateX(-90%);
+            }
+        }
+
         .logo {
             font-size: 36px;
         }
