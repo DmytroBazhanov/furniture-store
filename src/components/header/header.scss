@@ -96,6 +96,7 @@ header {
 
         .hamburger {
             display: flex;
+            margin-left: 10px;
         }
 
         .salesBadge {
@@ -122,8 +123,9 @@ header {
         }
 
         .header-rightSide {
-            column-gap: 10px;
             padding-right: 0px;
+            column-gap: 15px;
+            margin-right: 10px;
             grid-area: 1 / 3 / 2 / 4;
 
             .salesBadge {
