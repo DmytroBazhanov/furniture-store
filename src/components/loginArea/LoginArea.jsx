@@ -15,6 +15,8 @@ export default function LoginArea() {
         auth.onAuthStateChanged((user) => {
             if (user) {
                 getProfile().then((profile) => setInfo(profile));
+            } else {
+                setInfo(null);
             }
 
             setFlag(true);
