@@ -1,86 +1,121 @@
 @import "../../globalStyles/colors.scss";
 @import "../../globalStyles/breakpoints.scss";
 
-.visible {
-    visibility: visible;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
-.sidebar-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-    background-color: transparentWhite;
-    backdrop-filter: blur(2px);
-    z-index: 3;
-
+@mixin styles() {
     .visible {
         visibility: visible;
-        margin-left: 0px;
     }
 
     .hidden {
-        visibility: visible;
-        margin-left: -320px;
+        visibility: hidden;
     }
 
-    .sidebar {
-        width: 320px;
+    .sidebar-background {
+        position: fixed;
+        display: flex;
+        top: 0;
+        left: 0;
+
+        width: 100%;
         height: 100%;
-        border-right: 1px solid $black;
-        background-color: $white;
-        transition: ease-in-out 0.2s;
+        background-color: transparentWhite;
+        backdrop-filter: blur(2px);
+        z-index: 3;
 
-        &-topPart {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 20px 40px 20px;
-
-            .sidebar-close {
-                width: 30px;
-                height: 30px;
-            }
+        .visible {
+            visibility: visible;
+            margin-left: 0px;
         }
 
-        .sidebar-logout {
-            position: absolute;
-            bottom: 30px;
-            display: flex;
-            align-items: center;
-            background-color: transparent;
-            outline: none;
-            border: none;
-            column-gap: 15px;
-            margin-left: 30px;
-
-            font-size: 24px;
-            color: $red;
-            font-weight: bold;
+        .hidden {
+            visibility: visible;
+            margin-left: -320px;
         }
 
-        .sidebar-linkContainer {
-            display: flex;
-            flex-direction: column;
-            margin-left: 30px;
-            row-gap: 30px;
+        .sidebar {
+            width: 100%;
+            height: 100%;
+            border-right: 1px solid $black;
+            background-color: $white;
+            transition: ease-in-out 0.2s;
 
-            .sidebar-link {
+            &-topPart {
                 display: flex;
-                column-gap: 15px;
+                flex-direction: row;
+                justify-content: space-between;
                 align-items: center;
-                font-size: 24px;
-                font-weight: bold;
-                text-decoration: none;
-                color: $black;
+                padding: 30px 20px 40px 20px;
+
+                .sidebar-close {
+                    width: 30px;
+                    height: 30px;
+                }
             }
+
+            .sidebar-logout {
+                position: absolute;
+                bottom: 30px;
+                display: flex;
+                align-items: center;
+                background-color: transparent;
+                outline: none;
+                border: none;
+                column-gap: 15px;
+                margin-left: 30px;
+
+                font-size: 24px;
+                color: $red;
+                font-weight: bold;
+            }
+
+            .sidebar-linkContainer {
+                display: flex;
+                flex-direction: column;
+                margin-left: 30px;
+                row-gap: 30px;
+
+                .sidebar-link {
+                    display: flex;
+                    column-gap: 15px;
+                    align-items: center;
+                    font-size: 24px;
+                    font-weight: bold;
+                    text-decoration: none;
+                    color: $black;
+                }
+            }
+        }
+    }
+}
+
+.sidebar-background {
+    display: none;
+}
+
+@include tablet() {
+    @include styles();
+
+    .sidebar-background {
+        .sidebar {
+            width: 320px;
+        }
+    }
+}
+
+@include mobile() {
+    @include styles();
+    .sidebar-background {
+        .hidden {
+            width: 320px;
+        }
+    }
+}
+
+@include narrowMobile() {
+    @include styles();
+    .sidebar-background {
+        .hidden {
+            width: 320px;
         }
     }
 }
