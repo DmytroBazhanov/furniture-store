@@ -1,4 +1,5 @@
 import FunctionalArea from "./FunctionalArea";
+import DropdownMenu from "../dropdownMenu/DropdownMenu";
 import UserAvatar from "./UserAvatar";
 import LoginLinks from "./LoginLinks";
 import { auth } from "../../firebase";
@@ -6,10 +7,12 @@ import { useEffect, useState } from "react";
 import { getProfile } from "../../queries/profile";
 
 import "./loginArea.scss";
+import ProfileDropdown from "./ProfileDropdown";
 
 export default function LoginArea() {
     const [userInfo, setInfo] = useState(null);
     const [onLoadFlag, setFlag] = useState(false);
+    const [isDropdownVisible, setVisibility] = useState(false);
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
@@ -35,10 +38,25 @@ export default function LoginArea() {
         } else return <FunctionalArea fullname={userInfo.email} />;
     };
 
-    return (
-        <div className="loginArea">
-            <UserAvatar src={userInfo?.avatar} />
-            {renderFunctionalArea()}
-        </div>
-    );
+    if (userInfo)
+        return (
+            <DropdownMenu
+                dropdownContent={<ProfileDropdown />}
+                isVisible={isDropdownVisible}
+                setVisible={setVisibility}
+                id="userDropdown"
+            >
+                <div className="loginArea">
+                    <UserAvatar src={userInfo?.avatar} />
+                    {renderFunctionalArea()}
+                </div>
+            </DropdownMenu>
+        );
+    else
+        return (
+            <div className="loginArea">
+                <UserAvatar src={userInfo?.avatar} />
+                {renderFunctionalArea()}
+            </div>
+        );
 }

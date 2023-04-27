@@ -1,4 +1,5 @@
 @import "../../globalStyles/colors.scss";
+@import "../../globalStyles/breakpoints.scss";
 
 .loginArea {
     display: flex;
@@ -57,6 +58,78 @@
         }
         .register {
             @include button();
+        }
+    }
+}
+
+.profileDropdown {
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    row-gap: 15px;
+
+    .profile-logout {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        width: fit-content;
+        color: $red;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        outline: none;
+        border: none;
+        background-color: transparent;
+    }
+
+    a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        width: fit-content;
+        color: $black;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+    }
+}
+
+#userDropdown {
+    .DropdownMenu {
+        top: 70px;
+        width: fit-content;
+        min-width: 150px;
+
+        svg {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+    }
+}
+
+@include tablet() {
+    #userDropdown {
+        .DropdownMenu {
+            display: none;
+        }
+    }
+}
+
+@include mobile() {
+    #userDropdown {
+        .DropdownMenu {
+            display: none;
+        }
+    }
+}
+
+@include narrowMobile() {
+    #userDropdown {
+        .DropdownMenu {
+            display: none;
         }
     }
 }

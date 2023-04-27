@@ -19,7 +19,7 @@ export default function DropdownMenu({
         setVisible(false);
     };
 
-    const handleOutsideClick = () => setVisible(false);
+    const handleOutsideClick = (e) => setVisible(false);
 
     return (
         <div className="DropdownWrapper">
