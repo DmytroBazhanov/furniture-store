@@ -8,13 +8,14 @@ import { signOut } from "../../queries/auth";
 import LoginArea from "../loginArea/LoginArea";
 
 import "./sidebar.scss";
+import { links } from "../../utils/links";
 
 export default function Sidebar() {
     const { setVisibility, visible } = useContext(SidebarContext);
 
-    const links = sidebarLinks.map((link) => {
+    const sidebarLinks = links.navigationLinks.map((link) => {
         return (
-            <Link key={link.href} className="sidebar-link" to={link.href}>
+            <Link key={link.src} className="sidebar-link" to={link.src}>
                 <img src={link.svg} />
                 {link.text}
             </Link>
@@ -30,7 +31,7 @@ export default function Sidebar() {
                     <LoginArea />
                     <Cross className="sidebar-close" onClick={() => setVisibility(false)} />
                 </div>
-                <div className="sidebar-linkContainer">{links}</div>
+                <div className="sidebar-linkContainer">{sidebarLinks}</div>
                 <button className="sidebar-logout" onClick={signOut}>
                     <LogoutSVG />
                     Logout

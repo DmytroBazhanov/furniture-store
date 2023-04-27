@@ -8,6 +8,7 @@ import LoginArea from "../loginArea/LoginArea";
 
 import "./header.scss";
 import { SidebarContext } from "../App";
+import { links } from "../../utils/links";
 
 export default function Header() {
     const { setVisibility } = useContext(SidebarContext);
@@ -19,9 +20,11 @@ export default function Header() {
             <Hamburger className="hamburger" onClick={() => setVisibility(true)} />
             <h1 className="logo">My-Furniture</h1>
             <nav>
-                <Link to="/categories">Categories</Link>
-                <Link to="/categories/bestSellers">Best Sellers</Link>
-                <Link to="/FAQ">FAQs</Link>
+                {links.navigationLinks.map((link) => (
+                    <Link key={link.src} to={link.src}>
+                        {link.text}
+                    </Link>
+                ))}
             </nav>
             {salesBadgeMobile}
             <div className="header-rightSide">
