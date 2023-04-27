@@ -41,7 +41,7 @@ export default function LoginArea() {
     if (userInfo)
         return (
             <DropdownMenu
-                dropdownContent={<ProfileDropdown />}
+                dropdownContent={<ProfileDropdown setDropdownVisibility={setVisibility} />}
                 isVisible={isDropdownVisible}
                 setVisible={setVisibility}
                 id="userDropdown"

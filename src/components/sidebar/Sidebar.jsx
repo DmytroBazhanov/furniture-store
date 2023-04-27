@@ -13,9 +13,19 @@ import { links } from "../../utils/links";
 export default function Sidebar() {
     const { setVisibility, visible } = useContext(SidebarContext);
 
+    const handleSignOut = () => {
+        setVisibility(false);
+        signOut();
+    };
+
     const sidebarLinks = links.navigationLinks.map((link) => {
         return (
-            <Link key={link.src} className="sidebar-link" to={link.src}>
+            <Link
+                key={link.src}
+                className="sidebar-link"
+                to={link.src}
+                onClick={() => setVisibility(false)}
+            >
                 <img src={link.svg} />
                 {link.text}
             </Link>
@@ -32,7 +42,7 @@ export default function Sidebar() {
                     <Cross className="sidebar-close" onClick={() => setVisibility(false)} />
                 </div>
                 <div className="sidebar-linkContainer">{sidebarLinks}</div>
-                <button className="sidebar-logout" onClick={signOut}>
+                <button className="sidebar-logout" onClick={handleSignOut}>
                     <LogoutSVG />
                     Logout
                 </button>
