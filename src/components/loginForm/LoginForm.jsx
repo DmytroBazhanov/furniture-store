@@ -52,11 +52,6 @@ export default function LoginForm() {
                             value: true,
                             message: "Field is required",
                         },
-                        pattern: {
-                            value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                            message:
-                                "Password should contain minimum 8 characters, at least 1 number and a special character",
-                        },
                     })}
                 />
             </div>

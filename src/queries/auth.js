@@ -93,10 +93,13 @@ export async function registerUserWithEmail(email, password) {
 }
 
 export async function signInWithEmail(email, password) {
+    const errors = ["auth/user-not-found", "auth/wrong-password"];
+
     return signInWithEmailAndPassword(auth, email, password)
         .then(() => "")
         .catch((error) => {
-            if (error.code === "auth/user-not-found") return "Email or password are incorect";
+            const errorIndex = errors.indexOf(error.code);
+            if (errorIndex !== -1) return "No such combination of password and email found";
             return "Unknown error occured";
         });
 }
