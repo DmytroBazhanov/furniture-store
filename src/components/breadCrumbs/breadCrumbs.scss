@@ -1,0 +1,53 @@
+@import "../../globalStyles/colors.scss";
+@import "../../globalStyles/breakpoints.scss";
+
+.breadCrumbs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    row-gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    width: fit-content;
+    max-width: 60%;
+    border-radius: 5px;
+
+    .crumb {
+        background-color: $transparentBlue;
+        color: $dimBlue;
+        text-decoration: none;
+        text-transform: capitalize;
+
+        padding: 5px 20px;
+
+        &:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        &:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
+
+    p {
+        display: block;
+        background-color: $transparentBlue;
+        height: 29.5px;
+        width: 10px;
+
+        svg {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+@include tablet() {
+    .breadCrumbs {
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
+}

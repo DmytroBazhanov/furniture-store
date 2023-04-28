@@ -112,6 +112,10 @@
 }
 
 @include tablet() {
+    .header-loginArea {
+        display: none;
+    }
+
     #userDropdown {
         .DropdownMenu {
             display: none;

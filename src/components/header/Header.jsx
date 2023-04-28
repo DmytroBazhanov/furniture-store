@@ -31,7 +31,9 @@ export default function Header() {
                 <SaleBadge />
                 <Cart />
                 <Notifications />
-                <LoginArea />
+                <div className="header-loginArea">
+                    <LoginArea />
+                </div>
             </div>
         </header>
     );

@@ -3,6 +3,7 @@ import Header from "./header/Header.jsx";
 import Sidebar from "./sidebar/Sidebar.jsx";
 
 import { Outlet } from "react-router-dom";
+import BreadCrumbs from "./breadCrumbs/BreadCrumbs.jsx";
 
 export const SidebarContext = createContext({
     visible: false,
@@ -22,7 +23,10 @@ function App() {
             <SidebarContext.Provider value={contextObj}>
                 <Header />
                 <Sidebar />
-                <Outlet />
+                <main>
+                    <BreadCrumbs />
+                    <Outlet />
+                </main>
             </SidebarContext.Provider>
         </div>
     );
