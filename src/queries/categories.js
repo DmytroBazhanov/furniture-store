@@ -5,7 +5,12 @@ export async function getCategories() {
     const categoriesRef = collection(db, import.meta.env.VITE_CATEGORIES);
     const categoriesSnapshot = await getDocs(categoriesRef);
 
-    const categories = categoriesSnapshot.docs.map((category) => category.id);
+    const categories = categoriesSnapshot.docs.map((category) => {
+        return {
+            id: category.id,
+            img: category.data().image,
+        };
+    });
     return categories;
 }
 

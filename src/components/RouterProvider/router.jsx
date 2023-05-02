@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import Categories from "../../pages/Categories/Categories";
 
 export const router = createBrowserRouter([
     {
@@ -9,7 +10,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: "categories",
-                element: <h1>Hello world!</h1>,
+                element: <Categories />,
             },
             {
                 path: "categories/:categoryID",
