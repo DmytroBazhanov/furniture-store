@@ -1,5 +1,5 @@
 @mixin narrowMobile {
-    @media screen and (max-width: 370) {
+    @media screen and (max-width: 370px) {
         @content;
     }
 }
