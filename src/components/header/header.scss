@@ -26,7 +26,8 @@ header {
     //
 
     .logo {
-        display: block;
+        display: flex;
+        align-items: center;
         font-size: 40px;
         font-style: italic;
         grid-area: 1 / 1 / 2 / 2;
