@@ -20,7 +20,9 @@ export default function ProductCard({ id, name, price, inStock, imageUrl, salePr
                 <div className="ProductCard-info">
                     <p className="ProductCard-price">$ {salePrice !== 0 ? salePrice : price}</p>
                     {saleSign}
-                    <p className="ProductCard-stock">{inStock ? "Present" : "Absent"}</p>
+                    <p className={`ProductCard-stock ${inStock ? "present" : "absent"}`}>
+                        {inStock ? "Present" : "Absent"}
+                    </p>
                 </div>
             </div>
         </Link>

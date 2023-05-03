@@ -66,5 +66,13 @@
         .ProductCard-stock {
             margin-left: auto;
         }
+
+        .present {
+            color: $green;
+        }
+
+        .absent {
+            color: $red;
+        }
     }
 }
