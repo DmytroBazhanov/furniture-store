@@ -6,6 +6,61 @@
     flex-wrap: wrap;
     column-gap: 35px;
     row-gap: 20px;
+    padding-left: 60px;
 
-    max-width: 1390px;
+    height: fit-content;
+    max-width: 1450px;
+}
+
+@media screen and (max-width: 1900px) {
+    .productShowcase {
+        max-width: 1400px;
+        padding-left: 50px;
+    }
+}
+
+@media screen and (max-width: 1840px) {
+    .productShowcase {
+        max-width: 1120px;
+    }
+}
+
+@media screen and (max-width: 1560px) {
+    .productShowcase {
+        max-width: 960px;
+    }
+}
+
+@media screen and (max-width: 1360px) {
+    .productShowcase {
+        max-width: 720px;
+    }
+}
+
+@include tablet() {
+    .productShowcase {
+        max-width: 1140px;
+        width: fit-content;
+        padding-left: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .productShowcase {
+        width: 905px;
+    }
+}
+
+@media screen and (max-width: 940px) {
+    .productShowcase {
+        width: 670px;
+    }
+}
+
+@media screen and (max-width: 710px) {
+    .productShowcase {
+        justify-content: center;
+    }
 }

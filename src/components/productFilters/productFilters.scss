@@ -1,0 +1,13 @@
+@import "../../globalStyles/breakpoints.scss";
+
+.ProductFilters {
+    height: 800px;
+    width: 320px;
+    background-color: aqua;
+}
+
+@include tablet() {
+    .ProductFilters {
+        display: none;
+    }
+}

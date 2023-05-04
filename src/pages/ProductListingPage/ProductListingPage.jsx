@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { where } from "firebase/firestore";
 
 import "./plp.scss";
+import ProductFilters from "../../components/productFilters/ProductFilters";
 
 export default function ProductListingPage() {
     const [products, setProducts] = useState([]);
@@ -32,6 +33,7 @@ export default function ProductListingPage() {
 
     return (
         <div className="ProductListingPage">
+            <ProductFilters />
             <ProductShowcase products={products} />
         </div>
     );

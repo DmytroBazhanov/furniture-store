@@ -3,6 +3,8 @@
 
 .productLink {
     text-decoration: none;
+    height: fit-content;
+    width: fit-content;
 }
 
 .ProductCard {
@@ -48,7 +50,6 @@
         position: absolute;
         display: flex;
         flex-direction: row;
-        // justify-content: space-between;
         align-items: flex-end;
         width: 100%;
         bottom: 10px;
@@ -73,6 +74,72 @@
 
         .absent {
             color: $red;
+        }
+    }
+}
+
+@media screen and (max-width: 1900px) {
+    .ProductCard {
+        width: 240px;
+        max-height: 340px;
+        font-size: 20px;
+        padding-bottom: 30px;
+
+        .ProductCard-imageHolder {
+            width: 240px;
+            height: 240px;
+
+            .ProductCard-image {
+                max-width: 240px;
+                max-height: 240px;
+                object-fit: cover;
+                margin-bottom: 10px;
+            }
+        }
+
+        &-info {
+            position: absolute;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            bottom: 3px;
+
+            .ProductCard-price {
+                height: 25px;
+            }
+
+            .ProductCard-saleSign {
+                height: 40px;
+                width: 40px;
+            }
+        }
+    }
+}
+
+@media screen and ((min-width: 710px) and (max-width: 1560px)) {
+    .ProductCard {
+        width: 200px;
+        max-height: 285px;
+        font-size: 16px;
+        padding-bottom: 30px;
+
+        .ProductCard-imageHolder {
+            width: 200px;
+            height: 200px;
+
+            .ProductCard-image {
+                max-width: 200px;
+                max-height: 200px;
+                margin-bottom: 10px;
+            }
+        }
+
+        &-info {
+            bottom: 3px;
+
+            .ProductCard-price {
+                height: 20px;
+            }
         }
     }
 }
