@@ -5,22 +5,22 @@ import { Link } from "react-router-dom";
 
 import "./productCard.scss";
 
-export default function ProductCard({ id, name, price, inStock, imageUrl, salePrice = 0 }) {
-    const saleSign = salePrice !== 0 ? <SaleSign className="ProductCard-saleSign" /> : null;
+export default function ProductCard({ id, name, price, inStock, imageUrl, salePrice = 0, mode }) {
+    const saleSign = salePrice !== 0 ? <SaleSign className={`${mode}-saleSign`} /> : null;
 
     return (
-        <Link className="productLink" to={name}>
-            <div className="ProductCard">
-                <div className="ProductCard-imageHolder">
-                    <img className="ProductCard-image" alt="product" src={imageUrl} />
+        <Link className={`productLink-${mode}`} to={name}>
+            <div className={mode}>
+                <div className={`${mode}-imageHolder`}>
+                    <img className={`${mode}-image`} alt="product" src={imageUrl} />
                 </div>
                 <Tooltip text={name} disableIfToSmall={true}>
-                    <h3 className="ProductCard-header">{name}</h3>
+                    <h3 className={`${mode}-header`}>{name}</h3>
                 </Tooltip>
-                <div className="ProductCard-info">
-                    <p className="ProductCard-price">$ {salePrice !== 0 ? salePrice : price}</p>
+                <div className={`${mode}-info`}>
+                    <p className={`${mode}-price`}>${salePrice !== 0 ? salePrice : price}</p>
                     {saleSign}
-                    <p className={`ProductCard-stock ${inStock ? "present" : "absent"}`}>
+                    <p className={`${mode}-stock ${inStock ? "present" : "absent"}`}>
                         {inStock ? "Present" : "Absent"}
                     </p>
                 </div>
@@ -28,10 +28,3 @@ export default function ProductCard({ id, name, price, inStock, imageUrl, salePr
         </Link>
     );
 }
-
-// Add tooltip for name
-// Hide name overflow
-// Add sale price and sign
-
-// Turn product card into link
-// Add responsiveness

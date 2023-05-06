@@ -18,6 +18,11 @@ export const getProductLimit = (viewportWidth) => {
 };
 
 export const switcherButtons = [
-    { id: "listView", content: <img className="switcherImg" src={ListSing} /> },
-    { id: "cardView", content: <img className="switcherImg" src={CardSign} /> },
+    { id: "grid", content: <img className="switcherImg" src={ListSing} /> },
+    { id: "card", content: <img className="switcherImg" src={CardSign} /> },
 ];
+
+export const viewModes = {
+    card: "ProductCard",
+    grid: "ProductRow",
+};

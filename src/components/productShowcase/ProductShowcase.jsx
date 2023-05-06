@@ -1,9 +1,10 @@
 import ProductCard from "../productCard/ProductCard";
+
 import "./showcase.scss";
 
-export default function ProductShowcase({ products }) {
+export default function ProductShowcase({ products, viewMode = "ProductCard" }) {
     return (
-        <div className="productShowcase">
+        <div className={`productShowcase-${viewMode}`}>
             {products.map((prod) => (
                 <ProductCard
                     key={prod.id}
@@ -13,6 +14,7 @@ export default function ProductShowcase({ products }) {
                     inStock={prod.inStock}
                     imageUrl={prod.imageUrl}
                     salePrice={prod.salePrice}
+                    mode={viewMode}
                 />
             ))}
         </div>

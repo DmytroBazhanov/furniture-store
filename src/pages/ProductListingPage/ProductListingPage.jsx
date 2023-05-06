@@ -5,7 +5,7 @@ import { getProductLimit } from "./config";
 import { getFilteredProducts } from "../../queries/products";
 import { useParams } from "react-router-dom";
 import { where } from "firebase/firestore";
-import { switcherButtons } from "./config";
+import { switcherButtons, viewModes } from "./config";
 
 import ProductFilters from "../../components/productFilters/ProductFilters";
 import Switcher from "../../components/switcher/Switcher";
@@ -15,7 +15,7 @@ import "./plp.scss";
 export default function ProductListingPage() {
     const [products, setProducts] = useState([]);
     const [lastFirebaseSnapshot, setSnapshot] = useState(null);
-    const [viewMode, setViewMode] = useState("cardView");
+    const [viewMode, setViewMode] = useState("card");
 
     const { categoryID } = useParams();
 
@@ -51,7 +51,7 @@ export default function ProductListingPage() {
             </div>
             <div className="productArea">
                 <ProductFilters />
-                <ProductShowcase products={products} />
+                <ProductShowcase products={products} viewMode={viewModes[viewMode]} />
             </div>
         </div>
     );

@@ -1,7 +1,5 @@
 import "./switcher.scss";
 
-// { id, content, function }
-
 export default function Switcher({ currentState, buttons }) {
     return (
         <div className="switcher">
