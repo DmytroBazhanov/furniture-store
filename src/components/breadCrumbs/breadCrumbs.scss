@@ -17,6 +17,10 @@
         color: $dimBlue;
         text-decoration: none;
         text-transform: capitalize;
+        max-width: 250px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
 
         padding: 5px 20px;
 
@@ -47,7 +51,7 @@
 
 @include tablet() {
     .breadCrumbs {
-        max-width: 100%;
+        max-width: fit-content;
         flex-wrap: wrap;
     }
 }
