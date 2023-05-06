@@ -4,6 +4,12 @@
     width: fit-content;
     height: fit-content;
 
+    .lengthChecker {
+        position: absolute;
+        visibility: hidden;
+        width: max-content;
+    }
+
     .tooltip {
         right: 0px;
         position: absolute;

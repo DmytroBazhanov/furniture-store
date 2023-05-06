@@ -1,4 +1,5 @@
 @import "../../globalStyles/colors.scss";
+@import "../../globalStyles/breakpoints.scss";
 
 .switcher {
     display: flex;
@@ -35,5 +36,34 @@
     }
 
     .switcherImg {
+    }
+}
+
+@include mobile() {
+    .switcher {
+        height: 31px;
+        border-radius: 7px;
+        .switchButton {
+            width: 36px;
+            height: 30px;
+
+            img {
+                width: 26px;
+                height: 22px;
+            }
+
+            &:first-child {
+                border-top-left-radius: 7px;
+                border-bottom-left-radius: 7px;
+            }
+
+            &:last-child {
+                border-right: none;
+                border-top-right-radius: 7px;
+                border-bottom-right-radius: 7px;
+            }
+        }
+        .chosen {
+        }
     }
 }

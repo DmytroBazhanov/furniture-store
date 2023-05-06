@@ -14,7 +14,7 @@ export default function ProductCard({ id, name, price, inStock, imageUrl, salePr
                 <div className="ProductCard-imageHolder">
                     <img className="ProductCard-image" alt="product" src={imageUrl} />
                 </div>
-                <Tooltip text={name}>
+                <Tooltip text={name} disableIfToSmall={true}>
                     <h3 className="ProductCard-header">{name}</h3>
                 </Tooltip>
                 <div className="ProductCard-info">

@@ -24,7 +24,10 @@ export default function Tooltip({ children, text, disableIfToSmall = false, padd
     return (
         <div className="tooltip-container" ref={containerRef}>
             {children}
-            <div ref={tooltipRef} className="tooltip" style={{ padding, ...tooltipStyle }}>
+            <div ref={tooltipRef} className="lengthChecker">
+                {text}
+            </div>
+            <div className="tooltip" style={{ padding, ...tooltipStyle }}>
                 {text}
             </div>
         </div>
