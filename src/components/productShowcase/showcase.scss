@@ -1,11 +1,19 @@
 @import "../../globalStyles/breakpoints.scss";
 
-div[class*="productShowcase"] {
+@mixin commonStyles() {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     height: fit-content;
     max-width: 1385px;
+}
+
+.productShowcase-ProductRow {
+    @include commonStyles();
+}
+
+.productShowcase-ProductCard {
+    @include commonStyles();
 }
 
 .productShowcase-ProductCard {
@@ -18,31 +26,31 @@ div[class*="productShowcase"] {
 }
 
 @media screen and (max-width: 1900px) {
-    .productShowcase {
-        max-width: 1385px;
+    .productShowcase-ProductCard {
+        max-width: 1340px;
     }
 }
 
 @media screen and (max-width: 1840px) {
-    .productShowcase {
+    .productShowcase-ProductCard {
         max-width: 1065px;
     }
 }
 
 @media screen and (max-width: 1560px) {
-    .productShowcase {
+    .productShowcase-ProductCard {
         max-width: 960px;
     }
 }
 
 @media screen and (max-width: 1360px) {
-    .productShowcase {
+    .productShowcase-ProductCard {
         max-width: 720px;
     }
 }
 
 @include tablet() {
-    .productShowcase {
+    .productShowcase-ProductCard {
         max-width: 1140px;
         width: fit-content;
         padding-left: 0;
@@ -52,19 +60,19 @@ div[class*="productShowcase"] {
 }
 
 @media screen and (max-width: 1200px) {
-    .productShowcase {
+    .productShowcase-ProductCard {
         width: 905px;
     }
 }
 
 @media screen and (max-width: 940px) {
-    .productShowcase {
+    .productShowcase-ProductCard {
         width: 670px;
     }
 }
 
 @media screen and (max-width: 710px) {
-    .productShowcase {
+    .productShowcase-ProductCard {
         justify-content: center;
     }
 }
