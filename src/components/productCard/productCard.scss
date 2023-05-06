@@ -60,9 +60,9 @@ a[class*="productLink-"] {
         height: 100%;
 
         .tooltip {
-            max-width: 100%;
-            min-width: 280px;
-            left: 0;
+            max-width: 280px;
+            width: fit-content;
+            left: -75px;
         }
     }
 
@@ -185,7 +185,7 @@ a[class*="productLink-"] {
     }
 }
 
-@media screen and (max-width: 1840px) {
+@media screen and (max-width: 1900px) {
     .ProductCard {
         width: 240px;
         max-height: 340px;
@@ -225,6 +225,7 @@ a[class*="productLink-"] {
 
 @include laptop() {
     .ProductRow {
+        font-size: 20px;
         &-header {
             font-size: 20px;
         }
@@ -243,6 +244,7 @@ a[class*="productLink-"] {
 
 @include tablet() {
     .ProductRow {
+        font-size: 14px;
         &-header {
             font-size: 14px;
         }
@@ -261,6 +263,7 @@ a[class*="productLink-"] {
 
 @media screen and (max-width: 440px) {
     .ProductRow {
+        font-size: 12px;
         &-header {
             font-size: 12px;
         }
