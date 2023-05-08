@@ -1,8 +1,10 @@
 @import "../../globalStyles/colors.scss";
+@import "../../globalStyles/breakpoints.scss";
 
 .sortArea {
     .DropdownWrapper {
         width: 100%;
+        max-width: 360px;
         height: 100%;
 
         .outsideClick {
@@ -50,6 +52,7 @@
     border-radius: 10px;
     display: flex;
     align-items: center;
+    max-width: 360px;
 
     &-option {
     }
@@ -74,5 +77,37 @@
 
     svg[class*="arrow-reverse"] {
         transform: translateY(-50%) rotate(180deg);
+    }
+}
+
+@include laptop() {
+    .productSort {
+        height: fit-content;
+        font-size: 20px;
+        padding: 8px 10px;
+
+        span[class*="productSort-placeholder"] {
+            width: 93%;
+        }
+    }
+}
+
+@include mobile() {
+    .productSort {
+        max-width: 300px;
+        font-size: 16px;
+        height: 31px;
+    }
+
+    .sortArea {
+        .DropdownWrapper {
+            max-width: 300px;
+            .DropdownMenu {
+                width: 100%;
+                div[class*="productSort-option"] {
+                    font-size: 16px;
+                }
+            }
+        }
     }
 }

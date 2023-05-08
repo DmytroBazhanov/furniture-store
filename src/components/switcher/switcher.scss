@@ -39,6 +39,12 @@
     }
 }
 
+@include laptop() {
+    .switcher {
+        height: 43px;
+    }
+}
+
 @include mobile() {
     .switcher {
         height: 31px;
