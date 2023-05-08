@@ -13,12 +13,12 @@ export const sortOptions = [
     },
     {
         id: "cheapToExpencive",
-        text: "From cheap to expencive",
+        text: "From cheap to expensive",
         sortFunctions: [orderBy("price", "asc")],
     },
     {
         id: "expenciveToCheap",
-        text: "From expencive to cheap",
+        text: "From expensive to cheap",
         sortFunctions: [orderBy("price", "desc")],
     },
     {
