@@ -7,10 +7,13 @@
     .sortArea {
         position: absolute;
         display: flex;
+        justify-content: flex-end;
         flex-direction: row;
+        column-gap: 20px;
         height: 45px;
         right: 0;
         top: -30px;
+        width: 25%;
     }
 
     .productArea {

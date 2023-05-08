@@ -11,6 +11,7 @@ import ProductFilters from "../../components/productFilters/ProductFilters";
 import Switcher from "../../components/switcher/Switcher";
 
 import "./plp.scss";
+import ProductSort from "../../components/productSort/ProductSort";
 
 export default function ProductListingPage() {
     const [products, setProducts] = useState([]);
@@ -28,12 +29,14 @@ export default function ProductListingPage() {
         return { ...buttonConfig, function: changeViewMode };
     });
 
-    const getProducts = () => {
+    const getProducts = (sortFunctions = [], ignoreSnapshot = false) => {
         const width = window.innerWidth;
-        const productLimit = getProductLimit(width);
+        const productLimit = ignoreSnapshot ? products.length : getProductLimit(width);
+        const snapshot = ignoreSnapshot ? null : lastFirebaseSnapshot;
 
-        getFilteredProducts(lastFirebaseSnapshot, productLimit, [
+        getFilteredProducts(snapshot, productLimit, [
             where("category", "==", categoryID),
+            ...sortFunctions,
         ]).then(({ products, lastProductFirebaseSnapshot }) => {
             setProducts(products);
             setSnapshot(lastProductFirebaseSnapshot);
@@ -47,6 +50,11 @@ export default function ProductListingPage() {
     return (
         <div className="ProductListingPage">
             <div className="sortArea">
+                <ProductSort
+                    setProducts={setProducts}
+                    setSnapshot={setSnapshot}
+                    getProducts={getProducts}
+                />
                 <Switcher buttons={viewSwitcherButtons} currentState={viewMode} />
             </div>
             <div className="productArea">

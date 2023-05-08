@@ -32,7 +32,7 @@ a[class*="productLink-"] {
 .ProductRow {
     display: grid;
     width: 100%;
-    grid-template-columns: 75px minmax(100px, 1fr) minmax(100px, 300px);
+    grid-template-columns: 75px minmax(80px, 1fr) minmax(125px, 300px);
     height: 65px;
     grid-auto-rows: 1fr;
     color: $black;
@@ -96,7 +96,12 @@ a[class*="productLink-"] {
         }
 
         .ProductRow-saleSign {
-            display: none;
+            display: flex;
+            position: absolute;
+            right: 52%;
+            top: -12px;
+            width: 30px;
+            transform: rotate(-60deg);
         }
 
         .ProductRow-stock {

@@ -1,0 +1,78 @@
+@import "../../globalStyles/colors.scss";
+
+.sortArea {
+    .DropdownWrapper {
+        width: 100%;
+        height: 100%;
+
+        .outsideClick {
+            height: 100%;
+        }
+
+        .Dropdown-PreviewElement {
+            height: 100%;
+        }
+
+        .DropdownMenu {
+            width: 100%;
+            top: 45px;
+            box-shadow: 0px 4px 12px $shadowBlack;
+            padding: 10px 0;
+
+            div[class*="productSort-option"] {
+                font-size: 20px;
+                margin-top: 10px;
+                padding: 10px 20px;
+
+                &:hover {
+                    background-color: $listGray;
+                }
+
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+
+            .productSort-option-active {
+                background-color: $transparentBlue;
+            }
+        }
+    }
+}
+
+.productSort {
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+    color: $gray;
+    border: solid 1px $black;
+    padding: 5px 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+
+    &-option {
+    }
+
+    span[class*="productSort-placeholder"] {
+        width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .productSort-placeholder-active {
+        color: $black;
+    }
+
+    svg[class*="arrow"] {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    svg[class*="arrow-reverse"] {
+        transform: translateY(-50%) rotate(180deg);
+    }
+}

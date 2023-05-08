@@ -13,7 +13,7 @@ export default function ProductShowcase({ products, viewMode = "ProductCard" }) 
                     price={prod.price}
                     inStock={prod.inStock}
                     imageUrl={prod.imageUrl}
-                    salePrice={prod.salePrice}
+                    originalPrice={prod.originalPrice}
                     mode={viewMode}
                 />
             ))}
