@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { sortOptions } from "./config";
 import { ReactComponent as Shevron } from "../../assets/Shevron.svg";
+import { FilterContext } from "../../pages/ProductListingPage/ProductListingPage";
 
 import DropdownMenu from "../dropdownMenu/DropdownMenu";
 
@@ -11,8 +12,16 @@ export default function ProductSort({ getProducts }) {
     const [isActive, setActive] = useState(false);
     const [currentOption, setOption] = useState("");
 
+    const { setFilters } = useContext(FilterContext);
+
     const handleOptionChange = async (sortOptionText, sortOptionID, sortFucntions) => {
-        getProducts(sortFucntions, true, true);
+        // getProducts(sortFucntions, true, true);
+        setFilters((prev) => {
+            return {
+                ...prev,
+                sortFunctions: sortFucntions,
+            };
+        });
         setPlaceholder(sortOptionText);
         setOption(sortOptionID);
         setActive(false);

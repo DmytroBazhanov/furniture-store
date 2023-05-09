@@ -1,4 +1,3 @@
-import Filter from "./Filter";
 import FilterGroup from "./FilterGroup";
 
 import "./productFilters.scss";
