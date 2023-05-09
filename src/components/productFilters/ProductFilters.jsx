@@ -11,7 +11,7 @@ export default function ProductFilters({ filters, getProducts }) {
                     key={filter.id}
                     name={filter.filterGroupName}
                     filters={filter.getProps}
-                    getProduct={getProducts}
+                    getProducts={getProducts}
                 />
             ))}
         </div>

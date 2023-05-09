@@ -12,7 +12,7 @@ export default function ProductSort({ getProducts }) {
     const [currentOption, setOption] = useState("");
 
     const handleOptionChange = async (sortOptionText, sortOptionID, sortFucntions) => {
-        getProducts(sortFucntions, true);
+        getProducts(sortFucntions, true, true);
         setPlaceholder(sortOptionText);
         setOption(sortOptionID);
         setActive(false);

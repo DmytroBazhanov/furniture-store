@@ -5,7 +5,7 @@ import Filter from "./Filter";
 
 import "./productFilters.scss";
 
-export default function FilterGroup({ name, filters, getProduct }) {
+export default function FilterGroup({ name, filters, getProducts }) {
     const [filterProperties, setProperties] = useState([]);
 
     const { categoryID } = useParams();
@@ -31,7 +31,7 @@ export default function FilterGroup({ name, filters, getProduct }) {
                             id={prop.id}
                             name={prop.name}
                             alias={prop.alias}
-                            getProducts={getProduct}
+                            getProducts={getProducts}
                         />
                     );
                 })}

@@ -4,8 +4,10 @@ import "./productFilters.scss";
 
 export default function Filter({ id, name, alias, getProducts }) {
     const handleChange = (event) => {
-        const state = event.target.value;
-        getProducts([where(name, "==", state)], true);
+        const state = event.target.checked;
+
+        if (state) getProducts([where("type", "==", name)], true);
+        else getProducts([], true);
     };
 
     return (

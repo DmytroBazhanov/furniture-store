@@ -30,9 +30,9 @@ export default function ProductListingPage() {
         return { ...buttonConfig, function: changeViewMode };
     });
 
-    const getProducts = (sortFunctions = [], ignoreSnapshot = false) => {
+    const getProducts = (sortFunctions = [], ignoreSnapshot = false, ignoreLimit = false) => {
         const width = window.innerWidth;
-        const productLimit = ignoreSnapshot ? products.length : getProductLimit(width);
+        const productLimit = ignoreLimit ? products.length : getProductLimit(width);
         const snapshot = ignoreSnapshot ? null : lastFirebaseSnapshot;
 
         getFilteredProducts(snapshot, productLimit, [
@@ -51,11 +51,7 @@ export default function ProductListingPage() {
     return (
         <div className="ProductListingPage">
             <div className="sortArea">
-                <ProductSort
-                    setProducts={setProducts}
-                    setSnapshot={setSnapshot}
-                    getProducts={getProducts}
-                />
+                <ProductSort getProducts={getProducts} />
                 <Switcher buttons={viewSwitcherButtons} currentState={viewMode} />
             </div>
             <div className="productArea">
