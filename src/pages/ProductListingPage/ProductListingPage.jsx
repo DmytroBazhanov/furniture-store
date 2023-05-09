@@ -6,6 +6,7 @@ import { getFilteredProducts } from "../../queries/products";
 import { useParams } from "react-router-dom";
 import { where } from "firebase/firestore";
 import { switcherButtons, viewModes } from "./config";
+import { filters as DefaultFilters } from "../../components/productFilters/config";
 
 import ProductFilters from "../../components/productFilters/ProductFilters";
 import Switcher from "../../components/switcher/Switcher";
@@ -58,7 +59,7 @@ export default function ProductListingPage() {
                 <Switcher buttons={viewSwitcherButtons} currentState={viewMode} />
             </div>
             <div className="productArea">
-                <ProductFilters />
+                <ProductFilters getProducts={getProducts} filters={DefaultFilters} />
                 <ProductShowcase products={products} viewMode={viewModes[viewMode]} />
             </div>
         </div>
