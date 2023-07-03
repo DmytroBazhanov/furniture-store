@@ -1,1 +1,2 @@
-export const FRACTAL_LENGHT = 3; // 3px
+export const RANGE_CONTROLLER_SIZE = 20;
+export const CONTROLLER_PADDING_FROM_RANGE_START = 10;

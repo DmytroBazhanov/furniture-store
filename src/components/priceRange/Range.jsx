@@ -1,12 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import { getEdgePrices } from "../../queries/filters";
-import { FRACTAL_LENGHT } from "./config";
+import { CONTROLLER_PADDING_FROM_RANGE_START, RANGE_CONTROLLER_SIZE } from "./config";
 
-export default function Range({ firstEdgeValue, secondEdgeValue }) {
-    const [minPrice, setMin] = useState(0);
-    const [maxPrice, setMax] = useState(0);
-    const [firstRangeValue, setFirstValue] = useState(0);
-    const [secondRangeValue, setSecondValue] = useState(0);
+export default function Range({ setMin, setMax }) {
+    const [firstRangeValue, setFirstRangeValue] = useState(0);
+    const [secondRangeValue, setSecondRangeValue] = useState(0);
+    const [fractalPrice, setFracPrice] = useState(0);
+    const [minPossibleValue, setMinPossible] = useState(0);
+    const [maxPossibleValue, setMaxPossible] = useState(0);
 
     const rangeRef = useRef(null);
 
@@ -18,40 +19,79 @@ export default function Range({ firstEdgeValue, secondEdgeValue }) {
 
         setMin(min);
         setMax(max);
+        setMinPossible(min);
+        setMaxPossible(max);
 
-        const fractalCount = rangeRef.current.offsetWidth;
-        const fractalPrice = (max - min) / fractalCount;
+        const fractalCount = rangeRef.current.offsetWidth - RANGE_CONTROLLER_SIZE;
+        setFracPrice((max - min) / fractalCount);
     };
 
-    const move = (event) => {
+    const moveRight = (event) => {
         const elemRect = rangeRef.current.getBoundingClientRect();
-        const start = elemRect.left + 10;
-        const end = rangeRef.current.offsetWidth - 20;
-        console.log(end);
-        if (event.pageX <= start) {
-            setFirstValue(0);
-        } else if (event.pageX - start >= secondRangeValue - 20) {
-            setFirstValue(end - 20);
+        const rangeStart = elemRect.left - CONTROLLER_PADDING_FROM_RANGE_START;
+        const rangeEnd = rangeRef.current.offsetWidth + CONTROLLER_PADDING_FROM_RANGE_START;
+
+        if (event.pageX >= rangeEnd) {
+            setSecondRangeValue(
+                rangeEnd - RANGE_CONTROLLER_SIZE - CONTROLLER_PADDING_FROM_RANGE_START
+            );
+            setMax(maxPossibleValue);
+        } else if (
+            event.pageX <=
+            firstRangeValue + RANGE_CONTROLLER_SIZE * 2 + CONTROLLER_PADDING_FROM_RANGE_START
+        ) {
+            setSecondRangeValue(firstRangeValue + RANGE_CONTROLLER_SIZE);
+            setMax(minPossibleValue + firstRangeValue * fractalPrice);
         } else {
-            setFirstValue(event.pageX - start);
+            setSecondRangeValue(event.pageX - rangeStart * 2 - 10);
+            setMax(minPossibleValue + (event.pageX - rangeStart) * fractalPrice);
         }
     };
 
-    const startDrag = (event) => {
-        document.addEventListener("mousemove", move);
-        document.addEventListener("mouseup", endDrag);
+    const startRightDrag = () => {
+        document.addEventListener("mousemove", moveRight);
+        document.addEventListener("mouseup", endRightDrag);
         document.body.style.userSelect = "none";
     };
 
-    const endDrag = (event) => {
-        document.removeEventListener("mousemove", move);
-        document.removeEventListener("mouseup", endDrag);
+    const endRightDrag = () => {
+        document.removeEventListener("mousemove", moveRight);
+        document.removeEventListener("mouseup", endRightDrag);
+        document.body.style.userSelect = "auto";
+    };
+
+    const moveLeft = (event) => {
+        const elemRect = rangeRef.current.getBoundingClientRect();
+        const rangeStart = elemRect.left + CONTROLLER_PADDING_FROM_RANGE_START;
+        const rangeEnd = rangeRef.current.offsetWidth - RANGE_CONTROLLER_SIZE;
+
+        if (event.pageX <= rangeStart) {
+            setFirstRangeValue(0);
+            setMin(minPossibleValue);
+        } else if (event.pageX - rangeStart >= secondRangeValue - RANGE_CONTROLLER_SIZE) {
+            setFirstRangeValue(secondRangeValue - RANGE_CONTROLLER_SIZE);
+            setMin(minPossibleValue + secondRangeValue * fractalPrice);
+        } else {
+            setFirstRangeValue(event.pageX - rangeStart);
+            setMin(minPossibleValue + (event.pageX - rangeStart) * fractalPrice);
+        }
+    };
+
+    const startLeftDrag = () => {
+        document.addEventListener("mousemove", moveLeft);
+        document.addEventListener("mouseup", endLeftDrag);
+        document.body.style.userSelect = "none";
+    };
+
+    const endLeftDrag = () => {
+        document.removeEventListener("mousemove", moveLeft);
+        document.removeEventListener("mouseup", endLeftDrag);
         document.body.style.userSelect = "auto";
     };
 
     useEffect(() => {
         getPrices();
-        setSecondValue(rangeRef.current.offsetWidth - 20);
+        setSecondRangeValue(rangeRef.current.offsetWidth - RANGE_CONTROLLER_SIZE);
     }, []);
 
     return (
@@ -60,13 +100,14 @@ export default function Range({ firstEdgeValue, secondEdgeValue }) {
                 className="firstEdge"
                 id="firstEdge"
                 style={{ left: firstRangeValue }}
-                onMouseDown={startDrag}
-            >
-                {firstEdgeValue}
-            </div>
-            <div className="secondEdge" id="secondEdge" style={{ left: secondRangeValue }}>
-                {secondEdgeValue}
-            </div>
+                onMouseDown={startLeftDrag}
+            ></div>
+            <div
+                className="secondEdge"
+                id="secondEdge"
+                style={{ left: secondRangeValue }}
+                onMouseDown={startRightDrag}
+            ></div>
         </div>
     );
 }
