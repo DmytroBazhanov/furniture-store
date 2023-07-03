@@ -91,12 +91,12 @@ export async function getFilteredProducts(lastProduct, productLimit, filterFunct
 
         const productsCollection = await getDocs(collectionQuery);
 
-        if (productsCollection.docs.length === 0 && lastProduct === null) {
-            throw new Error(
-                "Empty collection",
-                "Response received but the collection is empty, it is possible that collection name was specified wrongly"
-            );
-        }
+        // if (productsCollection.docs.length === 0 && lastProduct === null) {
+        //     throw new Error(
+        //         "Empty collection",
+        //         "Response received but the collection is empty, it is possible that collection name was specified wrongly"
+        //     );
+        // }
 
         const products = [];
 
@@ -110,7 +110,7 @@ export async function getFilteredProducts(lastProduct, productLimit, filterFunct
             });
         });
 
-        const lastDoc = productsCollection.docs[productsCollection.docs.length - 1];
+        const lastDoc = productsCollection.docs[productsCollection.docs.length - 1] ?? null;
 
         return {
             products,

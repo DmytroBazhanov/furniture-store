@@ -18,6 +18,9 @@ import { filterObjecttIntoArray } from "../../utils/filterObjectIntoArray";
 export const FilterContext = createContext(null);
 
 export default function ProductListingPage() {
+    //flags
+    const [firstLoad, setFirstLoad] = useState(true);
+    // states
     const [products, setProducts] = useState([]);
     const [lastFirebaseSnapshot, setSnapshot] = useState(null);
     const [viewMode, setViewMode] = useState("card");
@@ -49,9 +52,10 @@ export default function ProductListingPage() {
     };
 
     useEffect(() => {
-        if (products.length !== 0) {
+        if (!firstLoad) {
             getProducts(filterObjecttIntoArray(filters), true);
         }
+        setFirstLoad(false);
     }, [filters]);
 
     useEffect(() => {
