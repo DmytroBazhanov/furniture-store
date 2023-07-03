@@ -30,8 +30,8 @@ export default function Range({ firstEdgeValue, secondEdgeValue }) {
         console.log(end);
         if (event.pageX <= start) {
             setFirstValue(0);
-        } else if (event.pageX - start >= end) {
-            setFirstValue(end);
+        } else if (event.pageX - start >= secondRangeValue - 20) {
+            setFirstValue(end - 20);
         } else {
             setFirstValue(event.pageX - start);
         }
@@ -40,15 +40,18 @@ export default function Range({ firstEdgeValue, secondEdgeValue }) {
     const startDrag = (event) => {
         document.addEventListener("mousemove", move);
         document.addEventListener("mouseup", endDrag);
+        document.body.style.userSelect = "none";
     };
 
     const endDrag = (event) => {
         document.removeEventListener("mousemove", move);
         document.removeEventListener("mouseup", endDrag);
+        document.body.style.userSelect = "auto";
     };
 
     useEffect(() => {
         getPrices();
+        setSecondValue(rangeRef.current.offsetWidth - 20);
     }, []);
 
     return (
@@ -58,12 +61,10 @@ export default function Range({ firstEdgeValue, secondEdgeValue }) {
                 id="firstEdge"
                 style={{ left: firstRangeValue }}
                 onMouseDown={startDrag}
-                // onMouseDown={handleMouseDown}
-                // onMouseUp={handleMouseUp}
             >
                 {firstEdgeValue}
             </div>
-            <div className="secondEdge" id="secondEdge" style={{ right: secondRangeValue }}>
+            <div className="secondEdge" id="secondEdge" style={{ left: secondRangeValue }}>
                 {secondEdgeValue}
             </div>
         </div>
