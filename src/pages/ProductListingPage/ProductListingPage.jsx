@@ -14,6 +14,7 @@ import ProductSort from "../../components/productSort/ProductSort";
 
 import "./plp.scss";
 import { filterObjecttIntoArray } from "../../utils/filterObjectIntoArray";
+import PriceRange from "../../components/priceRange/PriceRange";
 
 export const FilterContext = createContext(null);
 
@@ -64,6 +65,7 @@ export default function ProductListingPage() {
 
     return (
         <div className="ProductListingPage">
+            <PriceRange />
             <FilterContext.Provider value={{ filters: filters, setFilters: setFilters }}>
                 <div className="sortArea">
                     <ProductSort getProducts={getProducts} />

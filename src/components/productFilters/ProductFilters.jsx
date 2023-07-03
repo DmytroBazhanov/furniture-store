@@ -1,3 +1,4 @@
+import PriceRange from "../priceRange/PriceRange";
 import FilterGroup from "./FilterGroup";
 
 import "./productFilters.scss";
@@ -13,6 +14,7 @@ export default function ProductFilters({ filters, getProducts }) {
                     getProducts={getProducts}
                 />
             ))}
+            <PriceRange />
         </div>
     );
 }
