@@ -50,8 +50,8 @@ export default function Filter({ id, name, alias, getProducts }) {
 
     return (
         <div className="filter" id={id}>
-            <label>{alias}</label>
             <input type="checkbox" onChange={handleChange} />
+            <label>{alias}</label>
         </div>
     );
 }
