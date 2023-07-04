@@ -6,24 +6,31 @@
     flex-direction: column;
     width: 100%;
 
-    .priceRangeHeader {
+    .rangeContainer {
+        .sliderPath {
+            position: absolute;
+            top: 2px;
+            height: 5px;
+            background-color: gray;
+            border-radius: 20px;
+        }
     }
 
-    .minEdge {
-    }
     .inputContainer {
         display: flex;
+        position: absolute;
         flex-direction: column;
         width: fit-content;
 
-        .maxEdge {
+        input[type="range"] {
             z-index: 3;
             -moz-appearance: none;
             -webkit-appearance: none;
             // transform: rotate(180deg);
             border-radius: 20px;
+            pointer-events: none;
             height: 8px;
-            background-color: rgba(255, 0, 0, 0.115);
+            background-color: transparent;
             outline: none;
             width: 200px;
 
@@ -33,6 +40,7 @@
                 height: 16px;
                 border-radius: 100%;
                 background-color: yellow;
+                pointer-events: auto;
             }
 
             &::-moz-range-thumb {
@@ -41,6 +49,7 @@
                 height: 16px;
                 border-radius: 100%;
                 background-color: yellow;
+                pointer-events: auto;
             }
 
             &::-ms-thumb {
@@ -49,18 +58,25 @@
                 height: 16px;
                 border-radius: 100%;
                 background-color: yellow;
+                pointer-events: auto;
             }
         }
         .tail {
             background-color: black;
             width: 20px;
-            height: 8px;
+            height: 5px;
             border-radius: 20px;
             position: absolute;
             // left: 1px;
             z-index: 1;
             pointer-events: none;
             right: 0;
+            top: 2px;
+        }
+
+        #tail2 {
+            width: 0;
+            left: 1px;
         }
     }
 }
