@@ -9,29 +9,58 @@
     .priceRangeHeader {
     }
 
-    .range {
-        position: relative;
+    .minEdge {
+    }
+    .inputContainer {
         display: flex;
-        background-color: $transparentBlue;
-        width: 100%;
-        height: 7px;
-        border-radius: 5px;
+        flex-direction: column;
+        width: fit-content;
 
-        @mixin edge {
-            position: absolute;
+        .maxEdge {
+            z-index: 3;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            // transform: rotate(180deg);
+            border-radius: 20px;
+            height: 8px;
+            background-color: rgba(255, 0, 0, 0.115);
+            outline: none;
+            width: 200px;
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                border-radius: 100%;
+                background-color: yellow;
+            }
+
+            &::-moz-range-thumb {
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                border-radius: 100%;
+                background-color: yellow;
+            }
+
+            &::-ms-thumb {
+                appearance: none;
+                width: 16px;
+                height: 16px;
+                border-radius: 100%;
+                background-color: yellow;
+            }
+        }
+        .tail {
+            background-color: black;
             width: 20px;
-            height: 20px;
-            background-color: $blue;
-            border-radius: 100%;
-            top: -6px;
-        }
-
-        .firstEdge {
-            @include edge();
-        }
-
-        .secondEdge {
-            @include edge();
+            height: 8px;
+            border-radius: 20px;
+            position: absolute;
+            // left: 1px;
+            z-index: 1;
+            pointer-events: none;
+            right: 0;
         }
     }
 }
