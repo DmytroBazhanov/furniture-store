@@ -10,6 +10,7 @@ export default function PriceRange() {
         <div className="priceRangeContainer">
             <h1 className="priceRangeHeader filterGroupName">Price range</h1>
             <Range minPrice={minPrice} maxPrice={maxPrice} setMax={setMax} setMin={setMin} />
+            <br />
             {minPrice}
             ||
             {maxPrice}

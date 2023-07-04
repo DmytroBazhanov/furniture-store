@@ -22,30 +22,12 @@ export default function Range({ setMin, setMax }) {
         setMinPossible(min);
         setMaxPossible(max);
 
-        const fractalCount = rangeRef.current.offsetWidth - RANGE_CONTROLLER_SIZE;
+        const fractalCount = rangeRef.current.offsetWidth - RANGE_CONTROLLER_SIZE * 2;
         setFracPrice((max - min) / fractalCount);
     };
 
     const moveRight = (event) => {
         const elemRect = rangeRef.current.getBoundingClientRect();
-        const rangeStart = elemRect.left - CONTROLLER_PADDING_FROM_RANGE_START;
-        const rangeEnd = rangeRef.current.offsetWidth + CONTROLLER_PADDING_FROM_RANGE_START;
-
-        if (event.pageX >= rangeEnd) {
-            setSecondRangeValue(
-                rangeEnd - RANGE_CONTROLLER_SIZE - CONTROLLER_PADDING_FROM_RANGE_START
-            );
-            setMax(maxPossibleValue);
-        } else if (
-            event.pageX <=
-            firstRangeValue + RANGE_CONTROLLER_SIZE * 2 + CONTROLLER_PADDING_FROM_RANGE_START
-        ) {
-            setSecondRangeValue(firstRangeValue + RANGE_CONTROLLER_SIZE);
-            setMax(minPossibleValue + firstRangeValue * fractalPrice);
-        } else {
-            setSecondRangeValue(event.pageX - rangeStart * 2 - 10);
-            setMax(minPossibleValue + (event.pageX - rangeStart) * fractalPrice);
-        }
     };
 
     const startRightDrag = () => {
@@ -62,18 +44,17 @@ export default function Range({ setMin, setMax }) {
 
     const moveLeft = (event) => {
         const elemRect = rangeRef.current.getBoundingClientRect();
-        const rangeStart = elemRect.left + CONTROLLER_PADDING_FROM_RANGE_START;
-        const rangeEnd = rangeRef.current.offsetWidth - RANGE_CONTROLLER_SIZE;
-
-        if (event.pageX <= rangeStart) {
+        // console.log(event.pageX);
+        console.log(elemRect.left);
+        if (event.pageX <= elemRect.left + 11) {
             setFirstRangeValue(0);
             setMin(minPossibleValue);
-        } else if (event.pageX - rangeStart >= secondRangeValue - RANGE_CONTROLLER_SIZE) {
-            setFirstRangeValue(secondRangeValue - RANGE_CONTROLLER_SIZE);
-            setMin(minPossibleValue + secondRangeValue * fractalPrice);
+        } else if (event.pageX >= secondRangeValue + 10) {
+            setFirstRangeValue(secondRangeValue - 20);
+            setMin(maxPossibleValue);
         } else {
-            setFirstRangeValue(event.pageX - rangeStart);
-            setMin(minPossibleValue + (event.pageX - rangeStart) * fractalPrice);
+            setFirstRangeValue(event.pageX - elemRect.left - 10);
+            setMin((event.pageX - RANGE_CONTROLLER_SIZE) * fractalPrice);
         }
     };
 
