@@ -4,7 +4,7 @@ import { FilterContext } from "../../pages/ProductListingPage/ProductListingPage
 
 import "./productFilters.scss";
 
-export default function Filter({ id, name, alias, getProducts }) {
+export default function Filter({ id, name, alias }) {
     const { setFilters } = useContext(FilterContext);
 
     const handleChange = (event) => {
@@ -30,7 +30,18 @@ export default function Filter({ id, name, alias, getProducts }) {
                     filters: [...filters, name],
                 };
             });
-        } else
+        } else {
+            if (name === "inStock") {
+                setFilters((prev) => {
+                    const newFilters = { ...prev };
+                    delete newFilters[name];
+
+                    return newFilters;
+                });
+
+                return;
+            }
+
             setFilters((prev) => {
                 const newFiltersObject = { ...prev };
                 if (newFiltersObject.filters) {
@@ -44,8 +55,7 @@ export default function Filter({ id, name, alias, getProducts }) {
 
                 return newFiltersObject;
             });
-        // if (state) getProducts([where("type", "==", name)], true);
-        // else getProducts([], true);
+        }
     };
 
     return (

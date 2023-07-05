@@ -8,6 +8,8 @@ export function filterObjecttIntoArray(filterObject) {
             result = [...result, where("type", "in", filterObject[key])];
         } else if (key === "sortFunctions") {
             result = [...result, ...filterObject[key]];
+        } else if (key === "inStock") {
+            result = [...result, filterObject[key]];
         } else if (key === "sortingPrice") {
             // { ..., sortingPrice: [min, max] }
             result = [
