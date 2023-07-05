@@ -1,6 +1,22 @@
 @import "../../globalStyles/colors.scss";
 @import "../../globalStyles/breakpoints.scss";
 
+@mixin sliderThumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background-color: $rangeBlue;
+    pointer-events: auto;
+    border: solid $black 1px;
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
 .priceRangeContainer {
     display: flex;
     flex-direction: column;
@@ -11,7 +27,7 @@
             position: absolute;
             top: 2px;
             height: 5px;
-            background-color: gray;
+            background-color: $transparentBlue;
             border-radius: 20px;
         }
     }
@@ -26,7 +42,6 @@
             z-index: 3;
             -moz-appearance: none;
             -webkit-appearance: none;
-            // transform: rotate(180deg);
             border-radius: 20px;
             pointer-events: none;
             height: 8px;
@@ -35,39 +50,23 @@
             width: 200px;
 
             &::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                width: 16px;
-                height: 16px;
-                border-radius: 100%;
-                background-color: yellow;
-                pointer-events: auto;
+                @include sliderThumb();
             }
 
             &::-moz-range-thumb {
-                -webkit-appearance: none;
-                width: 16px;
-                height: 16px;
-                border-radius: 100%;
-                background-color: yellow;
-                pointer-events: auto;
+                @include sliderThumb();
             }
 
             &::-ms-thumb {
-                appearance: none;
-                width: 16px;
-                height: 16px;
-                border-radius: 100%;
-                background-color: yellow;
-                pointer-events: auto;
+                @include sliderThumb();
             }
         }
         .tail {
-            background-color: black;
+            background-color: $rangeBlue;
             width: 20px;
             height: 5px;
             border-radius: 20px;
             position: absolute;
-            // left: 1px;
             z-index: 1;
             pointer-events: none;
             right: 0;
