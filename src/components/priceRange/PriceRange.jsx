@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Range from "./Range";
+import InformationDisplay from "./InformationDisplay";
+
 import "./priceRange.scss";
 
 export default function PriceRange({ width = 200 }) {
@@ -7,8 +9,8 @@ export default function PriceRange({ width = 200 }) {
     const [maxPrice, setMax] = useState(0);
 
     return (
-        <div className="priceRangeContainer">
-            <h1 className="priceRangeHeader filterGroupName">Price range</h1>
+        <div className="priceRangeContainer" style={{ width: width }}>
+            <h1 className="priceRangeHeader">Price range</h1>
             <Range
                 minPrice={minPrice}
                 maxPrice={maxPrice}
@@ -16,10 +18,7 @@ export default function PriceRange({ width = 200 }) {
                 setMin={setMin}
                 width={width}
             />
-            <br />
-            {minPrice}
-            ||
-            {maxPrice}
+            <InformationDisplay minPrice={minPrice} maxPrice={maxPrice} currency={"USD $"} />
         </div>
     );
 }

@@ -4,12 +4,13 @@
 @mixin sliderThumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 100%;
     background-color: $rangeBlue;
     pointer-events: auto;
     border: solid $black 1px;
+    margin-top: 3px;
     cursor: grab;
 
     &:active {
@@ -20,13 +21,55 @@
 .priceRangeContainer {
     display: flex;
     flex-direction: column;
+    row-gap: 20px;
     width: 100%;
 
+    .priceRangeHeader {
+        font-size: 38px;
+        margin-bottom: 4px;
+    }
+
+    .informationDisplay {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10px;
+
+        .numberPlace {
+            width: 100%;
+            max-width: 80px;
+            padding: 6px 0px;
+            border: solid $black 1px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0px 0px 3px $black;
+
+            &::-webkit-outer-spin-button {
+                display: none;
+            }
+
+            &::-webkit-inner-spin-button {
+                display: none;
+            }
+        }
+
+        .currency {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: $blue;
+        }
+    }
+
     .rangeContainer {
+        width: 100%;
         .sliderPath {
             position: absolute;
             top: 2px;
-            height: 5px;
+            height: 8px;
             background-color: $transparentBlue;
             border-radius: 20px;
         }
@@ -36,7 +79,7 @@
         display: flex;
         position: absolute;
         flex-direction: column;
-        width: fit-content;
+        width: 100%;
 
         input[type="range"] {
             z-index: 3;
@@ -47,7 +90,7 @@
             height: 8px;
             background-color: transparent;
             outline: none;
-            width: 200px;
+            width: 100%;
 
             &::-webkit-slider-thumb {
                 @include sliderThumb();
@@ -64,7 +107,7 @@
         .tail {
             background-color: $rangeBlue;
             width: 20px;
-            height: 5px;
+            height: 8px;
             border-radius: 20px;
             position: absolute;
             z-index: 1;

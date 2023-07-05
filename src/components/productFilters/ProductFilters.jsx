@@ -14,7 +14,7 @@ export default function ProductFilters({ filters, getProducts }) {
                     getProducts={getProducts}
                 />
             ))}
-            <PriceRange />
+            <PriceRange width={300} />
         </div>
     );
 }

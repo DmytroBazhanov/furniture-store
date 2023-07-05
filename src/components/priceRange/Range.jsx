@@ -10,21 +10,27 @@ export default function Range({ minPrice, maxPrice, setMin, setMax, width }) {
 
     const handleMinChange = (event) => {
         const val = Number(event.target.value);
-        if (maxPrice >= val) setMin(val);
-        else setMin(maxPrice);
-        secondTailRef.current.style.width = `${
-            (200 / 100) * ((val / maxPossibleValue) * 100) - 1
-        }px`;
+        if (maxPrice >= val) {
+            setMin(val);
+            secondTailRef.current.style.width = `${
+                (width / 100) * ((val / maxPossibleValue) * 100) - 1
+            }px`;
+        } else setMin(maxPrice);
     };
 
     const handleMaxChange = (event) => {
         const val = Number(event.target.value);
-        if (minPrice <= val) setMax(val);
-        else setMax(minPrice);
-        // tailRef.current.style.width = `${(200 / 100) * ((val / maxPossibleValue) * 100) - 1}px`; // for min
-        tailRef.current.style.width = `${
-            width - (width / 100) * ((val / maxPossibleValue) * 100)
-        }px`; // for max
+        if (minPrice <= val) {
+            setMax(val);
+            tailRef.current.style.width = `${
+                width - (width / 100) * ((val / maxPossibleValue) * 100)
+            }px`;
+        } else {
+            setMax(minPrice);
+            tailRef.current.style.width = `${
+                width - (width / 100) * ((minPrice / maxPossibleValue) * 100)
+            }px`;
+        }
     };
 
     useEffect(() => {
