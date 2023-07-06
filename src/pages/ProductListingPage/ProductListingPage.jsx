@@ -65,7 +65,6 @@ export default function ProductListingPage() {
 
     return (
         <div className="ProductListingPage">
-            <PriceRange />
             <FilterContext.Provider value={{ filters: filters, setFilters: setFilters }}>
                 <div className="sortArea">
                     <ProductSort getProducts={getProducts} />

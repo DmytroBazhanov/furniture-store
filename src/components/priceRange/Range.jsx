@@ -6,7 +6,6 @@ export default forwardRef(function Range(props, ref) {
         maxPrice,
         handleMinChange,
         handleMaxChange,
-        width,
         maxPossibleValue,
         minPossibleValue,
     } = props;
@@ -25,7 +24,7 @@ export default forwardRef(function Range(props, ref) {
                 />
                 <div className="tail" id="tail1" ref={ref[0]}></div>
             </div>
-            <div className="sliderPath" style={{ width: width }}></div>
+            <div className="sliderPath"></div>
             <div className="inputContainer">
                 <input
                     className="minEdge"

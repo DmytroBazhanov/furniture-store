@@ -5,7 +5,7 @@ import InformationDisplay from "./InformationDisplay";
 
 import "./priceRange.scss";
 
-export default function PriceRange({ width = 200 }) {
+export default function PriceRange() {
     const [minPrice, setMin] = useState(0);
     const [maxPrice, setMax] = useState(0);
     const [minPossibleValue, setMinPossible] = useState(0);
@@ -13,9 +13,12 @@ export default function PriceRange({ width = 200 }) {
 
     const tailRef = useRef(null);
     const secondTailRef = useRef(null);
+    const rangeContainerRef = useRef(null);
 
     const handleMaxChange = (event, value = null) => {
         const val = value ?? Number(event.target.value);
+        const width = rangeContainerRef.current.offsetWidth;
+
         if (minPrice <= val) {
             setMax(val);
             tailRef.current.style.width = `${
@@ -31,6 +34,8 @@ export default function PriceRange({ width = 200 }) {
 
     const handleMinChange = (event, value = null) => {
         const val = value ?? Number(event.target.value);
+        const width = rangeContainerRef.current.offsetWidth;
+
         if (maxPrice >= val) {
             setMin(val);
             secondTailRef.current.style.width = `${
@@ -50,7 +55,7 @@ export default function PriceRange({ width = 200 }) {
     }, []);
 
     return (
-        <div className="priceRangeContainer" style={{ width: width }}>
+        <div className="priceRangeContainer" ref={rangeContainerRef}>
             <h1 className="priceRangeHeader">Price range</h1>
             <Range
                 minPrice={minPrice}
@@ -59,7 +64,6 @@ export default function PriceRange({ width = 200 }) {
                 handleMaxChange={handleMaxChange}
                 maxPossibleValue={maxPossibleValue}
                 minPossibleValue={minPossibleValue}
-                width={width}
                 ref={[tailRef, secondTailRef]}
             />
             <InformationDisplay

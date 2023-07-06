@@ -23,16 +23,20 @@ export default function InformationDisplay({
         if (currentMaxValue >= maxPossibleValue) {
             handleMaxChange(null, maxPossibleValue);
             setCurrentMax(maxPossibleValue);
-        } else if (currentMaxValue <= minPrice) handleMaxChange(null, minPrice);
-        else handleMaxChange(null, currentMaxValue);
+        } else if (currentMaxValue <= minPrice) {
+            handleMaxChange(null, minPrice);
+            setCurrentMax(minPrice);
+        } else handleMaxChange(null, currentMaxValue);
     };
 
     const handleMinValueChange = () => {
         if (currentMinValue >= maxPrice) {
             handleMinChange(null, maxPrice);
+            setCurrentMin(maxPrice);
+        } else if (currentMinValue <= minPossibleValue) {
+            handleMinChange(null, minPossibleValue);
             setCurrentMin(minPossibleValue);
-        } else if (currentMinValue <= minPossibleValue) handleMinChange(null, minPossibleValue);
-        else handleMinChange(null, currentMinValue);
+        } else handleMinChange(null, currentMinValue);
     };
 
     const handleCurrentMinChage = (event) => setCurrentMin(event.target.value);
