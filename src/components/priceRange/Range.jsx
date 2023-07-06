@@ -1,47 +1,15 @@
-import { useState, useEffect, useRef } from "react";
-import { getEdgePrices } from "../../queries/filters";
+import { forwardRef } from "react";
 
-export default function Range({ minPrice, maxPrice, setMin, setMax, width }) {
-    const [minPossibleValue, setMinPossible] = useState(0);
-    const [maxPossibleValue, setMaxPossible] = useState(0);
-
-    const tailRef = useRef(null);
-    const secondTailRef = useRef(null);
-
-    const handleMinChange = (event) => {
-        const val = Number(event.target.value);
-        if (maxPrice >= val) {
-            setMin(val);
-            secondTailRef.current.style.width = `${
-                (width / 100) * ((val / maxPossibleValue) * 100) - 1
-            }px`;
-        } else setMin(maxPrice);
-    };
-
-    const handleMaxChange = (event) => {
-        const val = Number(event.target.value);
-        if (minPrice <= val) {
-            setMax(val);
-            tailRef.current.style.width = `${
-                width - (width / 100) * ((val / maxPossibleValue) * 100)
-            }px`;
-        } else {
-            setMax(minPrice);
-            tailRef.current.style.width = `${
-                width - (width / 100) * ((minPrice / maxPossibleValue) * 100)
-            }px`;
-        }
-    };
-
-    useEffect(() => {
-        getEdgePrices("kitchen").then((values) => {
-            setMinPossible(values[0]);
-            setMaxPossible(values[1]);
-            setMin(values[0]);
-            setMax(values[1]);
-            tailRef.current.style.width = `0px`;
-        });
-    }, []);
+export default forwardRef(function Range(props, ref) {
+    const {
+        minPrice,
+        maxPrice,
+        handleMinChange,
+        handleMaxChange,
+        width,
+        maxPossibleValue,
+        minPossibleValue,
+    } = props;
 
     return (
         <div className="rangeContainer">
@@ -55,7 +23,7 @@ export default function Range({ minPrice, maxPrice, setMin, setMax, width }) {
                     step={0.01}
                     onChange={handleMaxChange}
                 />
-                <div className="tail" id="tail1" ref={tailRef}></div>
+                <div className="tail" id="tail1" ref={ref[0]}></div>
             </div>
             <div className="sliderPath" style={{ width: width }}></div>
             <div className="inputContainer">
@@ -68,8 +36,8 @@ export default function Range({ minPrice, maxPrice, setMin, setMax, width }) {
                     step={0.01}
                     onChange={handleMinChange}
                 />
-                <div className="tail" id="tail2" ref={secondTailRef}></div>
+                <div className="tail" id="tail2" ref={ref[1]}></div>
             </div>
         </div>
     );
-}
+});
