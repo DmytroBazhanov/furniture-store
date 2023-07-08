@@ -33,7 +33,7 @@ export default forwardRef(function Range(props, ref) {
                     max={maxPossibleValue}
                     value={maxPrice}
                     step={0.01}
-                    onChange={handleMaxValueChange}
+                    onInput={handleMaxValueChange}
                 />
                 <div className="tail" id="tail1" ref={ref[0]}></div>
             </div>
@@ -46,7 +46,7 @@ export default forwardRef(function Range(props, ref) {
                     max={maxPossibleValue}
                     value={minPrice}
                     step={0.01}
-                    onChange={handleMinValueChange}
+                    onInput={handleMinValueChange}
                 />
                 <div className="tail" id="tail2" ref={ref[1]}></div>
             </div>
