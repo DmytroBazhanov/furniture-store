@@ -6,6 +6,7 @@ import { where } from "firebase/firestore";
 import { switcherButtons, viewModes } from "./config";
 import { filters as DefaultFilters } from "../../components/productFilters/config";
 import { createContext } from "react";
+import { filterObjecttIntoArray } from "../../utils/filterObjectIntoArray";
 
 import ProductFilters from "../../components/productFilters/ProductFilters";
 import Switcher from "../../components/switcher/Switcher";
@@ -13,15 +14,12 @@ import ProductShowcase from "../../components/productShowcase/ProductShowcase";
 import ProductSort from "../../components/productSort/ProductSort";
 
 import "./plp.scss";
-import { filterObjecttIntoArray } from "../../utils/filterObjectIntoArray";
-import PriceRange from "../../components/priceRange/PriceRange";
 
 export const FilterContext = createContext(null);
 
 export default function ProductListingPage() {
-    //flags
     const [firstLoad, setFirstLoad] = useState(true);
-    // states
+
     const [products, setProducts] = useState([]);
     const [lastFirebaseSnapshot, setSnapshot] = useState(null);
     const [viewMode, setViewMode] = useState("card");
@@ -55,7 +53,6 @@ export default function ProductListingPage() {
     useEffect(() => {
         if (!firstLoad) {
             getProducts(filterObjecttIntoArray(filters), true);
-            console.log("filtered products");
         }
         setFirstLoad(false);
     }, [filters]);

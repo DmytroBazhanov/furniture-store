@@ -10,12 +10,11 @@ export function filterObjecttIntoArray(filterObject) {
             result = [...result, ...filterObject[key]];
         } else if (key === "inStock") {
             result = [...result, filterObject[key]];
-        } else if (key === "sortingPrice") {
-            // { ..., sortingPrice: [min, max] }
+        } else if (key === "price") {
             result = [
                 ...result,
-                where("price", ">=", filterObject[key][0]),
-                where("price", "<=", filterObject[key][1]),
+                where("price", ">=", filterObject[key]["minPrice"]),
+                where("price", "<=", filterObject[key]["maxPrice"]),
             ];
         }
     });
