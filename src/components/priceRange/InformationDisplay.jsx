@@ -8,6 +8,7 @@ export default function InformationDisplay({
     handleMinChange,
     minPossibleValue,
     maxPossibleValue,
+    applyFilters,
 }) {
     const [currentMinValue, setCurrentMin] = useState(0);
     const [currentMaxValue, setCurrentMax] = useState(0);
@@ -15,32 +16,43 @@ export default function InformationDisplay({
     const handleChangeConfirmation = (event) => {
         if (event.key !== "Enter") return;
 
-        handleMinValueChange();
-        handleMaxValueChange();
+        const min = handleMinValueChange();
+        const max = handleMaxValueChange();
+        applyFilters(true, max, min);
     };
 
     const handleMaxValueChange = () => {
         if (currentMaxValue >= maxPossibleValue) {
             handleMaxChange(null, maxPossibleValue);
             setCurrentMax(maxPossibleValue);
+            return maxPossibleValue;
         } else if (currentMaxValue <= minPrice) {
             handleMaxChange(null, minPrice);
             setCurrentMax(minPrice);
-        } else handleMaxChange(null, currentMaxValue);
+            return minPrice;
+        } else {
+            handleMaxChange(null, currentMaxValue);
+            return currentMaxValue;
+        }
     };
 
     const handleMinValueChange = () => {
         if (currentMinValue >= maxPrice) {
             handleMinChange(null, maxPrice);
             setCurrentMin(maxPrice);
+            return maxPrice;
         } else if (currentMinValue <= minPossibleValue) {
             handleMinChange(null, minPossibleValue);
             setCurrentMin(minPossibleValue);
-        } else handleMinChange(null, currentMinValue);
+            return minPossibleValue;
+        } else {
+            handleMinChange(null, currentMinValue);
+            return currentMinValue;
+        }
     };
 
-    const handleCurrentMinChage = (event) => setCurrentMin(event.target.value);
-    const handleCurrentMaxChage = (event) => setCurrentMax(event.target.value);
+    const handleCurrentMinChage = (event) => setCurrentMin(Number(event.target.value));
+    const handleCurrentMaxChage = (event) => setCurrentMax(Number(event.target.value));
 
     useEffect(() => {
         setCurrentMin(minPrice);

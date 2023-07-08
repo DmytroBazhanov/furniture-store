@@ -8,7 +8,20 @@ export default forwardRef(function Range(props, ref) {
         handleMaxChange,
         maxPossibleValue,
         minPossibleValue,
+        applyFilters,
     } = props;
+
+    const handleMaxValueChange = (event) => {
+        const val = Number(event.target.value);
+        handleMaxChange(event, null, false);
+        applyFilters(false, val, minPrice);
+    };
+
+    const handleMinValueChange = (event) => {
+        const val = Number(event.target.value);
+        handleMinChange(event, null, false);
+        applyFilters(false, maxPrice, val);
+    };
 
     return (
         <div className="rangeContainer">
@@ -20,7 +33,7 @@ export default forwardRef(function Range(props, ref) {
                     max={maxPossibleValue}
                     value={maxPrice}
                     step={0.01}
-                    onChange={handleMaxChange}
+                    onChange={handleMaxValueChange}
                 />
                 <div className="tail" id="tail1" ref={ref[0]}></div>
             </div>
@@ -33,7 +46,7 @@ export default forwardRef(function Range(props, ref) {
                     max={maxPossibleValue}
                     value={minPrice}
                     step={0.01}
-                    onChange={handleMinChange}
+                    onChange={handleMinValueChange}
                 />
                 <div className="tail" id="tail2" ref={ref[1]}></div>
             </div>

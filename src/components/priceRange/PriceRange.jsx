@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { FilterContext } from "../../pages/ProductListingPage/ProductListingPage";
 import { getEdgePrices } from "../../queries/filters";
 import Range from "./Range";
 import InformationDisplay from "./InformationDisplay";
@@ -15,8 +16,33 @@ export default function PriceRange() {
     const secondTailRef = useRef(null);
     const rangeContainerRef = useRef(null);
 
+    const [timerID, setTimerID] = useState(null);
+
+    const { setFilters } = useContext(FilterContext);
+
+    const applyFilters = (skipTimer, maxVal, minVal) => {
+        if (timerID) {
+            clearTimeout(timerID);
+            setTimerID(null);
+        }
+
+        if (!skipTimer) {
+            const timeoutID = setTimeout(() => {
+                setFilters((prev) => {
+                    return { ...prev, price: { minPrice: minVal, maxPrice: maxVal } };
+                });
+            }, 2000);
+
+            setTimerID(timeoutID);
+        } else {
+            setFilters((prev) => {
+                return { ...prev, price: { minPrice: minVal, maxPrice: maxVal } };
+            });
+        }
+    };
+
     const handleMaxChange = (event, value = null) => {
-        const val = value ?? Number(event.target.value);
+        const val = Number(value ?? event.target.value);
         const width = rangeContainerRef.current.offsetWidth;
 
         if (minPrice <= val) {
@@ -33,7 +59,7 @@ export default function PriceRange() {
     };
 
     const handleMinChange = (event, value = null) => {
-        const val = value ?? Number(event.target.value);
+        const val = Number(value ?? event.target.value);
         const width = rangeContainerRef.current.offsetWidth;
 
         if (maxPrice >= val) {
@@ -41,7 +67,9 @@ export default function PriceRange() {
             secondTailRef.current.style.width = `${
                 (width / 100) * ((val / maxPossibleValue) * 100) - 1
             }px`;
-        } else setMin(maxPrice);
+        } else {
+            setMin(maxPrice);
+        }
     };
 
     useEffect(() => {
@@ -60,6 +88,7 @@ export default function PriceRange() {
             <Range
                 minPrice={minPrice}
                 maxPrice={maxPrice}
+                applyFilters={applyFilters}
                 handleMinChange={handleMinChange}
                 handleMaxChange={handleMaxChange}
                 maxPossibleValue={maxPossibleValue}
@@ -70,6 +99,7 @@ export default function PriceRange() {
                 minPrice={minPrice}
                 maxPrice={maxPrice}
                 currency={"USD $"}
+                applyFilters={applyFilters}
                 handleMinChange={handleMinChange}
                 handleMaxChange={handleMaxChange}
                 minPossibleValue={minPossibleValue}

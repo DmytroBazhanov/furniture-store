@@ -55,6 +55,7 @@ export default function ProductListingPage() {
     useEffect(() => {
         if (!firstLoad) {
             getProducts(filterObjecttIntoArray(filters), true);
+            console.log("filtered products");
         }
         setFirstLoad(false);
     }, [filters]);
