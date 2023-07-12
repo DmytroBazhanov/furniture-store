@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useContext } from "react";
+import { useParams } from "react-router-dom";
 import { FilterContext } from "../../pages/ProductListingPage/ProductListingPage";
 import { getEdgePrices } from "../../queries/filters";
 import Range from "./Range";
@@ -19,6 +20,8 @@ export default function PriceRange() {
     const [timerID, setTimerID] = useState(null);
 
     const { setFilters } = useContext(FilterContext);
+
+    const { categoryID } = useParams();
 
     const applyFilters = (skipTimer, maxVal, minVal) => {
         if (timerID) {
@@ -76,7 +79,7 @@ export default function PriceRange() {
     };
 
     useEffect(() => {
-        getEdgePrices("kitchen").then((values) => {
+        getEdgePrices(categoryID).then((values) => {
             setMinPossible(values[0]);
             setMaxPossible(values[1]);
             setMin(values[0]);
