@@ -1,0 +1,53 @@
+@import "../../globalStyles/breakpoints.scss";
+@import "../../globalStyles/colors.scss";
+
+.filterHeading {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+
+    .filterSign {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid 2px $blue;
+        border-radius: 5px;
+        width: fit-content;
+        height: fit-content;
+        padding: 5px 7px;
+    }
+
+    .filterHeader {
+        color: $blue;
+        font-size: 34px;
+        padding-left: 10px;
+        display: block;
+        height: fit-content;
+    }
+
+    .sideFilter-close {
+        width: 30px;
+        height: 30px;
+        margin-left: auto;
+        cursor: pointer;
+    }
+}
+
+.sidebar {
+    .ProductFilters {
+        display: flex;
+        width: 100%;
+        max-width: 320px;
+        min-width: 0px;
+        padding: 0px 20px;
+    }
+}
+
+@include tablet() {
+}
+
+@include mobile() {
+    .sideFilterContainer {
+        width: 100%;
+    }
+}

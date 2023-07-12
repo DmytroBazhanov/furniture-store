@@ -1,22 +1,23 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Hamburger } from "../../assets/Hamburger.svg";
-import { useContext } from "react";
+import { links } from "../../utils/links";
 import SaleBadge from "../saleBadge/SaleBadge";
 import Cart from "../cart/Cart";
 import Notifications from "../Notifications/Notifications";
 import LoginArea from "../loginArea/LoginArea";
+import ApplicationSidebar from "../applicationSidebar/ApplicationSidebar";
 
 import "./header.scss";
-import { SidebarContext } from "../App";
-import { links } from "../../utils/links";
 
 export default function Header() {
-    const { setVisibility } = useContext(SidebarContext);
+    const [sidebarVisible, setVisibility] = useState(false);
 
     const salesBadgeMobile = <SaleBadge />; // for mobile layout
 
     return (
         <header>
+            <ApplicationSidebar sidebarVisible={sidebarVisible} setVisibility={setVisibility} />
             <Hamburger className="hamburger" onClick={() => setVisibility(true)} />
             <h1 className="logo">My-Furniture</h1>
             <nav>

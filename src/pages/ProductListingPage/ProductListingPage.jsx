@@ -7,6 +7,7 @@ import { switcherButtons, viewModes } from "./config";
 import { filters as DefaultFilters } from "../../components/productFilters/config";
 import { createContext } from "react";
 import { filterObjecttIntoArray } from "../../utils/filterObjectIntoArray";
+import { ReactComponent as FilterSign } from "../../assets/FilterSign.svg";
 
 import ProductFilters from "../../components/productFilters/ProductFilters";
 import Switcher from "../../components/switcher/Switcher";
@@ -14,11 +15,13 @@ import ProductShowcase from "../../components/productShowcase/ProductShowcase";
 import ProductSort from "../../components/productSort/ProductSort";
 
 import "./plp.scss";
+import SideFilters from "../../components/filterSidebar/SideFilters";
 
 export const FilterContext = createContext(null);
 
 export default function ProductListingPage() {
-    const [firstLoad, setFirstLoad] = useState(true);
+    const [isFirstLoad, setFirstLoad] = useState(true);
+    const [isVisible, setVisibility] = useState(false);
 
     const [products, setProducts] = useState([]);
     const [lastFirebaseSnapshot, setSnapshot] = useState(null);
@@ -51,7 +54,7 @@ export default function ProductListingPage() {
     };
 
     useEffect(() => {
-        if (!firstLoad) {
+        if (!isFirstLoad) {
             getProducts(filterObjecttIntoArray(filters), true);
         }
         setFirstLoad(false);
@@ -64,7 +67,15 @@ export default function ProductListingPage() {
     return (
         <div className="ProductListingPage">
             <FilterContext.Provider value={{ filters: filters, setFilters: setFilters }}>
+                <SideFilters
+                    filters={DefaultFilters}
+                    visible={isVisible}
+                    setVisibility={setVisibility}
+                />
                 <div className="sortArea">
+                    <div className="filterSign" onClick={() => setVisibility(true)}>
+                        <FilterSign />
+                    </div>
                     <ProductSort getProducts={getProducts} />
                     <Switcher buttons={viewSwitcherButtons} currentState={viewMode} />
                 </div>

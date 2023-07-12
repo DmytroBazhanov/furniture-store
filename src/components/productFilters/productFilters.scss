@@ -5,8 +5,6 @@
     flex-direction: column;
     height: 750px;
     min-width: 320px;
-    border: solid black 1px;
-    border-radius: 10px;
     row-gap: 40px;
 
     .filters {
@@ -29,6 +27,22 @@
         margin-right: 15px;
         margin-left: 2px;
         cursor: pointer;
+    }
+}
+
+@include laptop() {
+    .ProductFilters {
+        .filterGroupName {
+            font-size: 34px;
+        }
+    }
+
+    .filters {
+        .filter {
+            label {
+                font-size: 20px;
+            }
+        }
     }
 }
 

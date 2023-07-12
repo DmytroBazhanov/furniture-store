@@ -49,6 +49,7 @@
                 .sidebar-close {
                     width: 30px;
                     height: 30px;
+                    cursor: pointer;
                 }
             }
 
@@ -90,6 +91,10 @@
 
 .sidebar-background {
     display: none;
+
+    .loginArea {
+        display: flex;
+    }
 }
 
 @include tablet() {

@@ -123,3 +123,11 @@
         }
     }
 }
+
+@include laptop {
+    .priceRangeContainer {
+        .priceRangeHeader {
+            font-size: 34px;
+        }
+    }
+}

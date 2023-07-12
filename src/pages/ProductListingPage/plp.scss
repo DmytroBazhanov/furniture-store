@@ -1,4 +1,5 @@
 @import "../../globalStyles/breakpoints.scss";
+@import "../../globalStyles/colors.scss";
 
 .ProductListingPage {
     display: flex;
@@ -14,6 +15,22 @@
         right: 0;
         top: -30px;
         width: 35%;
+
+        .filterSign {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 35px;
+            height: 41px;
+            border: solid $black 1px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            svg {
+                width: 20px;
+                height: 24px;
+            }
+        }
     }
 
     .productArea {
@@ -33,7 +50,11 @@
             left: 0;
             position: relative;
             margin-top: 30px;
-            justify-content: space-between;
+            justify-content: flex-start;
+
+            .switcher {
+                margin-left: auto;
+            }
         }
     }
 }
