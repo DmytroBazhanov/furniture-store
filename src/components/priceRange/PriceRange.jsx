@@ -26,7 +26,6 @@ export default function PriceRange() {
     const applyFilters = (skipTimer, maxVal, minVal) => {
         if (timerID) {
             clearTimeout(timerID);
-            console.log("cleared timer - " + timerID);
             setTimerID(null);
         }
 
@@ -35,8 +34,6 @@ export default function PriceRange() {
                 setFilters((prev) => {
                     return { ...prev, price: { minPrice: minVal, maxPrice: maxVal } };
                 });
-
-                console.log("current timer - " + timerID);
             }, 2000);
 
             setTimerID(timeoutID);

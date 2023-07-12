@@ -17,10 +17,10 @@
         width: 35%;
 
         .filterSign {
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
-            width: 35px;
+            min-width: 35px;
             height: 41px;
             border: solid $black 1px;
             border-radius: 5px;
@@ -52,8 +52,25 @@
             margin-top: 30px;
             justify-content: flex-start;
 
+            .filterSign {
+                display: flex;
+            }
+
             .switcher {
                 margin-left: auto;
+            }
+        }
+    }
+}
+
+@include mobile() {
+    .ProductListingPage {
+        .sortArea {
+            column-gap: 5px;
+
+            .filterSign {
+                min-width: 30px;
+                height: 31px;
             }
         }
     }
