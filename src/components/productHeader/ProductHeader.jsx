@@ -1,6 +1,4 @@
-import { ReactComponent as HeartSVG } from "../../assets/Heart.svg";
-import { ReactComponent as FilledHeartSVG } from "../../assets/FilledHeart.svg";
-
+import LikeButton from "../likeButton/LikeButton";
 import "./productHeader.scss";
 
 export default function ProductHeader({ name, manufacturer, likes, isLiked, onLike }) {
@@ -8,10 +6,7 @@ export default function ProductHeader({ name, manufacturer, likes, isLiked, onLi
         <div className="productHeader">
             <div className="header">
                 <h1 className="headerText">{name}</h1>
-                <button className="likeCounter" onClick={onLike}>
-                    {isLiked ? <FilledHeartSVG /> : <HeartSVG />}
-                    {likes}
-                </button>
+                <LikeButton likeCount={likes} isActive={isLiked} onLike={onLike} />
             </div>
             <div className="manufacturerName">{manufacturer}</div>
         </div>
