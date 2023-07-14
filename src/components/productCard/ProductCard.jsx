@@ -1,6 +1,7 @@
 import Tooltip from "../tooltip/Tooltip";
 
 import { ReactComponent as SaleSign } from "../../assets/SaleSign.svg";
+import { saveProductID } from "../../utils/productID";
 import { Link } from "react-router-dom";
 
 import "./productCard.scss";
@@ -8,8 +9,10 @@ import "./productCard.scss";
 export default function ProductCard({ id, name, price, inStock, imageUrl, originalPrice, mode }) {
     const saleSign = originalPrice > price ? <SaleSign className={`${mode}-saleSign`} /> : null;
 
+    const handleIDSave = () => saveProductID(id);
+
     return (
-        <Link className={`productLink-${mode}`} to={name}>
+        <Link className={`productLink-${mode}`} to={name} onClick={handleIDSave}>
             <div className={mode}>
                 <div className={`${mode}-imageHolder`}>
                     <img className={`${mode}-image`} alt="product" src={imageUrl} />

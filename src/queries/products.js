@@ -12,6 +12,7 @@ import {
     startAfter,
     where,
     getCountFromServer,
+    arrayRemove,
 } from "firebase/firestore";
 
 export async function getProductByID(id) {
@@ -22,7 +23,9 @@ export async function getProductByID(id) {
         const data = product.data();
         const likesAmount = data.likes?.length ?? 0;
 
-        return { ...data, likes: likesAmount };
+        const isLiked = data.likes.includes(auth?.currentUser?.uid);
+
+        return { ...data, likes: likesAmount, id: product.id, isLiked: isLiked };
     }
 
     throw new Error("Product doesnt exist", `No product found with id - ${id}`);
@@ -122,9 +125,17 @@ export async function getFilteredProducts(lastProduct, productLimit, filterFunct
 export async function likeProduct(productID) {
     if (!auth?.currentUser?.uid) return;
 
-    const userProfileRef = doc(db, import.meta.env.VITE_PROFILES, auth.currentUser.uid);
     const productRef = doc(db, import.meta.env.VITE_PRODUCT_COLLECTION, productID);
     await updateDoc(productRef, {
-        likes: arrayUnion(userProfileRef),
+        likes: arrayUnion(auth.currentUser.uid),
+    });
+}
+
+export async function removeLike(productID) {
+    if (!auth?.currentUser?.uid) return;
+
+    const productRef = doc(db, import.meta.env.VITE_PRODUCT_COLLECTION, productID);
+    await updateDoc(productRef, {
+        likes: arrayRemove(auth?.currentUser?.uid),
     });
 }
