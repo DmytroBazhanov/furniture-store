@@ -1,4 +1,5 @@
 @import "../../globalStyles/colors.scss";
+@import "../../globalStyles/breakpoints.scss";
 
 .colorPicker {
     display: flex;
@@ -21,10 +22,40 @@
             width: 60px;
             height: 60px;
             border-radius: 100%;
-        }
-
-        .colorContainer {
             border: solid $black 1px;
+        }
+    }
+}
+
+@include laptop() {
+    .colorPicker {
+        .colorDashboard {
+            .colorContainer {
+                width: 55px;
+                height: 55px;
+            }
+        }
+    }
+}
+
+@include mobile() {
+    .colorPicker {
+        .colorDashboard {
+            .colorContainer {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+}
+
+@include narrowMobile() {
+    .colorPicker {
+        .colorDashboard {
+            .colorContainer {
+                width: 35px;
+                height: 35px;
+            }
         }
     }
 }

@@ -19,8 +19,32 @@
     }
 }
 
+@include laptop() {
+    .productDetailsPage {
+        h1 {
+            font-size: 34px;
+        }
+    }
+}
+
 @include tablet() {
     .productDetailsPage {
         grid-template-columns: 1fr;
+    }
+}
+
+@include mobile() {
+    .productDetailsPage {
+        h1 {
+            font-size: 24px;
+        }
+    }
+}
+
+@include narrowMobile() {
+    .productDetailsPage {
+        h1 {
+            font-size: 20px;
+        }
     }
 }
