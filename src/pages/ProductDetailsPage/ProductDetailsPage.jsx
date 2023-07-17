@@ -4,9 +4,11 @@ import { getProductByID, likeProduct, removeLike } from "../../queries/products"
 
 import "./productDetailsPage.scss";
 import ProductHeader from "../../components/productHeader/ProductHeader";
+import ColorPicker from "../../components/colorPicker/ColorPicker";
 
 export default function ProductDetailsPage() {
     const [productDetails, setDetails] = useState(null);
+    const [chosenColor, setColor] = useState(null);
 
     const handleLike = () => {
         if (productDetails.isLiked) {
@@ -54,6 +56,11 @@ export default function ProductDetailsPage() {
                 likes={productDetails.likes}
                 isLiked={productDetails.isLiked}
                 onLike={handleLike}
+            />
+            <ColorPicker
+                themes={productDetails.colorThemes}
+                chosenColor={chosenColor}
+                setColor={setColor}
             />
         </div>
     );

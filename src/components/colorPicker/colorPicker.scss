@@ -1,0 +1,30 @@
+@import "../../globalStyles/colors.scss";
+
+.colorPicker {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+
+    .header {
+    }
+
+    .colorDashboard {
+        display: flex;
+        flex-direction: row;
+        column-gap: 20px;
+
+        .colorContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+        }
+
+        .colorContainer {
+            border: solid $black 1px;
+        }
+    }
+}
