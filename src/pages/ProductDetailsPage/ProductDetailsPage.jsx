@@ -62,6 +62,12 @@ export default function ProductDetailsPage() {
                 chosenColor={chosenColor}
                 setColor={setColor}
             />
+            <div className="productDescription">
+                <h1 className="header">Furniture description:</h1>
+                <p className="content">
+                    <span>{productDetails.description}</span>
+                </p>
+            </div>
         </div>
     );
 }

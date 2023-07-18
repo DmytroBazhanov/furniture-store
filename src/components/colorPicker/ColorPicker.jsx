@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import colorThemeSeparator from "../../utils/themeColorSeparator";
 import ColorContainer from "./ColorContainer";
 

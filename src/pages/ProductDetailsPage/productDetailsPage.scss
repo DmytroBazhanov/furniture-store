@@ -17,12 +17,53 @@
     .colorPicker {
         grid-column: 1 / 2;
     }
+
+    .productDescription {
+        grid-column: 1 / 2;
+
+        .header {
+            margin-bottom: 15px;
+        }
+
+        .content {
+            transition: ease-in-out 0.35s;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            font-size: 24px;
+            max-height: 135px;
+
+            &::-webkit-scrollbar {
+                background-color: $white;
+                width: 5px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: inherit;
+            }
+
+            &:hover {
+                background-color: $black;
+            }
+
+            span {
+                display: block;
+                height: 100%;
+                background-color: $white;
+            }
+        }
+    }
 }
 
 @include laptop() {
     .productDetailsPage {
         h1 {
             font-size: 34px;
+        }
+
+        .productDescription {
+            .content {
+                font-size: 20px;
+            }
         }
     }
 }
@@ -38,6 +79,12 @@
         h1 {
             font-size: 24px;
         }
+
+        .productDescription {
+            .content {
+                font-size: 16px;
+            }
+        }
     }
 }
 
@@ -45,6 +92,12 @@
     .productDetailsPage {
         h1 {
             font-size: 20px;
+        }
+
+        .productDescription {
+            .content {
+                font-size: 14px;
+            }
         }
     }
 }
