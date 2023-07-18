@@ -52,6 +52,14 @@
             }
         }
     }
+
+    .productFooter {
+        display: flex;
+        justify-content: space-between;
+        height: 65px;
+        width: 100%;
+        grid-column: 1 / 2;
+    }
 }
 
 @include laptop() {

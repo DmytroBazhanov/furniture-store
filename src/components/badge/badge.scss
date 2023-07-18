@@ -1,0 +1,13 @@
+.badge {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 7px;
+    padding: 5px 7px;
+    border-radius: 5px;
+    max-width: 75px;
+    width: 100%;
+    height: fit-content;
+    min-height: 20px;
+}

@@ -5,6 +5,8 @@ import { getProductByID, likeProduct, removeLike } from "../../queries/products"
 import "./productDetailsPage.scss";
 import ProductHeader from "../../components/productHeader/ProductHeader";
 import ColorPicker from "../../components/colorPicker/ColorPicker";
+import RecomendationArea from "../../components/recomendationArea/RecomendationArea";
+import BuyButton from "../../components/buyButton/BuyButton";
 
 export default function ProductDetailsPage() {
     const [productDetails, setDetails] = useState(null);
@@ -39,11 +41,6 @@ export default function ProductDetailsPage() {
         getProductByID(prodID).then((response) => {
             setDetails(response);
         });
-
-        // commented because of dev mode, in production should not be commented
-        // return () => {
-        //     removeProductID();
-        // };
     }, []);
 
     if (!productDetails) return <h1>Loading</h1>;
@@ -67,6 +64,20 @@ export default function ProductDetailsPage() {
                 <p className="content">
                     <span>{productDetails.description}</span>
                 </p>
+            </div>
+            <div className="productFooter">
+                <RecomendationArea
+                    reviewNumber={productDetails.reviewCount}
+                    recomendationNumber={productDetails.recomendationCount}
+                    recomendationPercentage={productDetails.recomendationPercentage}
+                />
+                <BuyButton
+                    price={productDetails.price}
+                    originalPrice={productDetails.originalPrice}
+                    isAvailable={productDetails.inStock}
+                >
+                    Add to cart
+                </BuyButton>
             </div>
         </div>
     );

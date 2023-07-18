@@ -1,0 +1,52 @@
+@import "../../globalStyles/colors.scss";
+@import "../../globalStyles/breakpoints.scss";
+
+@mixin commonBadgeStyle() {
+    width: fit-content;
+    padding: 6px 12px;
+    max-width: none;
+    min-width: 63px;
+}
+
+.recomendationArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    .badges {
+        display: inline-flex;
+        column-gap: 20px;
+
+        .recomendationBadge {
+            @include commonBadgeStyle();
+            background-color: $transparentYellow;
+            color: $yellow;
+        }
+
+        .reviewBadge {
+            @include commonBadgeStyle();
+            background-color: $transparentBlue;
+            color: $blue;
+        }
+    }
+
+    .recomendationPercentage {
+        display: inline-flex;
+        height: fit-content;
+        font-size: 14px;
+
+        span {
+            color: $red;
+            font-weight: 800;
+        }
+    }
+}
+
+@include narrowMobile() {
+    .recomendationArea {
+        .recomendationPercentage {
+            font-size: 12px;
+        }
+    }
+}
