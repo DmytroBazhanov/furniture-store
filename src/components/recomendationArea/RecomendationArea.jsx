@@ -23,7 +23,7 @@ export default function RecomendationArea({
                 </Badge>
             </div>
             <p className="recomendationPercentage">
-                <span>{recomendationNumber}%</span> of buyers have recommended this product
+                <span>{recomendationPercentage}%</span> of buyers have recommended this product
             </p>
         </div>
     );

@@ -7,6 +7,7 @@ export default function BuyButton({
     originalPrice,
     children,
     isAvailable,
+    onClick,
     isDisabled = false,
 }) {
     const originalPriceTag = originalPrice !== price && (
@@ -18,7 +19,7 @@ export default function BuyButton({
     if (!isAvailable) return <div className="notInStock">Product not in stock</div>;
 
     return (
-        <button className="buyButton" disabled={isDisabled}>
+        <button className="buyButton" disabled={isDisabled} onClick={onClick}>
             <span className="text">
                 <BasketSVG />
                 {children}

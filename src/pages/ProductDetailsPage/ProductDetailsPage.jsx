@@ -7,6 +7,7 @@ import ProductHeader from "../../components/productHeader/ProductHeader";
 import ColorPicker from "../../components/colorPicker/ColorPicker";
 import RecomendationArea from "../../components/recomendationArea/RecomendationArea";
 import BuyButton from "../../components/buyButton/BuyButton";
+import { addToCart } from "../../utils/cart";
 
 export default function ProductDetailsPage() {
     const [productDetails, setDetails] = useState(null);
@@ -34,6 +35,12 @@ export default function ProductDetailsPage() {
                 isLiked: true,
             };
         });
+    };
+
+    const handleAddProduct = () => {
+        const themes = chosenColor();
+
+        addToCart(productDetails.id, { colorThemes: chosenColor });
     };
 
     useEffect(() => {
@@ -74,6 +81,7 @@ export default function ProductDetailsPage() {
                 <BuyButton
                     price={productDetails.price}
                     originalPrice={productDetails.originalPrice}
+                    onClick={handleAddProduct}
                     isAvailable={productDetails.inStock}
                 >
                     Add to cart

@@ -9,6 +9,7 @@ import {
     updateProductInstanceProperties,
 } from "../../utils/cart";
 import Tooltip from "../tooltip/Tooltip";
+import themeColorSeparator from "../../utils/themeColorSeparator";
 
 const updateProductEvent = new Event("updateProductInCart", { bubbles: true });
 
@@ -40,7 +41,10 @@ export default function CartItem({ productID, itemCount, properties }) {
     };
 
     useEffect(() => {
-        getProductByID(productID).then((details) => setDetails(details));
+        getProductByID(productID).then((details) => {
+            const colors = themeColorSeparator(details.colorThemes).map((obj) => obj.color);
+            setDetails({ ...details, colorThemes: colors });
+        });
     }, []);
 
     return (
