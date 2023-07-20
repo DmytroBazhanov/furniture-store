@@ -68,13 +68,6 @@ header {
         }
         grid-template: 1fr / 20% 33% 47%;
 
-        .DropdownWrapper {
-            .DropdownMenu {
-                right: 0;
-                transform: translateX(-90%);
-            }
-        }
-
         .logo {
             font-size: 36px;
         }
@@ -92,6 +85,13 @@ header {
         height: 100px;
         grid-template: 1fr 30px / 1fr 2fr 1fr;
         padding-top: 20px;
+
+        .DropdownWrapper {
+            .DropdownMenu {
+                right: 0;
+                transform: translateX(-90%);
+            }
+        }
 
         .hamburger {
             display: flex;
