@@ -22,8 +22,8 @@ export default function BuyButton({
         setTimeoutID(null);
     };
 
-    const handleClick = () => {
-        onClick();
+    const handleClick = (event) => {
+        onClick(event);
         setInCart(true);
 
         const id = setTimeout(() => {
@@ -55,7 +55,7 @@ export default function BuyButton({
     if (isInCart) return productAdded;
 
     return (
-        <button className="buyButton" disabled={isDisabled} onClick={handleClick}>
+        <button className="buyButton" disabled={isDisabled} onClick={(event) => handleClick(event)}>
             <span className="text">
                 <BasketSVG />
                 {children}

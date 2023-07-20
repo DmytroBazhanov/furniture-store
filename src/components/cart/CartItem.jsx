@@ -1,6 +1,7 @@
 import "./cart.scss";
 import { getProductByID } from "../../queries/products";
 import { useState, useEffect } from "react";
+import { updateProductEvent } from "../../events";
 import PropertySelector from "../propertySelector/PropertySelector";
 import {
     addToCart,
@@ -10,8 +11,6 @@ import {
 } from "../../utils/cart";
 import Tooltip from "../tooltip/Tooltip";
 import themeColorSeparator from "../../utils/themeColorSeparator";
-
-const updateProductEvent = new Event("updateProductInCart", { bubbles: true });
 
 export default function CartItem({ productID, itemCount, properties }) {
     const [productDetails, setDetails] = useState(null);

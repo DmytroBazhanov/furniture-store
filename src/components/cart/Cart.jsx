@@ -13,7 +13,7 @@ export default function Cart() {
 
     const cartCount = itemsInCartCount > MAX_NUMBER_TO_DISPLAY ? "9+" : itemsInCartCount;
 
-    const handleProductEdit = () => {
+    const handleProductUpdate = () => {
         const updatedProducts = getProductsFromCart();
         setProducts(updatedProducts);
         setItemsCount(getProductNumberInCart());
@@ -26,10 +26,12 @@ export default function Cart() {
     }, []);
 
     useEffect(() => {
-        document.addEventListener("updateProductInCart", handleProductEdit);
+        document.addEventListener("updateProductInCart", handleProductUpdate);
+        document.addEventListener("addProductInCart", handleProductUpdate);
 
         return () => {
-            document.removeEventListener("updateProductInCart", handleProductEdit);
+            document.removeEventListener("updateProductInCart", handleProductUpdate);
+            document.removeEventListener("addProductInCart", handleProductUpdate);
         };
     });
 

@@ -9,6 +9,7 @@ import RecomendationArea from "../../components/recomendationArea/RecomendationA
 import BuyButton from "../../components/buyButton/BuyButton";
 import colorThemeSeparator from "../../utils/themeColorSeparator";
 import { addToCart } from "../../utils/cart";
+import { addProductEvent } from "../../events";
 
 export default function ProductDetailsPage() {
     const [productDetails, setDetails] = useState(null);
@@ -40,9 +41,10 @@ export default function ProductDetailsPage() {
         });
     };
 
-    const handleAddProduct = () => {
+    const handleAddProduct = (event) => {
         const colors = colorsAndThemes.map((obj) => obj.color);
         addToCart(productDetails.id, { colorThemes: chosenColor ?? colors[0] });
+        event.target.dispatchEvent(addProductEvent);
     };
 
     useEffect(() => {
