@@ -7,11 +7,14 @@ import ProductHeader from "../../components/productHeader/ProductHeader";
 import ColorPicker from "../../components/colorPicker/ColorPicker";
 import RecomendationArea from "../../components/recomendationArea/RecomendationArea";
 import BuyButton from "../../components/buyButton/BuyButton";
+import colorThemeSeparator from "../../utils/themeColorSeparator";
 import { addToCart } from "../../utils/cart";
 
 export default function ProductDetailsPage() {
     const [productDetails, setDetails] = useState(null);
     const [chosenColor, setColor] = useState(null);
+
+    const colorsAndThemes = colorThemeSeparator(productDetails?.colorThemes);
 
     const handleLike = () => {
         if (productDetails.isLiked) {
@@ -38,9 +41,8 @@ export default function ProductDetailsPage() {
     };
 
     const handleAddProduct = () => {
-        const themes = chosenColor();
-
-        addToCart(productDetails.id, { colorThemes: chosenColor });
+        const colors = colorsAndThemes.map((obj) => obj.color);
+        addToCart(productDetails.id, { colorThemes: chosenColor ?? colors[0] });
     };
 
     useEffect(() => {
@@ -61,11 +63,7 @@ export default function ProductDetailsPage() {
                 isLiked={productDetails.isLiked}
                 onLike={handleLike}
             />
-            <ColorPicker
-                themes={productDetails.colorThemes}
-                chosenColor={chosenColor}
-                setColor={setColor}
-            />
+            <ColorPicker themes={colorsAndThemes} chosenColor={chosenColor} setColor={setColor} />
             <div className="productDescription">
                 <h1 className="header">Furniture description:</h1>
                 <p className="content">

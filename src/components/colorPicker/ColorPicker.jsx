@@ -1,14 +1,12 @@
-import colorThemeSeparator from "../../utils/themeColorSeparator";
 import ColorContainer from "./ColorContainer";
 
 import "./colorPicker.scss";
 
 export default function ColorPicker({ themes, chosenColor, setColor }) {
     const renderColors = () => {
-        const colorsAndThemes = colorThemeSeparator(themes);
-        const chosenColorHex = chosenColor ?? colorsAndThemes[0].color;
+        const chosenColorHex = chosenColor ?? themes[0].color;
 
-        return colorsAndThemes.map((obj) => {
+        return themes.map((obj) => {
             const { color, theme } = obj;
             return (
                 <ColorContainer

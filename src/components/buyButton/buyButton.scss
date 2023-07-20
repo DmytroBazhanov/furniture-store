@@ -13,6 +13,20 @@
     cursor: pointer;
 }
 
+.productAdded {
+    @include buttonStyle($dimBlack);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    cursor: default;
+
+    svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
 .notInStock {
     display: flex;
     justify-content: center;
