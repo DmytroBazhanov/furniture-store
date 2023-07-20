@@ -14,10 +14,17 @@ export default function Cart() {
     const cartCount = itemsInCartCount > MAX_NUMBER_TO_DISPLAY ? "9+" : itemsInCartCount;
 
     const handleProductUpdate = () => {
-        const updatedProducts = getProductsFromCart();
-        setProducts(updatedProducts);
-        setItemsCount(getProductNumberInCart());
+        // timeout with no delay used to move the function from microtask queue to macrotask queue
+        // in order to avoid situation when list removes deleted product from cart before outsideClickHandler
+        // checks where click was performed and close the dropdown
+        setTimeout(() => {
+            const updatedProducts = getProductsFromCart();
+            setProducts(updatedProducts);
+            setItemsCount(getProductNumberInCart());
+        }, 0);
     };
+
+    console.log("render");
 
     useEffect(() => {
         const cartProducts = getProductsFromCart();
@@ -33,7 +40,7 @@ export default function Cart() {
             document.removeEventListener("updateProductInCart", handleProductUpdate);
             document.removeEventListener("addProductInCart", handleProductUpdate);
         };
-    });
+    }, []);
 
     const cartList = isVisible ? <CartItemList products={products} /> : null;
 
