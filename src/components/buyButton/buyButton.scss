@@ -93,3 +93,26 @@
         }
     }
 }
+
+@include mobile() {
+    .buyButton {
+        grid-template-columns: 1fr 110px;
+        width: 100%;
+    }
+}
+
+@include narrowMobile() {
+    .buyButton {
+        grid-template-columns: 1fr 90px;
+
+        .priceContainer {
+            [class*="priceTag"] {
+                font-size: 14px;
+            }
+
+            [class*="sale"] {
+                margin-top: 20px;
+            }
+        }
+    }
+}

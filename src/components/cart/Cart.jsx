@@ -24,8 +24,6 @@ export default function Cart() {
         }, 0);
     };
 
-    console.log("render");
-
     useEffect(() => {
         const cartProducts = getProductsFromCart();
         setProducts(cartProducts);

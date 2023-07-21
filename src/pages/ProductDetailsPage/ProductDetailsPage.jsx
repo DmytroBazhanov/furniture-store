@@ -72,6 +72,12 @@ export default function ProductDetailsPage() {
                     <span>{productDetails.description}</span>
                 </p>
             </div>
+            <RecomendationArea
+                reviewNumber={productDetails.reviewCount}
+                recomendationNumber={productDetails.recomendationCount}
+                recomendationPercentage={productDetails.recomendationPercentage}
+                className="recomendationAreaMobile"
+            />
             <div className="productFooter">
                 <RecomendationArea
                     reviewNumber={productDetails.reviewCount}

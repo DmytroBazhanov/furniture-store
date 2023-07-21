@@ -53,6 +53,10 @@
         }
     }
 
+    .recomendationAreaMobile {
+        display: none;
+    }
+
     .productFooter {
         display: flex;
         justify-content: space-between;
@@ -91,6 +95,20 @@
         .productDescription {
             .content {
                 font-size: 16px;
+            }
+        }
+
+        .recomendationAreaMobile {
+            display: flex;
+            row-gap: 20px;
+
+            .badges {
+                justify-content: center;
+            }
+
+            .recomendationPercentage {
+                width: 100%;
+                justify-content: center;
             }
         }
     }

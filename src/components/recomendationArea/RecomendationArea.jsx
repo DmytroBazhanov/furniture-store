@@ -9,9 +9,10 @@ export default function RecomendationArea({
     reviewNumber,
     recomendationNumber,
     recomendationPercentage,
+    className = "",
 }) {
     return (
-        <div className="recomendationArea">
+        <div className={`recomendationArea ${className}`}>
             <div className="badges">
                 <Badge className={"recomendationBadge"} onClick={() => {}}>
                     <StartSVG />

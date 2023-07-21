@@ -44,6 +44,12 @@
     }
 }
 
+@include mobile() {
+    .recomendationArea {
+        display: none;
+    }
+}
+
 @include narrowMobile() {
     .recomendationArea {
         .recomendationPercentage {
