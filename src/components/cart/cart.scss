@@ -1,4 +1,5 @@
 @import "../../globalStyles/colors.scss";
+@import "../../globalStyles/breakpoints.scss";
 
 .cartPreview {
     display: flex;
@@ -32,6 +33,21 @@
     flex-direction: column;
     row-gap: 20px;
     width: fit-content;
+
+    .checkoutLink {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 500;
+        background-color: $black;
+        color: $white;
+        text-decoration: none;
+        width: 100%;
+        height: 45px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
 
     .cartItem {
         display: inline-flex;
@@ -108,6 +124,21 @@
 
         .cartItem-count {
             text-align: center;
+        }
+    }
+}
+
+@include mobile() {
+    #cartDropdown {
+        .DropdownMenu {
+            left: 0;
+            transform: translateX(-65%);
+            max-width: 300px;
+
+            .cartItem {
+                width: 260px;
+                column-gap: 10px;
+            }
         }
     }
 }

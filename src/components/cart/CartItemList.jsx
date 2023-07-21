@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import EmptyContainerPlaceholder from "../emptyContainerPlaceholder/EmptyContainerPlaceholder";
 import CartItem from "./CartItem";
 import "./cart.scss";
@@ -17,6 +18,9 @@ export default function CartItemList({ products }) {
                     properties={prod.properties}
                 />
             ))}
+            <Link className="checkoutLink" to="checkout">
+                Click to checkout
+            </Link>
         </div>
     );
 }
