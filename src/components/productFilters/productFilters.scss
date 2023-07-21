@@ -49,6 +49,8 @@
 
 @include tablet() {
     .ProductFilters {
-        display: none;
+        display: flex;
+        position: absolute;
+        visibility: hidden;
     }
 }

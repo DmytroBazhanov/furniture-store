@@ -19,7 +19,7 @@ export default function PriceRange() {
 
     const [timerID, setTimerID] = useState(null);
 
-    const { setFilters } = useContext(FilterContext);
+    const { setFilters, filters } = useContext(FilterContext);
 
     const { categoryID } = useParams();
 
@@ -84,6 +84,13 @@ export default function PriceRange() {
             tailRef.current.style.width = `0px`;
         });
     }, []);
+
+    useEffect(() => {
+        if (filters?.price) {
+            handleMinChange(null, filters.price.minPrice);
+            handleMaxChange(null, filters.price.maxPrice);
+        }
+    }, [filters]);
 
     return (
         <div className="priceRangeContainer" ref={rangeContainerRef}>

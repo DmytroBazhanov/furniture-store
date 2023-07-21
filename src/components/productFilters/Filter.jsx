@@ -5,7 +5,7 @@ import { FilterContext } from "../../pages/ProductListingPage/ProductListingPage
 import "./productFilters.scss";
 
 export default function Filter({ id, name, alias }) {
-    const { setFilters } = useContext(FilterContext);
+    const { setFilters, filters } = useContext(FilterContext);
 
     const handleChange = (event) => {
         const state = event.target.checked;
@@ -58,9 +58,17 @@ export default function Filter({ id, name, alias }) {
         }
     };
 
+    const handleValue = () => {
+        if (name === "inStock") {
+            return !!filters?.inStock;
+        } else {
+            return !!filters?.filters?.includes(name);
+        }
+    };
+
     return (
         <div className="filter" id={id}>
-            <input type="checkbox" onChange={handleChange} />
+            <input type="checkbox" onChange={handleChange} checked={handleValue() || ""} />
             <label>{alias}</label>
         </div>
     );

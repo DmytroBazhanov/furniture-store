@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ReactComponent as BigFilterSign } from "../../assets/BigFilterSign.svg";
 import ProductFilters from "../productFilters/ProductFilters";
 import Sidebar from "../sidebar/Sidebar";

@@ -35,6 +35,8 @@
 
 .sidebar {
     .ProductFilters {
+        position: absolute;
+        visibility: hidden;
         display: flex;
         width: 100%;
         max-width: 320px;
@@ -44,6 +46,12 @@
 }
 
 @include tablet() {
+    .sidebar {
+        .ProductFilters {
+            position: relative;
+            visibility: visible;
+        }
+    }
 }
 
 @include mobile() {
