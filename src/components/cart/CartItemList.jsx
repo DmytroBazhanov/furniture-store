@@ -3,10 +3,12 @@ import EmptyContainerPlaceholder from "../emptyContainerPlaceholder/EmptyContain
 import CartItem from "./CartItem";
 import "./cart.scss";
 
-export default function CartItemList({ products }) {
+export default function CartItemList({ products, setVisible }) {
     if (products.length === 0) {
         return <EmptyContainerPlaceholder text="Cart is empty" />;
     }
+
+    const handleCheckoutClick = () => setVisible(false);
 
     return (
         <div className="cartItemsList">
@@ -18,7 +20,7 @@ export default function CartItemList({ products }) {
                     properties={prod.properties}
                 />
             ))}
-            <Link className="checkoutLink" to="checkout">
+            <Link className="checkoutLink" to="checkout" onClick={handleCheckoutClick}>
                 Click to checkout
             </Link>
         </div>

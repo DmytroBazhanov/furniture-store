@@ -40,7 +40,9 @@ export default function Cart() {
         };
     }, []);
 
-    const cartList = isVisible ? <CartItemList products={products} /> : null;
+    const cartList = isVisible ? (
+        <CartItemList products={products} setVisible={setVisible} />
+    ) : null;
 
     return (
         <DropdownMenu

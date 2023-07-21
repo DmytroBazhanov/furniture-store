@@ -11,11 +11,13 @@ export default function ProductCard({ id, name, price, inStock, imageUrl, origin
 
     const handleIDSave = () => saveProductID(id);
 
+    const inStockClass = inStock ? "present" : "absent";
+
     return (
         <Link className={`productLink-${mode}`} to={name} onClick={handleIDSave}>
             <div className={mode}>
                 <div className={`${mode}-imageHolder`}>
-                    <img className={`${mode}-image`} alt="product" src={imageUrl} />
+                    <img className={`${mode}-image ${inStockClass}`} alt="product" src={imageUrl} />
                 </div>
                 <Tooltip text={name} disableIfToSmall={true}>
                     <h3 className={`${mode}-header`}>{name}</h3>

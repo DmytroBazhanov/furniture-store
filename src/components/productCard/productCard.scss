@@ -144,11 +144,15 @@ a[class*="productLink-"] {
             object-fit: cover;
             margin-bottom: 10px;
         }
+
+        .absent {
+            filter: opacity(0.7) blur(1px);
+        }
     }
 
     &-header {
         display: -webkit-box;
-        font-weight: 500;
+        font-weight: 400;
         max-height: 68px;
         max-width: 320px;
         overflow: hidden;
