@@ -3,7 +3,7 @@
 .ProductFilters {
     display: flex;
     flex-direction: column;
-    height: 750px;
+    height: fit-content;
     min-width: 320px;
     row-gap: 40px;
 

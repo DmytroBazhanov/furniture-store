@@ -7,7 +7,7 @@ import InformationDisplay from "./InformationDisplay";
 
 import "./priceRange.scss";
 
-export default function PriceRange() {
+export default function PriceRange({ width = 0 }) {
     const [minPrice, setMin] = useState(0);
     const [maxPrice, setMax] = useState(0);
     const [minPossibleValue, setMinPossible] = useState(0);
@@ -46,29 +46,31 @@ export default function PriceRange() {
 
     const handleMaxChange = (event, value = null) => {
         const val = Number(value ?? event.target.value);
-        const width = rangeContainerRef.current.offsetWidth;
+        const offsetWidth = rangeContainerRef.current.offsetWidth;
+        const rangeWidth = offsetWidth === 0 ? width : offsetWidth;
 
         if (minPrice <= val) {
             setMax(val);
             tailRef.current.style.width = `${
-                width - (width / 100) * ((val / maxPossibleValue) * 100)
+                rangeWidth - (rangeWidth / 100) * ((val / maxPossibleValue) * 100)
             }px`;
         } else {
             setMax(minPrice);
             tailRef.current.style.width = `${
-                width - (width / 100) * ((minPrice / maxPossibleValue) * 100)
+                rangeWidth - (rangeWidth / 100) * ((minPrice / maxPossibleValue) * 100)
             }px`;
         }
     };
 
     const handleMinChange = (event, value = null) => {
         const val = Number(value ?? event.target.value);
-        const width = rangeContainerRef.current.offsetWidth;
+        const offsetWidth = rangeContainerRef.current.offsetWidth;
+        const rangeWidth = offsetWidth === 0 ? width : offsetWidth;
 
         if (maxPrice >= val) {
             setMin(val);
             secondTailRef.current.style.width = `${
-                (width / 100) * ((val / maxPossibleValue) * 100) - 1
+                (rangeWidth / 100) * ((val / maxPossibleValue) * 100) - 1
             }px`;
         } else {
             setMin(maxPrice);
