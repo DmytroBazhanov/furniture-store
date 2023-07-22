@@ -14,8 +14,10 @@ import Switcher from "../../components/switcher/Switcher";
 import ProductShowcase from "../../components/productShowcase/ProductShowcase";
 import ProductSort from "../../components/productSort/ProductSort";
 
-import "./plp.scss";
 import SideFilters from "../../components/filterSidebar/SideFilters";
+import ProductLoader from "../../components/productLoader/ProductLoader";
+
+import "./plp.scss";
 
 export const FilterContext = createContext(null);
 
@@ -84,6 +86,7 @@ export default function ProductListingPage() {
                     <ProductShowcase products={products} viewMode={viewModes[viewMode]} />
                 </div>
             </FilterContext.Provider>
+            <ProductLoader onLoad={() => console.log("Loading")} />
         </div>
     );
 }

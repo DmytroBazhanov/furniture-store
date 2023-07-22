@@ -5,6 +5,12 @@
     display: flex;
     flex-direction: column;
 
+    #productLoader {
+        margin-top: 30px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
     .sortArea {
         position: absolute;
         display: flex;
