@@ -24,6 +24,7 @@ export const FilterContext = createContext(null);
 export default function ProductListingPage() {
     const [isFirstLoad, setFirstLoad] = useState(true);
     const [isVisible, setVisibility] = useState(false);
+    const [requestInProgress, setProgress] = useState(false);
 
     const [products, setProducts] = useState([]);
     const [lastFirebaseSnapshot, setSnapshot] = useState(null);
@@ -41,17 +42,32 @@ export default function ProductListingPage() {
         return { ...buttonConfig, function: changeViewMode };
     });
 
-    const getProducts = (sortFunctions = [], ignoreSnapshot = false, ignoreLimit = false) => {
+    const getProducts = async (
+        sortFunctions = [],
+        ignoreSnapshot = false,
+        ignoreLimit = false,
+        lastSnapshot = null
+    ) => {
+        if (requestInProgress) return null;
+        setProgress(true);
+
         const width = window.innerWidth;
         const productLimit = ignoreLimit ? products.length : getProductLimit(width);
-        const snapshot = ignoreSnapshot ? null : lastFirebaseSnapshot;
+        const getSnapshot = lastSnapshot === null ? lastFirebaseSnapshot : lastSnapshot;
+        const snapshot = ignoreSnapshot ? null : getSnapshot;
 
-        getFilteredProducts(snapshot, productLimit, [
+        return await getFilteredProducts(snapshot, productLimit, [
             where("category", "==", categoryID),
             ...sortFunctions,
         ]).then(({ products, lastProductFirebaseSnapshot }) => {
-            setProducts(products);
+            if (ignoreSnapshot) {
+                setProducts(products);
+            } else {
+                setProducts((prev) => [...prev, ...products]);
+            }
             setSnapshot(lastProductFirebaseSnapshot);
+            setProgress(false);
+            return products;
         });
     };
 
@@ -61,10 +77,6 @@ export default function ProductListingPage() {
         }
         setFirstLoad(false);
     }, [filters]);
-
-    useEffect(() => {
-        getProducts();
-    }, []);
 
     return (
         <div className="ProductListingPage">
@@ -86,7 +98,14 @@ export default function ProductListingPage() {
                     <ProductShowcase products={products} viewMode={viewModes[viewMode]} />
                 </div>
             </FilterContext.Provider>
-            <ProductLoader onLoad={() => console.log("Loading")} />
+            <ProductLoader
+                onLoad={async (snapshot, filtersObject) =>
+                    await getProducts(filtersObject, false, false, snapshot)
+                }
+                lastProductSnapshot={lastFirebaseSnapshot}
+                filters={filters}
+                isFirstLoad={isFirstLoad}
+            />
         </div>
     );
 }

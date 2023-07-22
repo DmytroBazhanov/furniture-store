@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 import "./intersectionDetector.scss";
 
-export default function IntersectionDetector({ children, id, onIntersect }) {
+export default function IntersectionDetector({ children, id, isActive, onIntersect }) {
     const detectorRef = useRef(null);
 
     const handleIntersect = (elements) => {
@@ -11,15 +11,19 @@ export default function IntersectionDetector({ children, id, onIntersect }) {
         }
     };
 
-    const intersectionObserver = new IntersectionObserver(handleIntersect);
+    const intersectionObserver = new IntersectionObserver((elements) => handleIntersect(elements));
 
     useEffect(() => {
-        intersectionObserver.observe(detectorRef.current);
+        if (!isActive) {
+            intersectionObserver.unobserve(detectorRef.current);
+        } else {
+            intersectionObserver.observe(detectorRef.current);
+        }
 
         return () => {
             intersectionObserver.disconnect();
         };
-    }, []);
+    }, [isActive]);
 
     return (
         <div ref={detectorRef} id={id} className="intersectionDetector">
