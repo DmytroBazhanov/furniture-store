@@ -11,7 +11,11 @@ export default function IntersectionDetector({ children, id, isActive, onInterse
         }
     };
 
-    const intersectionObserver = new IntersectionObserver((elements) => handleIntersect(elements));
+    const intersectionObserver = new IntersectionObserver((elements) => handleIntersect(elements), {
+        root: null,
+        rootMargin: "0px",
+        threshold: 1,
+    });
 
     useEffect(() => {
         if (!isActive) {

@@ -6,16 +6,33 @@ import IntersectionDetector from "../intersectionDetector/IntersectionDetector";
 
 import "./prouctLoader.scss";
 
-export default function ProductLoader({ onLoad, lastProductSnapshot, filters, isFirstLoad }) {
+export default function ProductLoader({
+    onLoad,
+    lastProductSnapshot,
+    filters,
+    isFirstLoad,
+    requestInProgress,
+}) {
     const [isActive, setActive] = useState(true);
 
     const valueRef = useRef(null);
     const filtersRef = useRef(null);
+    const inProgressRef = useRef(null);
     valueRef.current = lastProductSnapshot;
     filtersRef.current = filters;
+    inProgressRef.current = requestInProgress;
 
     const handleLoad = async () => {
-        const result = await onLoad(valueRef.current, filterObjecttIntoArray(filtersRef.current));
+        const result = await onLoad(
+            valueRef.current,
+            filterObjecttIntoArray(filtersRef.current),
+            inProgressRef.current
+        );
+
+        if (result === null) {
+            setTimeout(handleLoad, 500);
+            return;
+        }
 
         const width = window.innerWidth;
         const productLimit = getProductLimit(width);

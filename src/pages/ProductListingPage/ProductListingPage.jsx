@@ -46,7 +46,8 @@ export default function ProductListingPage() {
         sortFunctions = [],
         ignoreSnapshot = false,
         ignoreLimit = false,
-        lastSnapshot = null
+        lastSnapshot = null,
+        requestInProgress = false
     ) => {
         if (requestInProgress) return null;
         setProgress(true);
@@ -99,12 +100,13 @@ export default function ProductListingPage() {
                 </div>
             </FilterContext.Provider>
             <ProductLoader
-                onLoad={async (snapshot, filtersObject) =>
-                    await getProducts(filtersObject, false, false, snapshot)
+                onLoad={async (snapshot, filtersObject, inProgess) =>
+                    await getProducts(filtersObject, false, false, snapshot, inProgess)
                 }
                 lastProductSnapshot={lastFirebaseSnapshot}
                 filters={filters}
                 isFirstLoad={isFirstLoad}
+                requestInProgress={requestInProgress}
             />
         </div>
     );
