@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import { getProductID, removeProductID } from "../../utils/productID";
 import { getProductByID, likeProduct, removeLike } from "../../queries/products";
+import { addToCart } from "../../utils/cart";
+import { addProductEvent } from "../../events";
 
-import "./productDetailsPage.scss";
 import ProductHeader from "../../components/productHeader/ProductHeader";
 import ColorPicker from "../../components/colorPicker/ColorPicker";
 import RecomendationArea from "../../components/recomendationArea/RecomendationArea";
 import BuyButton from "../../components/buyButton/BuyButton";
 import colorThemeSeparator from "../../utils/themeColorSeparator";
-import { addToCart } from "../../utils/cart";
-import { addProductEvent } from "../../events";
+import Gallery from "../../components/gallery/Gallery";
+
+import "./productDetailsPage.scss";
 
 export default function ProductDetailsPage() {
     const [productDetails, setDetails] = useState(null);
@@ -58,41 +60,53 @@ export default function ProductDetailsPage() {
 
     return (
         <div className="productDetailsPage">
-            <ProductHeader
-                name={productDetails.name}
-                manufacturer={"SteelWorks Company Limited"}
-                likes={productDetails.likes}
-                isLiked={productDetails.isLiked}
-                onLike={handleLike}
-            />
-            <ColorPicker themes={colorsAndThemes} chosenColor={chosenColor} setColor={setColor} />
-            <div className="productDescription">
-                <h1 className="header">Furniture description:</h1>
-                <p className="content">
-                    <span>{productDetails.description}</span>
-                </p>
-            </div>
-            <RecomendationArea
-                reviewNumber={productDetails.reviewCount}
-                recomendationNumber={productDetails.recomendationCount}
-                recomendationPercentage={productDetails.recomendationPercentage}
-                className="recomendationAreaMobile"
-            />
-            <div className="productFooter">
+            <div className="first-row">
+                <ProductHeader
+                    name={productDetails.name}
+                    manufacturer={"SteelWorks Company Limited"}
+                    likes={productDetails.likes}
+                    isLiked={productDetails.isLiked}
+                    onLike={handleLike}
+                />
+                <ColorPicker
+                    themes={colorsAndThemes}
+                    chosenColor={chosenColor}
+                    setColor={setColor}
+                />
+                <div className="productDescription">
+                    <h1 className="header">Furniture description:</h1>
+                    <p className="content">
+                        <span>{productDetails.description}</span>
+                    </p>
+                </div>
                 <RecomendationArea
                     reviewNumber={productDetails.reviewCount}
                     recomendationNumber={productDetails.recomendationCount}
                     recomendationPercentage={productDetails.recomendationPercentage}
+                    className="recomendationAreaMobile"
                 />
-                <BuyButton
-                    price={productDetails.price}
-                    originalPrice={productDetails.originalPrice}
-                    onClick={handleAddProduct}
-                    isAvailable={productDetails.inStock}
-                >
-                    Add to cart
-                </BuyButton>
+                <Gallery slides={productDetails.images} mainSlide={productDetails.imageUrl} />
+                <div className="productFooter">
+                    <RecomendationArea
+                        reviewNumber={productDetails.reviewCount}
+                        recomendationNumber={productDetails.recomendationCount}
+                        recomendationPercentage={productDetails.recomendationPercentage}
+                    />
+                    <BuyButton
+                        price={productDetails.price}
+                        originalPrice={productDetails.originalPrice}
+                        onClick={handleAddProduct}
+                        isAvailable={productDetails.inStock}
+                    >
+                        Add to cart
+                    </BuyButton>
+                </div>
             </div>
+            <Gallery
+                className={"desktop-gallery"}
+                slides={productDetails.images}
+                mainSlide={productDetails.imageUrl}
+            />
         </div>
     );
 }

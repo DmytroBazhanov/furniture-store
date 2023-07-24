@@ -1,7 +1,7 @@
 import CardSign from "../../assets/CardSign.svg";
 import ListSing from "../../assets/ListSign.svg";
 
-const DESKTOP_REQUEST_LIMIT = 8;
+const DESKTOP_REQUEST_LIMIT = 12;
 const LAPTOP_REQUEST_LIMIT = 8;
 const TABLET_REQUEST_LIMIT = 8;
 const MOBILE_REQUEST_LIMIT = 4;
