@@ -1,3 +1,7 @@
 export default function Slide({ image, onClick }) {
-    return <img className="slide" src={image} onClick={onClick} />;
+    return (
+        <div className="slideContainer">
+            <img className="slide" src={image} onClick={onClick} />
+        </div>
+    );
 }
