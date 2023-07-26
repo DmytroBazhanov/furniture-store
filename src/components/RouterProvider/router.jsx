@@ -3,6 +3,7 @@ import App from "../App";
 import Categories from "../../pages/Categories/Categories";
 import ProductListingPage from "../../pages/ProductListingPage/ProductListingPage";
 import ProductDetailsPage from "../../pages/ProductDetailsPage/ProductDetailsPage";
+import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 
 export const router = createBrowserRouter([
     {
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "profile",
-                element: <h1>Profile</h1>,
+                element: <ProfilePage />,
             },
             {
                 path: "checkout",
