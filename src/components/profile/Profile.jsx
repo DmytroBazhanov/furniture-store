@@ -7,11 +7,12 @@ import Fields from "./Fields";
 
 export default function Profile() {
     const [profileDetails, setDetails] = useState({});
+    const [fieldsInEditing, setFields] = useState([]);
 
     return (
         <div className="profileContainer">
             <ProfileHeader />
-            <Fields profileDetails={profileDetails} />
+            <Fields profileDetails={profileDetails} setFields={setFields} />
         </div>
     );
 }

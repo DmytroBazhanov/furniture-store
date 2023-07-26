@@ -105,16 +105,21 @@
                 width: 135px;
             }
 
+            .text {
+                display: inline-flex;
+                align-items: center;
+                font-size: 20px;
+                font-weight: 300;
+                width: 68%;
+                height: 100%;
+            }
+
             input {
                 font-size: 20px;
                 font-weight: 300;
                 width: 68%;
                 padding-left: 5px;
                 padding-right: 5px;
-
-                border: none;
-                outline: none;
-                cursor: text;
 
                 &:disabled {
                     background-color: $white;
@@ -130,6 +135,14 @@
             svg {
                 margin-left: auto;
                 cursor: pointer;
+            }
+
+            .visible {
+                display: flex;
+            }
+
+            .hidden {
+                display: none;
             }
         }
     }
