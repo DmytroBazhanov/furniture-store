@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { EDITABLE_FIELDS, TICKER_STATES, validationFunction } from "./config";
+import { EDITABLE_FIELDS, TICKER_STATES, updateProfile, validationFunction } from "./config";
 import ProfileInput from "./ProfileInput";
 
-export default function Fields({ profileDetails }) {
+export default function Fields({ profileDetails, onProfileUpdateSuccess }) {
     const [errorObject, setErrors] = useState({});
     const [formState, setFormState] = useState("notTriggered");
     const [editedFields, setFields] = useState({});
+
+    const [timeoutID, setTimeoutID] = useState(null);
 
     const handleFormStateChange = (editedFieldsObj) => {
         const editedFieldNames = Object.keys(editedFieldsObj);
@@ -25,13 +27,24 @@ export default function Fields({ profileDetails }) {
             return;
         }
 
-        console.log(formProps);
+        updateProfile(editedFields, formProps)
+            .then(() => {
+                onProfileUpdateSuccess(formProps);
+                setFormState("notTriggered");
+            })
+            .catch(() => {
+                setFormState("saveError");
+                const timerID = setTimeout(() => {
+                    setFormState("inProgress");
+                }, 2000);
+                setTimeoutID(timerID);
+            });
     };
 
     const renderSubmit = () => {
         const state = TICKER_STATES[formState];
 
-        if (!state.message) return <input type="submit" />;
+        if (!state.message) return <input type="submit" value="Update profile" />;
 
         return (
             <p className="formState" style={{ color: state.color }}>

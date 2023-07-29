@@ -2,29 +2,45 @@ import FunctionalArea from "./FunctionalArea";
 import DropdownMenu from "../dropdownMenu/DropdownMenu";
 import UserAvatar from "./UserAvatar";
 import LoginLinks from "./LoginLinks";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { useEffect, useState } from "react";
-import { getProfile } from "../../queries/profile";
 
 import "./loginArea.scss";
 import ProfileDropdown from "./ProfileDropdown";
+import { doc, onSnapshot } from "firebase/firestore";
 
 export default function LoginArea() {
     const [userInfo, setInfo] = useState(null);
     const [onLoadFlag, setFlag] = useState(false);
     const [isDropdownVisible, setVisibility] = useState(false);
+    const [isAuthStateOnline, setAuthState] = useState(false);
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             if (user) {
-                getProfile().then((profile) => setInfo(profile));
-            } else {
-                setInfo(null);
+                setAuthState(true);
             }
 
             setFlag(true);
         });
     }, []);
+
+    useEffect(() => {
+        let unSubscribe = null;
+
+        if (isAuthStateOnline) {
+            const userID = auth.currentUser.uid;
+            const profileRef = doc(db, import.meta.env.VITE_PROFILES, userID);
+
+            unSubscribe = onSnapshot(profileRef, (profile) => {
+                setInfo(profile.data());
+            });
+        }
+
+        return () => {
+            if (unSubscribe) unSubscribe();
+        };
+    }, [isAuthStateOnline]);
 
     const renderFunctionalArea = () => {
         if (!onLoadFlag) return <p>Loading...</p>;

@@ -13,7 +13,8 @@ export async function getProfile() {
     return profile.data();
 }
 
-export async function updateProfileField(userID, fieldKey, value) {
+export async function updateProfileField(fieldKey, value) {
+    const userID = auth.currentUser.uid;
     const userRef = doc(db, import.meta.env.VITE_PROFILES, userID);
     updateDoc(userRef, fieldKey, value).catch((error) => console.log(error));
 }

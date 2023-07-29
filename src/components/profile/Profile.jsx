@@ -10,6 +10,15 @@ import "./profile.scss";
 export default function Profile() {
     const [profileDetails, setDetails] = useState({});
 
+    const handleSuccessProfileUpdate = (profileProps) => {
+        setDetails((prev) => {
+            return {
+                ...prev,
+                ...profileProps,
+            };
+        });
+    };
+
     useEffect(() => {
         auth.onAuthStateChanged(() => {
             getProfile().then((response) => {
@@ -21,7 +30,10 @@ export default function Profile() {
     return (
         <div className="profileContainer">
             <ProfileHeader />
-            <Fields profileDetails={profileDetails} />
+            <Fields
+                profileDetails={profileDetails}
+                onProfileUpdateSuccess={handleSuccessProfileUpdate}
+            />
         </div>
     );
 }

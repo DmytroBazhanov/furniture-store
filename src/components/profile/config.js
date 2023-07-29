@@ -1,4 +1,5 @@
 import { MESSAGE_GREEN, MESSAGE_YELLOW, NOTIFICATION_BLUE, RED } from "../../globalStyles/colors";
+import { updateProfileField } from "../../queries/profile";
 
 export const EDITABLE_FIELDS = [
     { name: "name", alias: "Name", type: "text" },
@@ -19,6 +20,14 @@ const validateEmail = (email) => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
     return email.toLowerCase().match(regExp);
+};
+
+export const updateProfile = async (editedFieldsObj, currentValuesObject) => {
+    for (let key in editedFieldsObj) {
+        await updateProfileField(key, currentValuesObject[key]);
+    }
+
+    return editedFieldsObj;
 };
 
 export const validationFunction = (formProperties) => {

@@ -102,6 +102,19 @@
             margin-top: 25px;
         }
 
+        input[type="submit"] {
+            display: flex;
+            background-color: $buttonBlue;
+            justify-content: center;
+            color: $white;
+            height: 100%;
+            min-height: 55px;
+            font-size: 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
         .profileInputContainer {
             display: flex;
             flex-direction: row;
