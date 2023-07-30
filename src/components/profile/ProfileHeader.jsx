@@ -4,7 +4,7 @@ import { ReactComponent as UserSVG } from "../../assets/User.svg";
 import UserAvatar from "../loginArea/UserAvatar";
 import Dashboard from "./Dashboard";
 
-export default function ProfileHeader({ avatar }) {
+export default function ProfileHeader({ avatar, handleLocalAvatarChange }) {
     const [avatarSrc, setAvatar] = useState("");
 
     return (
@@ -12,7 +12,7 @@ export default function ProfileHeader({ avatar }) {
             <div className="avatarContainer">
                 <UserAvatar src={avatarSrc ? avatarSrc : avatar} />
             </div>
-            <Dashboard setAvatar={setAvatar} />
+            <Dashboard setAvatar={setAvatar} handleLocalAvatarChange={handleLocalAvatarChange} />
         </div>
     );
 }

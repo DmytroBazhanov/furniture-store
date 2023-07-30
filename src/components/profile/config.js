@@ -7,6 +7,8 @@ export const EDITABLE_FIELDS = [
     { name: "email", alias: "Email", type: "email" },
 ];
 
+export const AVATAR_ACCEPT = ".jpeg, .webp, .png, .svg";
+
 export const TICKER_STATES = {
     notTriggered: { message: "You see current version of your profile!", color: NOTIFICATION_BLUE },
     inProgress: { message: null, color: null },
@@ -24,6 +26,7 @@ const validateEmail = (email) => {
 
 export const updateProfile = async (editedFieldsObj, currentValuesObject) => {
     for (let key in editedFieldsObj) {
+        if (key === "avatar") continue;
         await updateProfileField(key, currentValuesObject[key]);
     }
 

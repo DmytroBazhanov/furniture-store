@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EDITABLE_FIELDS, TICKER_STATES, updateProfile, validationFunction } from "./config";
 import ProfileInput from "./ProfileInput";
 
-export default function Fields({ profileDetails, onProfileUpdateSuccess }) {
+export default function Fields({
+    profileDetails,
+    onProfileUpdateSuccess,
+    editedFields,
+    setFields,
+    setFormState,
+    formState,
+}) {
     const [errorObject, setErrors] = useState({});
-    const [formState, setFormState] = useState("notTriggered");
-    const [editedFields, setFields] = useState({});
-
     const [timeoutID, setTimeoutID] = useState(null);
 
     const handleFormStateChange = (editedFieldsObj) => {
@@ -30,7 +34,12 @@ export default function Fields({ profileDetails, onProfileUpdateSuccess }) {
         updateProfile(editedFields, formProps)
             .then(() => {
                 onProfileUpdateSuccess(formProps);
-                setFormState("notTriggered");
+                setFormState("saveSuccess");
+
+                const timerID = setTimeout(() => {
+                    setFormState("notTriggered");
+                }, 2000);
+                setTimeoutID(timerID);
             })
             .catch(() => {
                 setFormState("saveError");
@@ -53,6 +62,10 @@ export default function Fields({ profileDetails, onProfileUpdateSuccess }) {
         );
     };
 
+    useEffect(() => {
+        clearTimeout(timeoutID);
+    }, []);
+
     return (
         <form onSubmit={handleSubmit} className="fields">
             {EDITABLE_FIELDS.map((field) => {
@@ -66,6 +79,7 @@ export default function Fields({ profileDetails, onProfileUpdateSuccess }) {
                         error={errorObject?.[field.name]}
                         setFields={setFields}
                         onFormStateChange={handleFormStateChange}
+                        profileDetails={profileDetails}
                     />
                 );
             })}

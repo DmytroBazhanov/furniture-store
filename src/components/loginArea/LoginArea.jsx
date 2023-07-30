@@ -1,13 +1,14 @@
+import { auth, db } from "../../firebase";
+import { useEffect, useState } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+
 import FunctionalArea from "./FunctionalArea";
 import DropdownMenu from "../dropdownMenu/DropdownMenu";
 import UserAvatar from "./UserAvatar";
 import LoginLinks from "./LoginLinks";
-import { auth, db } from "../../firebase";
-import { useEffect, useState } from "react";
+import ProfileDropdown from "./ProfileDropdown";
 
 import "./loginArea.scss";
-import ProfileDropdown from "./ProfileDropdown";
-import { doc, onSnapshot } from "firebase/firestore";
 
 export default function LoginArea() {
     const [userInfo, setInfo] = useState(null);

@@ -10,7 +10,11 @@ export async function getProfile() {
     const userProfileRef = doc(db, import.meta.env.VITE_PROFILES, userID);
     const profile = await getDoc(userProfileRef);
 
-    return profile.data();
+    const profileData = profile.data();
+    if (!profileData.avatar) return profileData;
+
+    const avatarUrl = await getAvatarURL(profileData.avatar);
+    return { ...profileData, avatar: avatarUrl };
 }
 
 export async function updateProfileField(fieldKey, value) {

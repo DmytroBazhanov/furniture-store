@@ -12,6 +12,7 @@ export default function ProfileInput({
     error,
     setFields,
     onFormStateChange,
+    profileDetails = null,
 }) {
     const [isEditing, setEditing] = useState(false);
     const [tempValue, setTemp] = useState("");
@@ -49,6 +50,11 @@ export default function ProfileInput({
     useEffect(() => {
         if (value) setTemp(value);
     }, [value]);
+
+    useEffect(() => {
+        inputRef.current.blur();
+        setEditing(false);
+    }, [profileDetails]);
 
     useEffect(() => {
         if (isEditing) inputRef.current.focus();
