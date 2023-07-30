@@ -1,5 +1,6 @@
 @import "../../globalStyles/colors.scss";
 @import "../../globalStyles/breakpoints.scss";
+@import "../loginForm/loginForm.scss";
 
 @mixin headerButton() {
     background-color: $black;
@@ -32,6 +33,32 @@
     max-width: 630px;
     height: 100%;
     width: 100%;
+
+    .changePasswordForm {
+        display: flex;
+        row-gap: 10px;
+        @include formStyles();
+
+        .passwordInput {
+            width: 100%;
+            min-width: 280px;
+            input {
+                width: 100%;
+            }
+
+            input[type="password"] {
+                font-size: 20px;
+            }
+
+            input[type="text"] {
+                font-size: 20px;
+            }
+        }
+
+        .header {
+            margin-bottom: 10px;
+        }
+    }
 
     .profileHeader {
         display: flex;

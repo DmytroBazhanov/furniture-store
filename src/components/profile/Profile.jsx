@@ -36,6 +36,8 @@ export default function Profile() {
 
     const handleAvatarChange = async () => {
         const avatar = editedFields.avatar;
+        if (!avatar) return;
+
         await changeAvatar(avatar);
     };
 
