@@ -9,6 +9,7 @@ import LoginLinks from "./LoginLinks";
 import ProfileDropdown from "./ProfileDropdown";
 
 import "./loginArea.scss";
+import { getAvatarURL } from "../../queries/profile";
 
 export default function LoginArea() {
     const [userInfo, setInfo] = useState(null);
@@ -33,8 +34,12 @@ export default function LoginArea() {
             const userID = auth.currentUser.uid;
             const profileRef = doc(db, import.meta.env.VITE_PROFILES, userID);
 
-            unSubscribe = onSnapshot(profileRef, (profile) => {
-                setInfo(profile.data());
+            unSubscribe = onSnapshot(profileRef, async (profile) => {
+                const avatarUrl = await getAvatarURL(profile.data().avatar);
+                setInfo({
+                    ...profile.data(),
+                    avatar: avatarUrl,
+                });
             });
         }
 

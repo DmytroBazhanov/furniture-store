@@ -29,18 +29,16 @@ export async function changeAvatar(avatarFile) {
     const profileRef = doc(db, import.meta.env.VITE_PROFILES, userID);
     const avatarRef = ref(storage, `${import.meta.env.VITE_STORAGE_AVATAR}/${userID}`);
 
-    const result = await uploadBytes(avatarRef, avatarFile).catch((error) => console.log(error));
-    const avatarStoragePath = result.metadata.fullPath;
+    await uploadBytes(avatarRef, avatarFile).catch((error) => console.log(error));
+    const avatarURL = await getDownloadURL(avatarRef);
+
     await updateDoc(profileRef, {
-        avatar: avatarStoragePath,
+        avatar: avatarURL,
     });
 }
 
-export async function getAvatarURL() {
-    const userID = auth.currentUser.uid;
-    const pathToAvatar = `${import.meta.env.VITE_STORAGE_AVATAR}/${userID}`;
-
-    const avatarRef = ref(storage, pathToAvatar);
+export async function getAvatarURL(path) {
+    const avatarRef = ref(storage, path);
     const avatarURL = await getDownloadURL(avatarRef);
 
     return avatarURL;
