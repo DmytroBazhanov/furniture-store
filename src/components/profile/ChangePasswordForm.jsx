@@ -47,6 +47,14 @@ export default function ChangePasswordForm() {
                         message:
                             "Password should contain minimum 8 characters, at least 1 number and a special character",
                     },
+                    validate: {
+                        passwordNotEqual: (repeat, formValues) => {
+                            return (
+                                repeat !== formValues.currentPassword ||
+                                "Password should not be the same as an old one"
+                            );
+                        },
+                    },
                 })}
             />
             <PasswordInput

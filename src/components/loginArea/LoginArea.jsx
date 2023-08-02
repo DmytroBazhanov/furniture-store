@@ -1,6 +1,7 @@
 import { auth, db } from "../../firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
+import { signOut } from "../../queries/auth";
 
 import FunctionalArea from "./FunctionalArea";
 import DropdownMenu from "../dropdownMenu/DropdownMenu";
@@ -9,13 +10,21 @@ import LoginLinks from "./LoginLinks";
 import ProfileDropdown from "./ProfileDropdown";
 
 import "./loginArea.scss";
-import { getAvatarURL } from "../../queries/profile";
 
 export default function LoginArea() {
     const [userInfo, setInfo] = useState(null);
     const [onLoadFlag, setFlag] = useState(false);
     const [isDropdownVisible, setVisibility] = useState(false);
     const [isAuthStateOnline, setAuthState] = useState(false);
+
+    const listenerRef = useRef(null);
+
+    const handleLogout = async () => {
+        await listenerRef.current();
+        setAuthState(false);
+        setInfo(null);
+        signOut();
+    };
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
@@ -29,18 +38,15 @@ export default function LoginArea() {
 
     useEffect(() => {
         let unSubscribe = null;
-
         if (isAuthStateOnline) {
             const userID = auth.currentUser.uid;
             const profileRef = doc(db, import.meta.env.VITE_PROFILES, userID);
-
             unSubscribe = onSnapshot(profileRef, async (profile) => {
-                const avatarUrl = await getAvatarURL(profile.data().avatar);
                 setInfo({
                     ...profile.data(),
-                    avatar: avatarUrl,
                 });
             });
+            listenerRef.current = unSubscribe;
         }
 
         return () => {
@@ -63,7 +69,9 @@ export default function LoginArea() {
     if (userInfo)
         return (
             <DropdownMenu
-                dropdownContent={<ProfileDropdown setDropdownVisibility={setVisibility} />}
+                dropdownContent={
+                    <ProfileDropdown setDropdownVisibility={setVisibility} logout={handleLogout} />
+                }
                 isVisible={isDropdownVisible}
                 setVisible={setVisibility}
                 id="userDropdown"

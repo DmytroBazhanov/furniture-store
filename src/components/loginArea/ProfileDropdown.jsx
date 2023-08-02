@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { ReactComponent as LogoutSVG } from "../../assets/Logout.svg";
-import { signOut } from "../../queries/auth";
-
-import "./loginArea.scss";
 import { links } from "../../utils/links";
 
-export default function ProfileDropdown({ setDropdownVisibility }) {
+import "./loginArea.scss";
+
+export default function ProfileDropdown({ setDropdownVisibility, logout }) {
     const handleSignOut = () => {
-        signOut();
+        logout();
         setDropdownVisibility(false);
     };
 
