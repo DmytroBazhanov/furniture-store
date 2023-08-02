@@ -2,6 +2,7 @@ import { db } from "../firebase";
 import { auth, storage } from "../firebase";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import handleAvatarReference from "../utils/handleAvatarReference";
 
 export async function getProfile() {
     const userID = auth.currentUser.uid;
@@ -13,7 +14,7 @@ export async function getProfile() {
     const profileData = profile.data();
     if (!profileData.avatar) return profileData;
 
-    const avatarUrl = await getAvatarURL(profileData.avatar);
+    const avatarUrl = await handleAvatarReference(profileData.avatar);
     return { ...profileData, avatar: avatarUrl };
 }
 
