@@ -4,7 +4,12 @@ import { ReactComponent as UserSVG } from "../../assets/User.svg";
 import UserAvatar from "../loginArea/UserAvatar";
 import Dashboard from "./Dashboard";
 
-export default function ProfileHeader({ avatar, handleLocalAvatarChange }) {
+export default function ProfileHeader({
+    avatar,
+    handleLocalAvatarChange,
+    setFormState,
+    profileDetails,
+}) {
     const [avatarSrc, setAvatar] = useState("");
 
     return (
@@ -12,7 +17,12 @@ export default function ProfileHeader({ avatar, handleLocalAvatarChange }) {
             <div className="avatarContainer">
                 <UserAvatar src={avatarSrc ? avatarSrc : avatar} />
             </div>
-            <Dashboard setAvatar={setAvatar} handleLocalAvatarChange={handleLocalAvatarChange} />
+            <Dashboard
+                setAvatar={setAvatar}
+                profileDetails={profileDetails}
+                handleLocalAvatarChange={handleLocalAvatarChange}
+                setFormState={setFormState}
+            />
         </div>
     );
 }

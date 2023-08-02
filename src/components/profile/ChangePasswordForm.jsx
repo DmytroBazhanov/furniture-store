@@ -3,8 +3,11 @@ import { useForm } from "react-hook-form";
 
 import PasswordInput from "../input/PasswordInput";
 import { auth } from "../../firebase";
+import doesUserHavePassword from "../../utils/doesUserHavePassword";
+import { setNewPasswordForUser } from "../../queries/auth";
+import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 
-export default function ChangePasswordForm() {
+export default function ChangePasswordForm({ onClose, profileDetails }) {
     const [errorMessage, setErrorMessage] = useState("");
 
     const {
@@ -13,26 +16,57 @@ export default function ChangePasswordForm() {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = ({ currentPassword, newPassword, repeatPassword }) => {
-        const providers = auth.currentUser.auth.currentUser.reloadUserInfo.providerUserInfo;
-        const hasPassword = providers.findIndex((provider) => provider.providerId === "password");
-        console.log(!!hasPassword);
+    const onSubmit = async ({ newPassword, currentPassword, repeatPassword }) => {
+        if (currentPassword) {
+            const credentials = EmailAuthProvider.credential(profileDetails.email, currentPassword);
+            reauthenticateWithCredential(auth.currentUser, credentials)
+                .then(async (res) => {
+                    const response = await setNewPasswordForUser(auth.currentUser, newPassword);
+                    if (response.error) {
+                        setErrorMessage(response.message);
+                    } else {
+                        onClose();
+                    }
+                })
+                .catch((error) => {
+                    if (error.message.includes("auth/wrong-password")) {
+                        setErrorMessage("Provided incorrect password");
+                    }
+                });
+        } else {
+            const response = await setNewPasswordForUser(auth.currentUser, newPassword);
+            if (response.error) {
+                setErrorMessage(response.message);
+            } else {
+                onClose();
+            }
+        }
+    };
+
+    const renderCurrentPassword = () => {
+        const isPassword = doesUserHavePassword(auth);
+
+        if (isPassword)
+            return (
+                <PasswordInput
+                    placeholder="Current password"
+                    name="Current pasword"
+                    errors={errors?.currentPassword}
+                    reg={register("currentPassword", {
+                        required: {
+                            value: true,
+                            message: "Field is required",
+                        },
+                    })}
+                />
+            );
+        else return null;
     };
 
     return (
         <form className="changePasswordForm" onSubmit={handleSubmit(onSubmit)}>
             <h1 className="header">Change password</h1>
-            <PasswordInput
-                placeholder="Current password"
-                name="Current pasword"
-                errors={errors?.currentPassword}
-                reg={register("currentPassword", {
-                    required: {
-                        value: true,
-                        message: "Field is required",
-                    },
-                })}
-            />
+            {renderCurrentPassword()}
             <PasswordInput
                 placeholder="New password"
                 name="New pasword"

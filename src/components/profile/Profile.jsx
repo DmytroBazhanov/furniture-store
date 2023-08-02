@@ -53,7 +53,9 @@ export default function Profile() {
         <div className="profileContainer">
             <ProfileHeader
                 avatar={profileDetails.avatar}
+                profileDetails={profileDetails}
                 handleLocalAvatarChange={handleLocalAvatarChange}
+                setFormState={setFormState}
             />
             <Fields
                 profileDetails={profileDetails}

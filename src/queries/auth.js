@@ -104,9 +104,21 @@ export async function signInWithEmail(email, password) {
         });
 }
 
-export async function setNewPasswordForUser(newPassword) {
-    const user = auth.currentUser;
-    const result = await updatePassword(user, newPassword);
+export async function setNewPasswordForUser(user, newPassword) {
+    const message = await updatePassword(user, String(newPassword))
+        .then(() => {
+            return { error: false, message: "Password updated" };
+        })
+        .catch((error) => {
+            console.log(error);
+            if (error.message.includes("auth/invalid-value-(password)")) {
+                return { error: true, message: "Provided incorrect password" };
+            } else {
+                return { error: true, message: "Server error occured" };
+            }
+        });
+
+    return message;
 }
 
 export async function setNewEmailForUser(newEmail) {

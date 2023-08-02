@@ -5,7 +5,7 @@ import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import handleAvatarReference from "../utils/handleAvatarReference";
 
 export async function getProfile() {
-    const userID = auth.currentUser.uid;
+    const userID = auth?.currentUser?.uid;
     if (!userID) return;
 
     const userProfileRef = doc(db, import.meta.env.VITE_PROFILES, userID);
