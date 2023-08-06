@@ -10,7 +10,6 @@ import {
     updateDoc,
     arrayUnion,
     startAfter,
-    where,
     getCountFromServer,
     arrayRemove,
 } from "firebase/firestore";
@@ -93,13 +92,6 @@ export async function getFilteredProducts(lastProduct, productLimit, filterFunct
         }
 
         const productsCollection = await getDocs(collectionQuery);
-
-        // if (productsCollection.docs.length === 0 && lastProduct === null) {
-        //     throw new Error(
-        //         "Empty collection",
-        //         "Response received but the collection is empty, it is possible that collection name was specified wrongly"
-        //     );
-        // }
 
         const products = [];
 
