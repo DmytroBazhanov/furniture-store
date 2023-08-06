@@ -21,30 +21,26 @@ export default function PurchaseHistory() {
         <div className="purchaseHistoryContainer">
             {/* <button onClick={() => bulkPurchases()}>Process DB bulk</button> */}
             {!history.length && <EmptyContainerPlaceholder text="Order history is empty" />}
-            <div className="holder">
-                {history.map((purchase) => {
-                    return (
-                        <div key={purchase.id} className="ProductRow">
-                            <div className={`ProductRow-imageHolder`}>
-                                <img
-                                    className={`ProductRow-image`}
-                                    alt="product"
-                                    src={purchase.imageURL}
-                                />
-                            </div>
-                            <Tooltip text={purchase.productName} disableIfToSmall={true}>
-                                <h3 className={`ProductRow-header`}>{purchase.productName}</h3>
-                            </Tooltip>
-                            <div className={`ProductRow-info`}>
-                                <p className={`ProductRow-price`}>$ {purchase.operationPrice}</p>
-                                <p className={`ProductRow-stock`}>
-                                    {secondsToDate(purchase.date.seconds)}
-                                </p>
-                            </div>
+            {history.map((purchase) => {
+                return (
+                    <div key={purchase.id} className="ProductRow">
+                        <div className={`ProductRow-imageHolder`}>
+                            <img
+                                className={`ProductRow-image`}
+                                alt="product"
+                                src={purchase.imageURL}
+                            />
                         </div>
-                    );
-                })}
-            </div>
+                        <h3 className={`ProductRow-header`}>{purchase.productName}</h3>
+                        <div className={`ProductRow-info`}>
+                            <p className={`ProductRow-price`}>$ {purchase.operationPrice}</p>
+                            <p className={`ProductRow-stock`}>
+                                {secondsToDate(purchase.date.seconds)}
+                            </p>
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 }
