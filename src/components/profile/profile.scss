@@ -25,14 +25,20 @@
 .profileContainer {
     display: flex;
     flex-direction: column;
+    grid-column-start: 1;
+    grid-column-end: 2;
+
+    max-height: 530px;
+    max-width: 630px;
+    height: 100%;
+    width: 100%;
+
     border: solid 1px $black;
     border-radius: 15px;
     padding: 30px;
     row-gap: 40px;
-    max-height: 600px;
-    max-width: 630px;
-    height: 100%;
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 
     .changePasswordForm {
         display: flex;
@@ -68,7 +74,8 @@
         .userAvatar {
             height: 160px;
             width: 160px;
-            object-fit: contain;
+            object-fit: fill;
+            border-radius: 100%;
         }
 
         .avatarContainer {
@@ -120,7 +127,7 @@
         flex-direction: column;
         row-gap: 30px;
         width: 100%;
-        height: 100px;
+        height: 100%;
 
         .formState {
             display: flex;
@@ -211,6 +218,216 @@
 
             .hidden {
                 display: none;
+            }
+        }
+    }
+}
+
+@include tablet() {
+    .profileContainer {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}
+
+@media screen and (max-width: 690px) {
+    .profileContainer {
+        .profileHeader {
+            .dashboard {
+                max-width: 340px;
+                align-items: flex-end;
+
+                &::before {
+                    left: 30px;
+                }
+
+                .changePassword {
+                    font-size: 20px;
+                    width: calc(100% - 60px);
+                }
+
+                .changeAvatar {
+                    font-size: 20px;
+                    width: calc(100% - 60px);
+                }
+            }
+        }
+    }
+}
+
+@include mobile() {
+    .profileContainer {
+        max-height: 700px;
+        margin-top: 40px;
+        .profileHeader {
+            flex-direction: column;
+            .avatarContainer {
+                display: flex;
+                justify-content: center;
+                height: 250px;
+
+                .userAvatar {
+                    width: 210px;
+                    height: 210px;
+                }
+
+                svg {
+                    width: 210px;
+                    height: 210px;
+                }
+            }
+
+            .dashboard {
+                max-width: 340px;
+                min-width: 180px;
+                width: 100%;
+                align-items: flex-start;
+                margin-left: auto;
+                margin-right: auto;
+
+                &::before {
+                    display: none;
+                }
+
+                &::after {
+                    display: none;
+                }
+
+                .changePassword {
+                    font-size: 20px;
+                    width: 100%;
+                }
+
+                .changeAvatar {
+                    font-size: 20px;
+                    width: 100%;
+                }
+            }
+        }
+
+        .fields {
+            row-gap: 20px;
+
+            .formState {
+                font-size: 16px;
+                text-align: center;
+            }
+
+            input[type="submit"] {
+                font-size: 20px;
+            }
+
+            .profileInputContainer {
+                &::after {
+                    bottom: -5px;
+                }
+
+                label {
+                    font-size: 16px;
+                    width: fit-content;
+                    white-space: nowrap;
+                    margin-right: 7px;
+                    height: 20px;
+                }
+
+                input[type="text"] {
+                    font-size: 16px;
+                    height: 23px;
+                    width: 100%;
+                }
+
+                input[type="email"] {
+                    font-size: 16px;
+                    height: 23px;
+                    width: 100%;
+                }
+
+                .text {
+                    font-size: 16px;
+                    height: 23px;
+                }
+
+                input {
+                    font-size: 20px;
+                }
+
+                svg {
+                    max-width: 30px;
+                    max-height: 30px;
+                    width: 100%;
+                    height: 100%;
+                    padding-left: 5px;
+                }
+            }
+        }
+    }
+}
+
+@include narrowMobile() {
+    .profileContainer {
+        max-height: 600px;
+        .profileHeader {
+            .avatarContainer {
+                height: 200px;
+                .userAvatar {
+                    max-width: 170px;
+                    max-height: 170px;
+                }
+
+                svg {
+                    width: 170px;
+                    height: 170px;
+                }
+            }
+
+            .dashboard {
+                .changePassword {
+                    font-size: 16px;
+                    height: 50px;
+                }
+
+                .changeAvatar {
+                    font-size: 16px;
+                    height: 50px;
+                }
+            }
+        }
+
+        .fields {
+            .formState {
+                margin-top: 10px;
+            }
+
+            input[type="submit"] {
+                font-size: 16px;
+                width: 100%;
+                height: 50px;
+            }
+
+            .profileInputContainer {
+                label {
+                    font-size: 14px;
+                }
+
+                input[type="text"] {
+                    font-size: 12px;
+                    height: 20px;
+                }
+
+                input[type="email"] {
+                    font-size: 12px;
+                    height: 20px;
+                }
+
+                .text {
+                    font-size: 14px;
+                    height: 20px;
+                }
+
+                svg {
+                    max-width: 20px;
+                    max-height: 20px;
+                }
             }
         }
     }

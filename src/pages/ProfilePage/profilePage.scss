@@ -1,6 +1,16 @@
+@import "../../globalStyles/breakpoints.scss";
+
 .profilePage {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     height: 80vh;
+    width: 100%;
+    align-items: center;
+}
+
+@include mobile() {
+    .profilePage {
+        align-items: flex-start;
+    }
 }
