@@ -1,25 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { auth } from "../../firebase";
-import { bulkPurchases, getPurchaseHistory } from "../../queries/purchases";
+import { getPurchaseHistory } from "../../queries/purchases";
+import { RECORD_LIMIT_PER_REQUEST } from "./config";
 
+import IntersectionDetector from "../intersectionDetector/IntersectionDetector";
 import EmptyContainerPlaceholder from "../emptyContainerPlaceholder/EmptyContainerPlaceholder";
-import Tooltip from "../tooltip/Tooltip";
 import secondsToDate from "../../utils/secondsToDate";
 
 import "./purchaseHistory.scss";
 
 export default function PurchaseHistory() {
     const [history, setHistory] = useState([]);
+    const [isIntersectorActive, setActive] = useState(false);
+
+    const querySnapshotRef = useRef(null);
+
+    const loadPurchaseHistory = (ignorePrevData) => {
+        getPurchaseHistory(querySnapshotRef.current, RECORD_LIMIT_PER_REQUEST).then((response) => {
+            if (ignorePrevData) setHistory(response.records);
+            else if (!ignorePrevData) setHistory((prev) => [...prev, ...response.records]);
+
+            querySnapshotRef.current = response.lastSnapshot;
+
+            if (response.records.length < 8) setActive(false);
+            else setActive(true);
+        });
+    };
 
     useEffect(() => {
         auth.onAuthStateChanged(() => {
-            getPurchaseHistory().then((response) => setHistory(response));
+            loadPurchaseHistory(true);
         });
     }, []);
 
     return (
-        <div className="purchaseHistoryContainer">
-            {/* <button onClick={() => bulkPurchases()}>Process DB bulk</button> */}
+        <div className={`purchaseHistoryContainer ${!history.length && "borderless"}`}>
             {!history.length && <EmptyContainerPlaceholder text="Order history is empty" />}
             {history.map((purchase) => {
                 return (
@@ -41,6 +56,11 @@ export default function PurchaseHistory() {
                     </div>
                 );
             })}
+            <IntersectionDetector
+                id="historyIntersector"
+                isActive={isIntersectorActive}
+                onIntersect={loadPurchaseHistory}
+            />
         </div>
     );
 }

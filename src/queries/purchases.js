@@ -1,6 +1,16 @@
 import { nanoid } from "nanoid";
 import { auth, db } from "../firebase";
-import { doc, getDocs, collection, query, where, updateDoc, setDoc } from "firebase/firestore";
+import {
+    doc,
+    getDocs,
+    collection,
+    query,
+    where,
+    updateDoc,
+    setDoc,
+    limit,
+    startAfter,
+} from "firebase/firestore";
 
 export async function getPurchasesForNotifications() {
     const userID = auth.currentUser.uid;
@@ -23,16 +33,31 @@ export async function hideNotification(notificationID) {
     await updateDoc(notificationRef, { doNotShow: true });
 }
 
-export async function getPurchaseHistory() {
+export async function getPurchaseHistory(snapshot, docsLimit) {
     const userID = auth.currentUser.uid;
     const purchasesCollection = collection(db, import.meta.env.VITE_PURCHASES);
 
-    const historyQuery = query(purchasesCollection, where("userID", "==", userID));
+    let historyQuery = null;
+
+    if (!snapshot) {
+        historyQuery = query(purchasesCollection, where("userID", "==", userID), limit(docsLimit));
+    } else if (snapshot) {
+        historyQuery = query(
+            purchasesCollection,
+            where("userID", "==", userID),
+            limit(docsLimit),
+            startAfter(snapshot)
+        );
+    }
+
     const history = await getDocs(historyQuery);
 
-    return history.docs.map((doc) => {
-        return { id: doc.id, ...doc.data() };
-    });
+    return {
+        records: history.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() };
+        }),
+        lastSnapshot: history.docs[history.docs.length - 1],
+    };
 }
 
 export async function bulkPurchases() {

@@ -1,0 +1,1 @@
+export const RECORD_LIMIT_PER_REQUEST = 8;
