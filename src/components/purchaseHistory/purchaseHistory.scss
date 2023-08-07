@@ -1,8 +1,9 @@
 @import "../../globalStyles/colors.scss";
+@import "../../globalStyles/breakpoints.scss";
 
-@mixin borderSize() {
-    width: 40px;
-    height: 40px;
+@mixin borderSize($size) {
+    width: $size;
+    height: $size;
 }
 
 .purchaseHistoryContainer {
@@ -15,16 +16,8 @@
     .ProductRow {
         border-radius: 0px;
 
-        .tooltip-container {
-            .tooltip {
-                position: absolute;
-                left: 0;
-                bottom: 0px;
-            }
-
-            .lengthChecker {
-                top: 0;
-            }
+        &-stock {
+            justify-content: center;
         }
 
         &::after {
@@ -41,6 +34,14 @@
                 display: none;
             }
         }
+
+        .mobile {
+            display: none;
+        }
+
+        .desktop {
+            display: flex;
+        }
     }
 
     .epmtyContainer {
@@ -50,20 +51,117 @@
         font-weight: 600;
 
         .topLeft {
-            @include borderSize();
+            @include borderSize(40px);
         }
         .topRight {
-            @include borderSize();
+            @include borderSize(40px);
         }
         .bottomLeft {
-            @include borderSize();
+            @include borderSize(40px);
         }
         .bottomRight {
-            @include borderSize();
+            @include borderSize(40px);
         }
     }
 }
 
 .borderless {
     border: none;
+}
+
+@include laptop() {
+    .purchaseHistoryContainer {
+        .ProductRow {
+            grid-template-columns: 75px minmax(80px, 1fr) 200px;
+            &-header {
+                font-size: 16px;
+            }
+
+            &-info {
+                width: 200px;
+                .ProductRow-price {
+                    font-size: 14px;
+                    max-width: 100px;
+                }
+                .ProductRow-stock {
+                    font-size: 14px;
+                    max-width: 100px;
+                }
+            }
+        }
+    }
+}
+
+@include tablet() {
+    .purchaseHistoryContainer {
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@include mobile() {
+    .purchaseHistoryContainer {
+        .ProductRow {
+            grid-template-columns: 75px minmax(80px, 1fr) 140px;
+
+            &-header {
+                font-size: 14px;
+            }
+
+            &-info {
+                width: 140px;
+                .ProductRow-price {
+                    font-size: 12px;
+                    max-width: 70px;
+                }
+                .ProductRow-stock {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 12px;
+                    max-width: 70px;
+                }
+            }
+
+            .mobile {
+                display: flex;
+            }
+
+            .desktop {
+                display: none;
+            }
+        }
+    }
+}
+
+@include narrowMobile() {
+    .purchaseHistoryContainer {
+        .ProductRow {
+            grid-template-columns: 75px minmax(80px, 1fr) 100px;
+
+            &-header {
+                font-size: 12px;
+            }
+
+            &-info {
+                width: 100px;
+                .ProductRow-price {
+                    font-size: 10px;
+                    font-weight: 400;
+                    max-width: 50px;
+                    word-spacing: -2px;
+                    white-space: nowrap;
+                    overflow-x: scroll;
+                    justify-content: flex-start;
+                    width: fit-content;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                .ProductRow-stock {
+                    font-size: 10px;
+                    max-width: 50px;
+                }
+            }
+        }
+    }
 }

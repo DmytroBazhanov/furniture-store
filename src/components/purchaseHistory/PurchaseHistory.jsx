@@ -27,6 +27,12 @@ export default function PurchaseHistory() {
         });
     };
 
+    const renderOperationDateForMobile = (purchase) => {
+        const result = secondsToDate(purchase.date.seconds, true);
+
+        return result.map((dateChunk, index) => <span key={index}>{dateChunk}</span>);
+    };
+
     useEffect(() => {
         auth.onAuthStateChanged(() => {
             loadPurchaseHistory(true);
@@ -49,7 +55,10 @@ export default function PurchaseHistory() {
                         <h3 className={`ProductRow-header`}>{purchase.productName}</h3>
                         <div className={`ProductRow-info`}>
                             <p className={`ProductRow-price`}>$ {purchase.operationPrice}</p>
-                            <p className={`ProductRow-stock`}>
+                            <p className={`ProductRow-stock mobile`}>
+                                {renderOperationDateForMobile(purchase)}
+                            </p>
+                            <p className={`ProductRow-stock desktop`}>
                                 {secondsToDate(purchase.date.seconds)}
                             </p>
                         </div>
