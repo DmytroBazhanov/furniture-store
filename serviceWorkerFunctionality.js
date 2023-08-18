@@ -31,7 +31,11 @@ self.addEventListener("fetch", (ev) => {
 
     return ev.respondWith(
         caches.match(ev.request).then((cacheResponse) => {
-            if (ev.request.url.includes("https://firebasestorage.googleapis.com")) {
+            if (
+                ev.request.url.includes("https://firebasestorage.googleapis.com") ||
+                ev.request.url.includes("apis.google.com") ||
+                ev.request.url.includes("graph.facebook.com")
+            ) {
                 return fetch(ev.request).then((response) => response);
             }
 
