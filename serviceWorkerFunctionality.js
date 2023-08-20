@@ -1,3 +1,5 @@
+importScripts("./src/utils/SWindexedDb.js");
+
 const cacheName = "v1";
 
 const keyResources = ["/", "/index.html"];
@@ -26,6 +28,14 @@ self.addEventListener("fetch", (ev) => {
     if (ev.request.mode === "navigate") {
         return ev.respondWith(
             caches.match("/index.html").then((cacheResponse) => cacheResponse || fetch(ev.request))
+        );
+    }
+
+    if (ev.request.url.includes("https://identitytoolkit.googleapis.com/v1/accounts:lookup")) {
+        return ev.respondWith(
+            fetch(ev.request).finally(() => {
+                duplicateFbaseKeyToRealDb();
+            })
         );
     }
 
