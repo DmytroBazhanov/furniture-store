@@ -21,12 +21,11 @@ const duplicateFbaseKeyToRealDb = (intervalID = null) => {
                 };
 
                 additionRequest.onerror = (error) => {
-                    console.log(error.target.error);
                     if (
                         String(error.target.error).includes("Key already exists") &&
                         navigator.onLine
                     ) {
-                        if (intervalID) clearTimeout(intervalID);
+                        if (intervalID) clearInterval(intervalID);
                     } else if (
                         String(error.target.error).includes("Key already exists") &&
                         !intervalID &&
@@ -72,15 +71,10 @@ const createFbaseBackupKey = () => {
                     "firebaseLocalStorageBackup"
                 );
 
-                const additionRequest = secondObjectStore.add(FbKeyObject);
-
-                additionRequest.onsuccess = () => console.log("Added");
-                additionRequest.onerror = (ev) => console.log("Error " + ev);
+                secondObjectStore.add(FbKeyObject);
             };
         };
 
         transaction.oncomplete = () => db.close();
     };
-
-    db_request.onerror = (err) => console.log("Error " + err);
 };

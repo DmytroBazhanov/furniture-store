@@ -15,12 +15,6 @@ export const duplicateFbaseKeyToRealDb = () => {
                 const fbaseTransaction = fbaseDb.transaction(["firebaseLocalStorage"], "readwrite");
                 const fbaseObjectStore = fbaseTransaction.objectStore("firebaseLocalStorage");
                 const additionRequest = fbaseObjectStore.add(FbKeyObjectBackup);
-
-                additionRequest.onerror = (error) => {
-                    if (error.target.result.error.includes("Key already exists")) {
-                        console.log("Key exists");
-                    }
-                };
             };
         };
     };
@@ -57,14 +51,9 @@ export const createFbaseBackupKey = () => {
                 );
 
                 const additionRequest = secondObjectStore.add(FbKeyObject);
-
-                additionRequest.onsuccess = () => console.log("Added");
-                additionRequest.onerror = (ev) => console.log("Error " + ev);
             };
         };
 
         transaction.oncomplete = () => db.close();
     };
-
-    db_request.onerror = (err) => console.log("Error " + err);
 };
