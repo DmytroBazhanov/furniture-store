@@ -2,6 +2,7 @@ import { auth, db } from "../../firebase";
 import { useEffect, useRef, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { signOut } from "../../queries/auth";
+import { getProfile } from "../../queries/profile";
 
 import FunctionalArea from "./FunctionalArea";
 import DropdownMenu from "../dropdownMenu/DropdownMenu";
@@ -10,6 +11,7 @@ import LoginLinks from "./LoginLinks";
 import ProfileDropdown from "./ProfileDropdown";
 
 import "./loginArea.scss";
+import { cacheInfo } from "../../utils/cacheInfo";
 
 export default function LoginArea() {
     const [userInfo, setInfo] = useState(null);
@@ -18,6 +20,24 @@ export default function LoginArea() {
     const [isAuthStateOnline, setAuthState] = useState(false);
 
     const listenerRef = useRef(null);
+
+    const getUserCachedUserData = async () => {
+        const requestObject = new Request("userProfile");
+
+        fetch(requestObject).then((response) => {
+            response.json().then((userInfo) => {
+                const { email, name, lastname, avatar, purchaseHistory } = userInfo;
+
+                setInfo({
+                    email,
+                    avatar,
+                    name,
+                    lastname,
+                    purchaseHistory,
+                });
+            });
+        });
+    };
 
     const handleLogout = async () => {
         await listenerRef.current();
@@ -38,7 +58,9 @@ export default function LoginArea() {
 
     useEffect(() => {
         let unSubscribe = null;
-        if (isAuthStateOnline) {
+        if (isAuthStateOnline && !navigator.onLine) {
+            getUserCachedUserData();
+        } else if (isAuthStateOnline) {
             const userID = auth.currentUser.uid;
             const profileRef = doc(db, import.meta.env.VITE_PROFILES, userID);
             unSubscribe = onSnapshot(profileRef, async (profile) => {
@@ -46,7 +68,20 @@ export default function LoginArea() {
                     ...profile.data(),
                 });
             });
+
             listenerRef.current = unSubscribe;
+
+            // for caching purposes only
+            getProfile().then((response) => {
+                const requestObject = new Request("userProfile");
+
+                const responseObject = new Response(JSON.stringify(response), {
+                    status: 200,
+                    statusText: "Ok",
+                });
+
+                cacheInfo(requestObject, responseObject);
+            });
         }
 
         return () => {

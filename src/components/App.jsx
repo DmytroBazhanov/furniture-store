@@ -18,6 +18,11 @@ function App() {
         window.addEventListener("online", handleOnline);
         window.addEventListener("offline", handleOffline);
 
+        if (!navigator.onLine) {
+            console.log("reselrsel");
+            duplicateFbaseKeyToRealDb();
+        }
+
         return () => {
             window.removeEventListener("online", handleOnline);
             window.removeEventListener("offline", handleOffline);
