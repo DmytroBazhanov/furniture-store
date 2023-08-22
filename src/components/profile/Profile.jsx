@@ -7,11 +7,20 @@ import ProfileHeader from "./ProfileHeader";
 import Fields from "./Fields";
 
 import "./profile.scss";
+import { syncQueuedRequests } from "../../utils/requestQueue";
 
 export default function Profile() {
     const [profileDetails, setDetails] = useState({});
     const [editedFields, setFields] = useState({});
     const [formState, setFormState] = useState("notTriggered");
+
+    const getProfileData = () => {
+        syncQueuedRequests().then(() => {
+            getProfile().then((response) => {
+                setDetails(response);
+            });
+        });
+    };
 
     const handleSuccessProfileUpdate = async (profileProps) => {
         await handleAvatarChange();
@@ -42,6 +51,8 @@ export default function Profile() {
     };
 
     useEffect(() => {
+        window.addEventListener("online", getProfileData);
+
         auth.onAuthStateChanged((user) => {
             if (user && !navigator.onLine) {
                 getProfileFromCache().then((result) => {
@@ -50,11 +61,13 @@ export default function Profile() {
                     });
                 });
             } else {
-                getProfile().then((response) => {
-                    setDetails(response);
-                });
+                getProfileData();
             }
         });
+
+        return () => {
+            window.removeEventListener("online", getProfileData);
+        };
     }, []);
 
     return (

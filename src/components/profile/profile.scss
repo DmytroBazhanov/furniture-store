@@ -11,6 +11,11 @@
     border: none;
     font-size: 24px;
     cursor: pointer;
+
+    &:disabled {
+        background-color: $dimBlack;
+        cursor: not-allowed;
+    }
 }
 
 @mixin line() {
@@ -118,6 +123,11 @@
                 input[type="file"] {
                     display: none;
                 }
+            }
+
+            .disabled {
+                background-color: $dimBlack;
+                cursor: not-allowed;
             }
         }
     }

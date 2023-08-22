@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { EDITABLE_FIELDS, TICKER_STATES, updateProfile, validationFunction } from "./config";
 import ProfileInput from "./ProfileInput";
+import { addToRequestQueue } from "../../utils/requestQueue";
 
 export default function Fields({
     profileDetails,
@@ -28,6 +29,19 @@ export default function Fields({
 
         if (Object.keys(errors).length > 0) {
             setErrors(errors);
+            return;
+        }
+
+        if (!navigator.onLine) {
+            const propsArray = [editedFields, formProps];
+            addToRequestQueue("updateProfile", propsArray);
+            setFormState("saveOffline");
+
+            onProfileUpdateSuccess();
+            const timerID = setTimeout(() => {
+                setFormState("notTriggered");
+            }, 2000);
+            setTimeoutID(timerID);
             return;
         }
 

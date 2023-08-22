@@ -13,9 +13,15 @@ export default function Dashboard({
 }) {
     const [isVisible, setVisibility] = useState(false);
     const [timerID, setTimerID] = useState(null);
+    const [isActive, setActive] = useState(true);
+
+    const handleOffline = () => setActive(false);
+    const handleOnline = () => setActive(true);
 
     const onOpen = (e) => {
         e.stopPropagation();
+        if (!isActive) return;
+
         setVisibility(true);
     };
 
@@ -43,19 +49,26 @@ export default function Dashboard({
     };
 
     useEffect(() => {
+        window.addEventListener("online", handleOnline);
+        window.addEventListener("offline", handleOffline);
+
         return () => {
             clearTimeout(timerID);
+            window.removeEventListener("online", handleOnline);
+            window.removeEventListener("offline", handleOffline);
         };
     }, []);
 
+    const elemState = isActive ? "" : "disabled";
+
     return (
         <div className="dashboard">
-            <button className="changePassword" onClick={onOpen}>
+            <button className="changePassword" onClick={onOpen} disabled={!isActive}>
                 Change password
             </button>
-            <label className="changeAvatar" onInput={onLocalAvatarChange}>
+            <label className={`changeAvatar ${elemState}`} onInput={onLocalAvatarChange}>
                 Upload new avatar
-                <input ref={inputRef} accept={AVATAR_ACCEPT} type="file" />
+                <input ref={inputRef} accept={AVATAR_ACCEPT} type="file" disabled={!isActive} />
             </label>
             <Modal isVisible={isVisible} onClose={onClose}>
                 <KeyDownCatcher onCatch={onEscape}>
