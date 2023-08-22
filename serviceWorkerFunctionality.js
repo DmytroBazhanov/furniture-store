@@ -37,6 +37,8 @@ self.addEventListener("fetch", (ev) => {
                 duplicateFbaseKeyToRealDb();
             })
         );
+    } else if (ev.request.url === "http://localhost:5173/userProfile") {
+        return ev.respondWith(caches.match(ev.request).then((cacheResponse) => cacheResponse));
     }
 
     return ev.respondWith(

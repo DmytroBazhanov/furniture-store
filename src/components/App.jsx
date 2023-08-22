@@ -19,7 +19,6 @@ function App() {
         window.addEventListener("offline", handleOffline);
 
         if (!navigator.onLine) {
-            console.log("reselrsel");
             duplicateFbaseKeyToRealDb();
         }
 

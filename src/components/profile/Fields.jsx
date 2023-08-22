@@ -69,19 +69,20 @@ export default function Fields({
     return (
         <form onSubmit={handleSubmit} className="fields">
             {EDITABLE_FIELDS.map((field) => {
-                return (
-                    <ProfileInput
-                        key={field.name}
-                        name={field.name}
-                        type={field.type}
-                        label={field.alias}
-                        value={profileDetails[field.name]}
-                        error={errorObject?.[field.name]}
-                        setFields={setFields}
-                        onFormStateChange={handleFormStateChange}
-                        profileDetails={profileDetails}
-                    />
-                );
+                if (profileDetails)
+                    return (
+                        <ProfileInput
+                            key={field.name}
+                            name={field.name}
+                            type={field.type}
+                            label={field.alias}
+                            value={profileDetails[field.name]}
+                            error={errorObject?.[field.name]}
+                            setFields={setFields}
+                            onFormStateChange={handleFormStateChange}
+                            profileDetails={profileDetails}
+                        />
+                    );
             })}
             {renderSubmit()}
         </form>

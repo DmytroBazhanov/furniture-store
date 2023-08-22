@@ -44,3 +44,8 @@ export async function getAvatarURL(path) {
 
     return avatarURL;
 }
+
+export async function getProfileFromCache() {
+    const request = new Request("userProfile");
+    return fetch(request);
+}

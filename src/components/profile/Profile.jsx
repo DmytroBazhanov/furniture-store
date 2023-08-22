@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProfile } from "../../queries/profile";
+import { getProfile, getProfileFromCache } from "../../queries/profile";
 import { auth } from "../../firebase";
 import { changeAvatar } from "../../queries/profile";
 
@@ -42,17 +42,25 @@ export default function Profile() {
     };
 
     useEffect(() => {
-        auth.onAuthStateChanged(() => {
-            getProfile().then((response) => {
-                setDetails(response);
-            });
+        auth.onAuthStateChanged((user) => {
+            if (user && !navigator.onLine) {
+                getProfileFromCache().then((result) => {
+                    result.json().then((json) => {
+                        setDetails(json);
+                    });
+                });
+            } else {
+                getProfile().then((response) => {
+                    setDetails(response);
+                });
+            }
         });
     }, []);
 
     return (
         <div className="profileContainer">
             <ProfileHeader
-                avatar={profileDetails.avatar}
+                avatar={profileDetails?.avatar}
                 profileDetails={profileDetails}
                 handleLocalAvatarChange={handleLocalAvatarChange}
                 setFormState={setFormState}
