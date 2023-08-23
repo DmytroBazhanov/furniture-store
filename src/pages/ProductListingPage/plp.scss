@@ -5,6 +5,19 @@
     display: flex;
     flex-direction: column;
 
+    .noInternet {
+        display: flex;
+        text-align: center;
+        position: fixed;
+        max-width: 300px;
+        width: 100%;
+        font-size: 30px;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+    }
+
     #productLoader {
         margin-top: 30px;
         margin-right: auto;

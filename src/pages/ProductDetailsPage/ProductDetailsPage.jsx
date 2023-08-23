@@ -14,6 +14,7 @@ import Gallery from "../../components/gallery/Gallery";
 import "./productDetailsPage.scss";
 
 export default function ProductDetailsPage() {
+    const [isOnline, setOnline] = useState(true);
     const [productDetails, setDetails] = useState(null);
     const [chosenColor, setColor] = useState(null);
 
@@ -43,6 +44,8 @@ export default function ProductDetailsPage() {
         });
     };
 
+    const onNetworkStateChange = () => setOnline(navigator.onLine);
+
     const handleAddProduct = (event) => {
         const colors = colorsAndThemes.map((obj) => obj.color);
         addToCart(productDetails.id, { colorThemes: chosenColor ?? colors[0] });
@@ -54,7 +57,24 @@ export default function ProductDetailsPage() {
         getProductByID(prodID).then((response) => {
             setDetails(response);
         });
+
+        setOnline(navigator.onLine);
+
+        window.addEventListener("online", onNetworkStateChange);
+        window.addEventListener("offline", onNetworkStateChange);
+
+        return () => {
+            window.removeEventListener("online", onNetworkStateChange);
+            window.removeEventListener("offline", onNetworkStateChange);
+        };
     }, []);
+
+    if (!isOnline)
+        return (
+            <div className="productDetailsPage">
+                <h3 className="noInternet">No internet connection detected</h3>
+            </div>
+        );
 
     if (!productDetails) return <h1>Loading</h1>;
 

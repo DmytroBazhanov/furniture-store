@@ -24,6 +24,7 @@ export const FilterContext = createContext(null);
 export default function ProductListingPage() {
     const [isFirstLoad, setFirstLoad] = useState(true);
     const [isVisible, setVisibility] = useState(false);
+    const [isOnline, setOnline] = useState(true);
     const [requestInProgress, setProgress] = useState(false);
 
     const [products, setProducts] = useState([]);
@@ -41,6 +42,8 @@ export default function ProductListingPage() {
     const viewSwitcherButtons = switcherButtons.map((buttonConfig) => {
         return { ...buttonConfig, function: changeViewMode };
     });
+
+    const onNetworkStateChange = () => setOnline(navigator.onLine);
 
     const getProducts = async (
         sortFunctions = [],
@@ -73,11 +76,30 @@ export default function ProductListingPage() {
     };
 
     useEffect(() => {
+        setOnline(navigator.onLine);
+
+        window.addEventListener("online", onNetworkStateChange);
+        window.addEventListener("offline", onNetworkStateChange);
+
+        return () => {
+            window.removeEventListener("online", onNetworkStateChange);
+            window.removeEventListener("offline", onNetworkStateChange);
+        };
+    }, []);
+
+    useEffect(() => {
         if (!isFirstLoad) {
             getProducts(filterObjecttIntoArray(filters), true);
         }
         setFirstLoad(false);
     }, [filters]);
+
+    if (!isOnline)
+        return (
+            <div className="ProductListingPage">
+                <h3 className="noInternet">No internet connection detected</h3>
+            </div>
+        );
 
     return (
         <div className="ProductListingPage">
