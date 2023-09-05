@@ -50,6 +50,8 @@ export default function LoginArea() {
         auth.onAuthStateChanged((user) => {
             if (user) {
                 setAuthState(true);
+            } else if (!user && onLoadFlag) {
+                setAuthState(false);
             }
 
             setFlag(true);
@@ -63,13 +65,18 @@ export default function LoginArea() {
         } else if (isAuthStateOnline) {
             const userID = auth.currentUser.uid;
             const profileRef = doc(db, import.meta.env.VITE_PROFILES, userID);
-            unSubscribe = onSnapshot(profileRef, async (profile) => {
-                setInfo({
-                    ...profile.data(),
-                });
-            });
-
-            listenerRef.current = unSubscribe;
+            listenerRef.current = onSnapshot(
+                profileRef,
+                async (profile) => {
+                    setInfo({
+                        ...profile.data(),
+                    });
+                },
+                (error) => {
+                    listenerRef.current();
+                    setInfo(null);
+                }
+            );
 
             // for caching purposes only
             getProfile().then((response) => {
@@ -85,7 +92,7 @@ export default function LoginArea() {
         }
 
         return () => {
-            if (unSubscribe) unSubscribe();
+            if (listenerRef.current) listenerRef.current();
         };
     }, [isAuthStateOnline]);
 
