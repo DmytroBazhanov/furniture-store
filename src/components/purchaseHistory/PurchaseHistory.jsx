@@ -40,36 +40,48 @@ export default function PurchaseHistory() {
     }, []);
 
     return (
-        <div className={`purchaseHistoryContainer ${!history.length && "borderless"}`}>
-            {!history.length && <EmptyContainerPlaceholder text="Order history is empty" />}
-            {history.map((purchase) => {
-                return (
-                    <div key={purchase.id} className="ProductRow">
-                        <div className={`ProductRow-imageHolder`}>
-                            <img
-                                className={`ProductRow-image`}
-                                alt="product"
-                                src={purchase.imageURL}
-                            />
-                        </div>
-                        <h3 className={`ProductRow-header`}>{purchase.productName}</h3>
-                        <div className={`ProductRow-info`}>
-                            <p className={`ProductRow-price`}>$ {purchase.operationPrice}</p>
-                            <p className={`ProductRow-stock mobile`}>
-                                {renderOperationDateForMobile(purchase)}
-                            </p>
-                            <p className={`ProductRow-stock desktop`}>
-                                {secondsToDate(purchase.date.seconds)}
-                            </p>
-                        </div>
-                    </div>
-                );
-            })}
-            <IntersectionDetector
-                id="historyIntersector"
-                isActive={isIntersectorActive}
-                onIntersect={loadPurchaseHistory}
-            />
+        <div className="purchase-history">
+            <h1 className="purchase-history__header">
+                <span className="purchase-history__username">
+                    {auth?.currentUser?.displayName}'s
+                </span>{" "}
+                <span className="purchase-history__header-text">order history</span>
+            </h1>
+            <div className="purchase-history__border-container">
+                <div className={`purchaseHistoryContainer ${!history.length && "borderless"}`}>
+                    {!history.length && <EmptyContainerPlaceholder text="Order history is empty" />}
+                    {history.map((purchase) => {
+                        return (
+                            <div key={purchase.id} className="ProductRow">
+                                <div className={`ProductRow-imageHolder`}>
+                                    <img
+                                        className={`ProductRow-image`}
+                                        alt="product"
+                                        src={purchase.imageURL}
+                                    />
+                                </div>
+                                <h3 className={`ProductRow-header`}>{purchase.productName}</h3>
+                                <div className={`ProductRow-info`}>
+                                    <p className={`ProductRow-price`}>
+                                        $ {purchase.operationPrice}
+                                    </p>
+                                    <p className={`ProductRow-stock mobile`}>
+                                        {renderOperationDateForMobile(purchase)}
+                                    </p>
+                                    <p className={`ProductRow-stock desktop`}>
+                                        {secondsToDate(purchase.date.seconds)}
+                                    </p>
+                                </div>
+                            </div>
+                        );
+                    })}
+                    <IntersectionDetector
+                        id="historyIntersector"
+                        isActive={isIntersectorActive}
+                        onIntersect={loadPurchaseHistory}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

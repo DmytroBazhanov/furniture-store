@@ -49,6 +49,7 @@ export default function Fields({
             .then(() => {
                 onProfileUpdateSuccess(formProps);
                 setFormState("saveSuccess");
+                setErrors({});
 
                 const timerID = setTimeout(() => {
                     setFormState("notTriggered");

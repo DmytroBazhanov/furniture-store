@@ -39,6 +39,10 @@
             background-color: $white;
             transition: margin ease-in-out 0.2s;
 
+            .sidebar-svg {
+                max-width: 30px;
+            }
+
             &-topPart {
                 display: flex;
                 flex-direction: row;
@@ -67,6 +71,7 @@
                 font-size: 24px;
                 color: $red;
                 font-weight: bold;
+                cursor: pointer;
             }
 
             .sidebar-linkContainer {

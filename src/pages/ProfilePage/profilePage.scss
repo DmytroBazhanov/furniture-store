@@ -13,7 +13,7 @@
 @include tablet() {
     .profilePage {
         grid-template-columns: 1fr;
-        row-gap: 180px;
+        row-gap: 130px;
         column-gap: 0;
         height: fit-content;
         padding-bottom: 20px;
@@ -23,5 +23,11 @@
 @include mobile() {
     .profilePage {
         align-items: flex-start;
+    }
+}
+
+@include narrowMobile() {
+    .profilePage {
+        row-gap: 80px;
     }
 }

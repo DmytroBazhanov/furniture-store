@@ -5,6 +5,7 @@ import profile from "../assets/profile.svg";
 
 export const links = {
     navigationLinks: [
+        { text: "Profile", src: "/profile", svg: profile },
         { text: "Categories", src: "/categories", svg: category },
         { text: "Best Sellers", src: "/categories/bestSellers", svg: bestSellers },
         { text: "FAQs", src: "/FAQ", svg: faq },

@@ -20,7 +20,7 @@ export default function ApplicationSidebar({ sidebarVisible, setVisibility }) {
                 to={link.src}
                 onClick={() => setVisibility(false)}
             >
-                <img src={link.svg} />
+                <img className="sidebar-svg" src={link.svg} />
                 {link.text}
             </Link>
         );
