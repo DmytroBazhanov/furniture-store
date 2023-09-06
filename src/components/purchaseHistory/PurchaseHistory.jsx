@@ -47,8 +47,10 @@ export default function PurchaseHistory() {
                 </span>{" "}
                 <span className="purchase-history__header-text">order history</span>
             </h1>
-            <div className="purchase-history__border-container">
-                <div className={`purchaseHistoryContainer ${!history.length && "borderless"}`}>
+            <div
+                className={`purchase-history__border-container ${!history.length && "borderless"}`}
+            >
+                <div className="purchaseHistoryContainer">
                     {!history.length && <EmptyContainerPlaceholder text="Order history is empty" />}
                     {history.map((purchase) => {
                         return (

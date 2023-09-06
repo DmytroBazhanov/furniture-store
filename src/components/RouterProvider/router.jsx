@@ -4,6 +4,7 @@ import Categories from "../../pages/Categories/Categories";
 import ProductListingPage from "../../pages/ProductListingPage/ProductListingPage";
 import ProductDetailsPage from "../../pages/ProductDetailsPage/ProductDetailsPage";
 import ProfilePage from "../../pages/ProfilePage/ProfilePage";
+import PrivateRoute from "../privateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -25,7 +26,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "profile",
-                element: <ProfilePage />,
+                element: (
+                    <PrivateRoute>
+                        <ProfilePage />
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "checkout",

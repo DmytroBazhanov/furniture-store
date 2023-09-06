@@ -33,8 +33,6 @@ export default function Categories() {
             </div>
         );
 
-    console.log(isOnline);
-
     return (
         <div className="categoryPage">
             {categories.map((category) => (

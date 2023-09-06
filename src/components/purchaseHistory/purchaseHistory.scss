@@ -101,6 +101,12 @@
 
 .borderless {
     border: none;
+
+    .purchaseHistoryContainer {
+        &:hover {
+            background-color: initial;
+        }
+    }
 }
 
 @include laptop() {
