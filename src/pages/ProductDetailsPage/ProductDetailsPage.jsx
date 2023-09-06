@@ -10,6 +10,7 @@ import RecomendationArea from "../../components/recomendationArea/RecomendationA
 import BuyButton from "../../components/buyButton/BuyButton";
 import colorThemeSeparator from "../../utils/themeColorSeparator";
 import Gallery from "../../components/gallery/Gallery";
+import ProductSpinner from "../../components/producSpinner/ProductSpinner";
 
 import "./productDetailsPage.scss";
 
@@ -76,7 +77,7 @@ export default function ProductDetailsPage() {
             </div>
         );
 
-    if (!productDetails) return <h1>Loading</h1>;
+    if (!productDetails) return <ProductSpinner />;
 
     return (
         <div className="productDetailsPage">

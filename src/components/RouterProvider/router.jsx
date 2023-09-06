@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
 import App from "../App";
 import Categories from "../../pages/Categories/Categories";
 import ProductListingPage from "../../pages/ProductListingPage/ProductListingPage";
@@ -12,6 +14,10 @@ export const router = createBrowserRouter([
         element: <App />,
         errorElement: <h1>Error ocured</h1>, // to be done with separate errorBoundary component using useRouteError
         children: [
+            {
+                path: "/",
+                element: <Navigate to={"/categories"} />,
+            },
             {
                 path: "categories",
                 element: <Categories />,

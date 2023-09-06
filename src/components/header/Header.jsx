@@ -21,7 +21,7 @@ export default function Header() {
             <Hamburger className="hamburger" onClick={() => setVisibility(true)} />
             <h1 className="logo">My-Furniture</h1>
             <nav>
-                {links.navigationLinks.map((link) => (
+                {links.headerLinks.map((link) => (
                     <Link key={link.src} to={link.src}>
                         {link.text}
                     </Link>
