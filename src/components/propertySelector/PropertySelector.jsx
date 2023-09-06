@@ -1,3 +1,5 @@
+import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
+
 import "./propertySelector.scss";
 
 export default function PropertySelector({
@@ -6,6 +8,8 @@ export default function PropertySelector({
     onPropertyUpdate,
     selectedValue = "",
 }) {
+    const scrollRef = useHorizontalScroll();
+
     const propertySelector = properties?.map((propValue) => {
         if (propertyType === "colorThemes") {
             const selectedClass = selectedValue === propValue ? "selected" : "";
@@ -34,7 +38,7 @@ export default function PropertySelector({
     });
 
     return (
-        <div className="propertySelector">
+        <div className="propertySelector" ref={scrollRef}>
             {propertySelector}
             <div className="scrollBar"></div>
         </div>
