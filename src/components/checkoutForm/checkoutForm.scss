@@ -1,0 +1,132 @@
+@import "../../globalStyles/colors.scss";
+
+@mixin input {
+    display: flex;
+    width: calc(50% - 20px);
+    max-width: 300px;
+    font-size: 20px;
+    padding: 5px 6px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 3px $black;
+}
+
+@mixin container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: fit-content;
+    column-gap: 40px;
+    row-gap: 25px;
+}
+
+.checkout-form {
+    border: solid $borderBlack 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $formGray;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 50px;
+
+    &__header {
+        padding: 0;
+        margin: 0;
+        font-weight: 400;
+        margin-bottom: 20px;
+        margin-top: 35px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    &__fields {
+        @include container();
+    }
+
+    [class*="__input"] {
+        @include input();
+    }
+
+    &__details-container {
+        @include container();
+        width: 50%;
+        flex-direction: column;
+        row-gap: 20px;
+        height: 85px;
+    }
+
+    [class*="__card"] {
+        @include input();
+        width: 100%;
+    }
+
+    .checkout-form__card-backside {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        max-width: 280px;
+        padding: 0;
+        box-shadow: none;
+
+        .checkout-form__card-expiration {
+            max-width: 75px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .checkout-form__card-cvv {
+            max-width: 75px;
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &__accepted-cards {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        height: 100%;
+    }
+
+    &__preview {
+        display: flex;
+        margin-top: 20px;
+        column-gap: 10px;
+    }
+
+    &__preview-image {
+        width: 60px;
+        height: 40px;
+        object-fit: fill;
+    }
+
+    &__accepted-header {
+        font-size: 20px;
+        width: 200px;
+    }
+
+    &__details-holder {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100px;
+    }
+
+    &__submit {
+        margin-top: 15px;
+        background-color: $buttonBlue;
+        color: $white;
+        border: none;
+        font-size: 24px;
+        border-radius: 7px;
+        padding: 10px;
+
+        cursor: pointer;
+    }
+}

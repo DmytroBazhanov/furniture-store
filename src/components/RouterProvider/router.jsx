@@ -7,6 +7,7 @@ import ProductListingPage from "../../pages/ProductListingPage/ProductListingPag
 import ProductDetailsPage from "../../pages/ProductDetailsPage/ProductDetailsPage";
 import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 import PrivateRoute from "../privateRoute/PrivateRoute";
+import Checkout from "../../pages/Checkout/Checkout";
 
 export const router = createBrowserRouter([
     {
@@ -40,7 +41,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "checkout",
-                element: <h1>Checkout</h1>,
+                element: <Checkout />,
             },
         ],
     },
