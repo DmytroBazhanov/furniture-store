@@ -1,0 +1,108 @@
+@import "../../globalStyles/colors.scss";
+
+@mixin itemLayout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.checkout-items {
+    display: flex;
+    flex-direction: column;
+    background-color: $formGray;
+    border: solid 1px $borderBlack;
+    padding: 10px 20px;
+    border-radius: 10px;
+    height: 450px;
+
+    &__header {
+        font-weight: 400;
+        text-align: center;
+    }
+
+    &__item-container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+        max-height: 325px;
+        margin-top: 10px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    &__total-price {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: auto;
+        font-weight: 500;
+        font-size: 28px;
+
+        span {
+            font-weight: 700;
+        }
+    }
+}
+
+.checkout-item {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    width: 350px;
+    border: solid 1px $gray;
+    background-color: $white;
+    border-radius: 5px;
+    padding: 10px;
+
+    &__item-info {
+        display: flex;
+        flex-direction: column;
+        row-gap: 3px;
+        width: 100%;
+    }
+
+    &__image {
+        width: 120px;
+        height: 105px;
+        object-fit: contain;
+        margin: auto 0;
+    }
+
+    &__name {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__color {
+        @include itemLayout();
+
+        .checkout-item__color-theme {
+            width: 20px;
+            height: 20px;
+            border: solid 1px $black;
+        }
+    }
+
+    &__price {
+        @include itemLayout();
+    }
+
+    &__count {
+        @include itemLayout();
+    }
+
+    &__item-total {
+        @include itemLayout();
+    }
+
+    &__price-holder {
+        display: flex;
+        align-items: flex-end;
+        font-size: 12px;
+    }
+}

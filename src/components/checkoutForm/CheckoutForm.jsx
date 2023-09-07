@@ -43,7 +43,7 @@ export default function CheckoutForm() {
                     </div>
                 </div>
             </div>
-            <input className="checkout-form__submit" type="submit" />
+            <input className="checkout-form__submit" type="submit" value="Checkout" />
         </form>
     );
 }
