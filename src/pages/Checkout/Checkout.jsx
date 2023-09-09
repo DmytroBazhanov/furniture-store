@@ -19,12 +19,22 @@ export default function Checkout() {
         return requestArray;
     };
 
-    useEffect(() => {
+    const handleCheckoutDetails = () => {
         const cartProducts = getProductsFromCart();
 
         Promise.all(getDetails(cartProducts)).then((productsDetail) => {
             setProducts(getProducts(cartProducts, productsDetail));
         });
+    };
+
+    useEffect(() => {
+        handleCheckoutDetails();
+
+        document.addEventListener("updateProductInCart", handleCheckoutDetails);
+
+        return () => {
+            document.removeEventListener("updateProductInCart", handleCheckoutDetails);
+        };
     }, []);
 
     return (
