@@ -1,4 +1,5 @@
 @import "../../globalStyles/colors.scss";
+@import "../../globalStyles/breakpoints.scss";
 
 @mixin input {
     display: flex;
@@ -127,5 +128,38 @@
         padding: 10px;
 
         cursor: pointer;
+    }
+}
+
+@include mobile() {
+    .checkout-form {
+        &__fields {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        [class*="__input"] {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        &__details-holder {
+            flex-direction: column;
+            height: 100%;
+        }
+
+        &__details-container {
+            width: 100%;
+
+            [class*="__card"] {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        &__accepted-cards {
+            align-items: flex-start;
+            margin-top: 20px;
+        }
     }
 }

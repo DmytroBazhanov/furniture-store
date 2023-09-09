@@ -1,7 +1,16 @@
+@import "../../globalStyles/breakpoints.scss";
+
 .checkout-page {
     display: flex;
     justify-content: center;
     align-items: center;
     column-gap: 100px;
     margin-top: 50px;
+}
+
+@include tablet() {
+    .checkout-page {
+        flex-direction: column-reverse;
+        row-gap: 50px;
+    }
 }
