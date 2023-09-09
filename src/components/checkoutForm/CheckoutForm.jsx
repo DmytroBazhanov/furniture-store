@@ -1,18 +1,40 @@
 import { useForm } from "react-hook-form";
+import { MAX_CVV_LENGTH, MAX_DATE_LENGTH, MAX_INPUT_CARD_LENGTH } from "./config";
 
 import visa from "../../assets/visa.png";
 import masterCard from "../../assets/masterCard.jpg";
 import amExpress from "../../assets/americanExpress.png";
 
 import "./checkoutForm.scss";
+import insertSpacesInCardNumber from "../../utils/insertSpacesInCardNumber";
+import isInteger from "../../utils/isInteger";
 
 export default function CheckoutForm() {
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, watch, setValue, errors } = useForm();
 
-    const onSubmit = (ev) => {
-        console.log(ev);
+    const cardValue = watch("cardNumber");
+
+    // console.log(cardValue);
+
+    const onSubmit = (formData) => {
+        console.log(formData);
     };
 
+    const handleCardChange = (ev) => {
+        const { value } = ev.target;
+        const trimedValue = value.split(" ").join("");
+
+        const isInt = isInteger(trimedValue);
+
+        if (!isInt && value !== "") {
+            setValue("cardNumber", cardValue);
+            return;
+        }
+
+        setValue("cardNumber", insertSpacesInCardNumber(value));
+
+        // console.log(isInt);
+    };
     // Input - separate component
     // Create input groups
 
@@ -20,18 +42,52 @@ export default function CheckoutForm() {
         <form className="checkout-form" onSubmit={handleSubmit(onSubmit)}>
             <h1 className="checkout-form__header">Billing Address</h1>
             <div className="checkout-form__fields">
-                <input className="checkout-form__input-fullname" placeholder="Full name" />
-                <input className="checkout-form__input-email" placeholder="Email" />
-                <input className="checkout-form__input-address" placeholder="Address" />
-                <input className="checkout-form__input-city" placeholder="City" />
+                <input
+                    className="checkout-form__input-fullname"
+                    {...register("fullname")}
+                    placeholder="Full name"
+                />
+                <input
+                    className="checkout-form__input-email"
+                    {...register("email")}
+                    placeholder="Email"
+                />
+                <input
+                    className="checkout-form__input-address"
+                    {...register("address")}
+                    placeholder="Address"
+                />
+                <input
+                    className="checkout-form__input-city"
+                    {...register("city")}
+                    placeholder="City"
+                />
             </div>
             <h1 className="checkout-form__header">Payment Details</h1>
             <div className="checkout-form__details-holder">
                 <div className="checkout-form__details-container">
-                    <input className="checkout-form__card-number" placeholder="Card number" />
+                    <input
+                        className="checkout-form__card-number"
+                        {...register("cardNumber")}
+                        placeholder="Card number"
+                        maxLength={MAX_INPUT_CARD_LENGTH}
+                        onChange={handleCardChange}
+                    />
                     <div className="checkout-form__card-backside">
-                        <input className="checkout-form__card-expiration" placeholder="Date" />
-                        <input className="checkout-form__card-cvv" placeholder="CVV" />
+                        <input
+                            className="checkout-form__card-expiration"
+                            {...register("expiration")}
+                            type="text"
+                            placeholder="Date"
+                            maxLength={MAX_DATE_LENGTH}
+                        />
+                        <input
+                            className="checkout-form__card-cvv"
+                            {...register("cvv")}
+                            type="text"
+                            placeholder="CVV"
+                            maxLength={MAX_CVV_LENGTH}
+                        />
                     </div>
                 </div>
                 <div className="checkout-form__accepted-cards">
