@@ -3,25 +3,39 @@ import getTotalPrice from "../../utils/getTotalPrice";
 import EmptyContainerPlaceholder from "../emptyContainerPlaceholder/EmptyContainerPlaceholder";
 
 import "./checkoutItems.scss";
+import CheckoutItemSpinner from "./CheckoutItemSpinner";
 
-export default function CheckoutItems({ items }) {
-    const content =
-        items.lenght > 0 ? (
-            <div className="checkout-items__item-container">
-                <div className="checkout-items__scroll-container">
-                    {items.map((item) => (
-                        <CheckoutItem key={item.instanceID} item={item} />
-                    ))}
+export default function CheckoutItems({ items, isLoaded }) {
+    const renderContent = () => {
+        if (isLoaded && items.length > 0) {
+            return (
+                <div className="checkout-items__item-container">
+                    <div className="checkout-items__scroll-container">
+                        {items.map((item) => (
+                            <CheckoutItem key={item.instanceID} item={item} />
+                        ))}
+                    </div>
                 </div>
-            </div>
-        ) : (
-            <EmptyContainerPlaceholder text="Cart is empty" />
-        );
+            );
+        } else if (!isLoaded) {
+            return (
+                <div className="checkout-items__item-container">
+                    <div className="checkout-items__scroll-container">
+                        <CheckoutItemSpinner />
+                        <CheckoutItemSpinner />
+                        <CheckoutItemSpinner />
+                    </div>
+                </div>
+            );
+        } else {
+            <EmptyContainerPlaceholder text="Cart is empty" />;
+        }
+    };
 
     return (
         <div className="checkout-items">
             <h1 className="checkout-items__header">Checkout Items</h1>
-            {content}
+            {renderContent()}
             <h1 className="checkout-items__total-price">
                 Total price: <span>${getTotalPrice(items)}</span>
             </h1>

@@ -1,29 +1,6 @@
 @import "../../globalStyles/colors.scss";
 @import "../../globalStyles/breakpoints.scss";
 
-@keyframes gradient {
-    0% {
-        background-position: 100%;
-    }
-
-    100% {
-        background-position: 0%;
-    }
-}
-
-@mixin template($height, $width) {
-    background: linear-gradient(120deg, $gray 27%, $white 43%, $gray 61%);
-    height: $height;
-    width: $width;
-    background-size: 400%;
-    animation-name: gradient;
-    animation-duration: 1.25s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease;
-    background-position: 50%;
-    border-radius: 10px;
-}
-
 .product-spinner {
     display: flex;
     flex-direction: row;
@@ -40,28 +17,28 @@
     }
 
     &__header-template {
-        @include template(85px, 100%);
+        @include loadingSpinnerGradient(85px, 100%);
     }
 
     &__color-template {
-        @include template(130px, 100%);
+        @include loadingSpinnerGradient(130px, 100%);
     }
 
     &__description-template {
-        @include template(180px, 100%);
+        @include loadingSpinnerGradient(180px, 100%);
     }
 
     &__buy-template {
-        @include template(85px, 100%);
+        @include loadingSpinnerGradient(85px, 100%);
     }
 
     &__gallery-mobile {
-        @include template(400px, 100%);
+        @include loadingSpinnerGradient(400px, 100%);
         display: none;
     }
 
     &__gallery {
-        @include template(auto, 100%);
+        @include loadingSpinnerGradient(auto, 100%);
     }
 }
 

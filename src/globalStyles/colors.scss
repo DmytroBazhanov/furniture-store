@@ -42,3 +42,26 @@ $messageYellow: rgba(255, 168, 0, 0.58);
 $messageGreen: rgba(12, 150, 0, 1);
 
 $formGray: rgb(250, 250, 250);
+
+@keyframes gradient {
+    0% {
+        background-position: 100%;
+    }
+
+    100% {
+        background-position: 0%;
+    }
+}
+
+@mixin loadingSpinnerGradient($height, $width) {
+    background: linear-gradient(120deg, $gray 27%, $white 43%, $gray 61%);
+    background-size: 400%;
+    animation-duration: 1.25s;
+    animation-name: gradient;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    background-position: 50%;
+    border-radius: 10px;
+    height: $height;
+    width: $width;
+}

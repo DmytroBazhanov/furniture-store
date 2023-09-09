@@ -18,6 +18,32 @@
     width: 100%;
     max-width: 400px;
 
+    .checkout-item-spinner {
+        display: flex;
+        justify-content: space-between;
+
+        &__image {
+            @include loadingSpinnerGradient(120px, 105px);
+        }
+
+        &__content-container {
+            display: flex;
+            flex-direction: column;
+            row-gap: 5px;
+            width: 67.5%;
+
+            .checkout-item-spinner {
+                &__header {
+                    @include loadingSpinnerGradient(30px, 100%);
+                }
+
+                &__description {
+                    @include loadingSpinnerGradient(calc(100% - 30px), 100%);
+                }
+            }
+        }
+    }
+
     .epmtyContainer {
         height: 100%;
     }
