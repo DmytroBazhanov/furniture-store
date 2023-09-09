@@ -52,6 +52,10 @@
         @include input();
     }
 
+    [class*="_error_active"] {
+        box-shadow: 0 0 3px $red;
+    }
+
     &__details-container {
         @include container();
         width: 50%;
@@ -63,6 +67,10 @@
     [class*="__card"] {
         @include input();
         width: 100%;
+
+        [class*="_error_active"] {
+            box-shadow: 0 0 3px $red;
+        }
     }
 
     .checkout-form__card-backside {
@@ -73,13 +81,13 @@
         padding: 0;
         box-shadow: none;
 
-        .checkout-form__card-expiration {
+        [class*="checkout-form__card-expiration"] {
             max-width: 75px;
             width: 100%;
             text-align: center;
         }
 
-        .checkout-form__card-cvv {
+        [class*="checkout-form__card-cvv"] {
             max-width: 75px;
             width: 100%;
             text-align: center;
@@ -128,6 +136,10 @@
         padding: 10px;
 
         cursor: pointer;
+    }
+
+    .checkout-form__card-number_error_active {
+        box-shadow: 0 0 3px $red;
     }
 }
 

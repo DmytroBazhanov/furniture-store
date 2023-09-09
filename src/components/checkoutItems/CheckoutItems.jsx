@@ -1,9 +1,9 @@
 import CheckoutItem from "./CheckoutItem";
 import getTotalPrice from "../../utils/getTotalPrice";
 import EmptyContainerPlaceholder from "../emptyContainerPlaceholder/EmptyContainerPlaceholder";
+import CheckoutItemSpinner from "./CheckoutItemSpinner";
 
 import "./checkoutItems.scss";
-import CheckoutItemSpinner from "./CheckoutItemSpinner";
 
 export default function CheckoutItems({ items, isLoaded }) {
     const renderContent = () => {
@@ -28,7 +28,7 @@ export default function CheckoutItems({ items, isLoaded }) {
                 </div>
             );
         } else {
-            <EmptyContainerPlaceholder text="Cart is empty" />;
+            return <EmptyContainerPlaceholder text="Cart is empty" />;
         }
     };
 

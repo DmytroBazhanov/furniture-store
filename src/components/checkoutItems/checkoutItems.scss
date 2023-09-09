@@ -90,6 +90,7 @@
         margin-top: auto;
         font-weight: 500;
         font-size: 28px;
+        border-top: 1px solid $black;
 
         span {
             font-weight: 700;
@@ -176,6 +177,7 @@
                 margin-bottom: 20px;
             }
         }
+
         &__total-price {
             font-size: 24px;
             margin-bottom: auto;
