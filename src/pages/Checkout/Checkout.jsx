@@ -41,7 +41,7 @@ export default function Checkout() {
 
     return (
         <div className="checkout-page">
-            <CheckoutForm />
+            <CheckoutForm items={products} />
             <CheckoutItems items={products} isLoaded={isLoaded} />
         </div>
     );

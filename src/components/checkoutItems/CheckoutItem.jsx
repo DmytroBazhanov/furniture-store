@@ -21,7 +21,7 @@ export default function CheckoutItem({ item }) {
                     Pieces ordered: <span>{item.count}</span>
                 </p>
                 <p className="checkout-item__item-total">
-                    Total for this item: <span>{fullPrice}$</span>
+                    Total for this item: <span>{fullPrice.toFixed(2)}$</span>
                 </p>
             </div>
         </div>

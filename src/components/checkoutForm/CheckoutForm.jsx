@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { MAX_CVV_LENGTH, MAX_DATE_LENGTH, MAX_INPUT_CARD_LENGTH, MAX_INPUT_LENGTH } from "./config";
+import { addPurchase } from "../../queries/purchases";
+import { clearCart } from "../../utils/cart";
+import { buyProductEvent, updateProductEvent } from "../../events";
+import { insertSymbol } from "../../utils/insertSpacesInCardNumber";
 
 import visa from "../../assets/visa.png";
 import masterCard from "../../assets/masterCard.jpg";
@@ -10,21 +14,29 @@ import isInteger from "../../utils/isInteger";
 
 import "./checkoutForm.scss";
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ items }) {
     const [triggeredErrors, setErrors] = useState({});
+
+    const formRef = useRef(null);
 
     const {
         register,
         handleSubmit,
         watch,
         setValue,
+        reset,
         formState: { errors },
     } = useForm();
 
     const cardValue = watch("cardNumber");
 
     const onSubmit = (formData) => {
-        console.log(formData);
+        Promise.all(items.map((item) => addPurchase(item))).then(() => {
+            clearCart();
+            formRef.current.dispatchEvent(updateProductEvent);
+            formRef.current.dispatchEvent(buyProductEvent);
+            reset();
+        });
     };
 
     const handleError = (error) => {
@@ -54,10 +66,21 @@ export default function CheckoutForm() {
         setValue("cardNumber", insertSpacesInCardNumber(value));
     };
 
+    const handleDateChange = (ev) => {
+        handleChange("expiration");
+        const { value } = ev.target;
+        const result = insertSymbol(2, value, "/");
+        setValue("expiration", result);
+    };
+
     const errorClass = (regName) => (triggeredErrors[regName] ? "active" : "none");
 
     return (
-        <form className="checkout-form" onSubmit={handleSubmit(onSubmit, handleError)}>
+        <form
+            className="checkout-form"
+            ref={formRef}
+            onSubmit={handleSubmit(onSubmit, handleError)}
+        >
             <h1 className="checkout-form__header">Billing Address</h1>
             <div className="checkout-form__fields">
                 <input
@@ -170,7 +193,7 @@ export default function CheckoutForm() {
                                     message: "Date contains of 4 digits",
                                 },
                             })}
-                            onChange={() => handleChange("expiration")}
+                            onChange={(ev) => handleDateChange(ev)}
                             type="text"
                             placeholder="Date"
                             maxLength={MAX_DATE_LENGTH}

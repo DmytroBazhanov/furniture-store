@@ -11,6 +11,7 @@ import {
     limit,
     startAfter,
 } from "firebase/firestore";
+import { removeProductFromCart } from "../utils/cart";
 
 export async function getPurchasesForNotifications() {
     const userID = auth.currentUser.uid;
@@ -75,5 +76,28 @@ export async function bulkPurchases() {
         productID: prodRef,
         productName: "Dump product",
         userID: "icuOIIsHMkU1hRnxzpwz6rfmQe52",
+    });
+}
+
+export async function addPurchase(product) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const price = product.price ? product.price : product.originalPrice;
+
+    console.log(product);
+    const now = new Date();
+    const id = nanoid();
+    const docRef = doc(db, import.meta.env.VITE_PURCHASES, id);
+    const prodRef = doc(db, import.meta.env.VITE_PRODUCT_COLLECTION, product.id);
+
+    setDoc(docRef, {
+        date: now,
+        doNotShow: false,
+        imageURL: product.imageUrl,
+        operationPrice: (price * product.count).toFixed(2),
+        productID: prodRef,
+        productName: product.name,
+        userID: user.uid,
     });
 }

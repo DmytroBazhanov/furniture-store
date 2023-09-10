@@ -133,3 +133,7 @@ export function getProductNumberInCart() {
 
     return productCount;
 }
+
+export function clearCart() {
+    localStorage.removeItem("cart");
+}

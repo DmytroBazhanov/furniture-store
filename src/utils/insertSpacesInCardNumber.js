@@ -16,3 +16,19 @@ export default function insertSpacesInCardNumber(cardNumber) {
 
     return editedArray.join("");
 }
+
+export function insertSymbol(index, value, insertCharacter) {
+    let trimedValue = value.split(" ").join("").split(insertCharacter).join("");
+
+    if (trimedValue > MAX_CARD_LENGTH) trimedValue = trimedValue.substring(0, 16);
+    const cardCharArray = trimedValue.split("");
+    const editedArray = cardCharArray.map((char, charIndex) => {
+        if (charIndex % Number(index) === 0 && charIndex !== 0) {
+            return `${insertCharacter}${char}`;
+        } else {
+            return char;
+        }
+    });
+
+    return editedArray.join("");
+}

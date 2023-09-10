@@ -23,6 +23,15 @@
     }
 }
 
+.notificationList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+    max-height: 515px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .notificationItem {
     display: flex;
     flex-direction: row;

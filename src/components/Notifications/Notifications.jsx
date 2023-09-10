@@ -1,12 +1,13 @@
 import { ReactComponent as NotificationsSVG } from "../../assets/Notifications.svg";
 import { useEffect, useState } from "react";
 import { auth } from "../../firebase";
-
-import "./notifications.scss";
 import { getPurchasesForNotifications } from "../../queries/purchases";
 import { onAuthStateChanged } from "firebase/auth";
+
 import DropdownMenu from "../dropdownMenu/DropdownMenu";
 import NotificationList from "./NotificationList";
+
+import "./notifications.scss";
 
 export default function Notifications() {
     const [notifications, setNotifications] = useState([]);
@@ -21,11 +22,13 @@ export default function Notifications() {
             if (user) {
                 handleNotificationRefresh();
                 document.addEventListener("notificationsUpdated", handleNotificationRefresh);
+                document.addEventListener("buyProduct", handleNotificationRefresh);
             }
         });
 
         return () => {
             document.removeEventListener("notificationsUpdated", handleNotificationRefresh);
+            document.removeEventListener("buyProduct", handleNotificationRefresh);
         };
     }, []);
 
